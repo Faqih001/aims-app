@@ -14,7 +14,7 @@
           <div class="flex items-end gap-2">
             <UAvatar v-if="!message.isUser" src="/kenas-avatar.png" alt="KENAS Avatar" />
             <div class="max-w-xs p-3 rounded-lg" :class="message.isUser ? 'bg-primary-500 text-white' : 'bg-gray-200 dark:bg-gray-700'">
-              <p>{{ message.text }}</p>
+              <div class="prose dark:prose-invert" v-html="message.html"></div>
             </div>
             <UAvatar v-if="message.isUser" src="/user-avatar.png" alt="User Avatar" />
           </div>
@@ -43,13 +43,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { marked } from 'marked';
+
+interface Message {
+  id: number;
+  text: string;
+  isUser: boolean;
+  html: string;
+}
+
 
 const isOpen = ref(false);
 const isLoading = ref(false);
 const newMessage = ref('');
-const messages = ref([
-  { id: 1, text: 'Hello! How can I help you today?', isUser: false },
+const messages = ref<Message[]>([
+  { id: 1, text: 'Hello! How can I help you today?', isUser: false, html: marked('Hello! How can I help you today?') },
 ]);
 const commonPrompts = ref([
   'What is KENAS?',
@@ -61,7 +69,14 @@ async function sendMessage(prompt?: string) {
   const text = prompt || newMessage.value;
   if (!text.trim()) return;
 
-  messages.value.push({ id: Date.now(), text, isUser: true });
+  const userMessage: Message = {
+    id: Date.now(),
+    text,
+    isUser: true,
+    html: marked(text),
+  };
+  messages.value.push(userMessage);
+
   if (!prompt) {
     newMessage.value = '';
   }
@@ -72,10 +87,22 @@ async function sendMessage(prompt?: string) {
       method: 'POST',
       body: { message: text },
     });
-    messages.value.push({ id: Date.now() + 1, text: response.reply as string, isUser: false });
+    const botMessage: Message = {
+      id: Date.now() + 1,
+      text: response.reply as string,
+      isUser: false,
+      html: marked(response.reply as string),
+    };
+    messages.value.push(botMessage);
   } catch (error) {
     console.error('Chatbot error:', error);
-    messages.value.push({ id: Date.now() + 1, text: 'Sorry, I am having trouble connecting. Please try again later.', isUser: false });
+    const errorMessage: Message = {
+      id: Date.now() + 1,
+      text: 'Sorry, I am having trouble connecting. Please try again later.',
+      isUser: false,
+      html: marked('Sorry, I am having trouble connecting. Please try again later.'),
+    };
+    messages.value.push(errorMessage);
   } finally {
     isLoading.value = false;
   }

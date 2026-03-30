@@ -45,7 +45,7 @@ const items = (user: User) => [
     <UTable v-else :rows="users" :columns="columns">
       <template #actions-data="{ row }">
         <UDropdown :items="items(row as User)">
-          <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
+          <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
         </UDropdown>
       </template>
     </UTable>
