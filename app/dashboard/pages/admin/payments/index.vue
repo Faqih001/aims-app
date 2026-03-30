@@ -18,11 +18,7 @@ const columns = [
   { key: 'actions', label: 'Actions' },
 ];
 
-const payments = ref<Payment[]>([
-  { transactionId: 'PAY-123', date: '2023-10-28', user: 'john.doe@example.com', amount: '$500.00', status: 'Completed' },
-  { transactionId: 'PAY-124', date: '2023-10-27', user: 'sara.k@example.com', amount: '$1500.00', status: 'Completed' },
-  { transactionId: 'PAY-125', date: '2023-10-26', user: 'mike.p@example.com', amount: '$500.00', status: 'Failed' },
-]);
+const { data: payments, pending, error, refresh } = await useFetch('/api/admin/payments');
 
 function viewDetails(payment: Payment) {
   console.log('Viewing payment details:', payment);

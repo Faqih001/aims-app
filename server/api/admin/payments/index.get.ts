@@ -1,7 +1,7 @@
 import { db } from '../../../utils/db';
 
 export default defineEventHandler(async () => {
-  const invoices = await db.query.invoices.findMany({
+  const payments = await db.query.payments.findMany({
     with: {
       user: {
         columns: {
@@ -9,7 +9,7 @@ export default defineEventHandler(async () => {
         },
       },
     },
-    orderBy: (invoices, { desc }) => [desc(invoices.date)],
+    orderBy: (payments, { desc }) => [desc(payments.date)],
   });
-  return invoices;
+  return payments;
 });
