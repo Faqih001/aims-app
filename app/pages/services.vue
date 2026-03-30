@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionHero
+    <SectionsSectionHero
       eyebrow="Accreditation Services"
       title="Comprehensive Services for Conformity Assessment Bodies"
       description="Explore digital accreditation pathways designed for laboratories, certification, inspection, and calibration organizations."
@@ -11,7 +11,7 @@
       secondary-to="/contact"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Service Categories"
       :items="[
         { title: 'Testing', description: 'Laboratory testing accreditation pathways.' },
@@ -22,15 +22,15 @@
       :columns="4"
     />
 
-    <SectionSplit title="Testing Laboratories Accreditation" description="Assess laboratory competence, quality management, and technical procedures against international standards." image-url="https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&q=80&w=1600" />
+    <SectionsSectionSplit title="Testing Laboratories Accreditation" description="Assess laboratory competence, quality management, and technical procedures against international standards." image-url="https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&q=80&w=1600" />
 
-    <SectionSplit title="Certification Bodies Accreditation" description="Evaluate certification processes, impartiality safeguards, and operational competence." image-url="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&q=80&w=1600" reverse />
+    <SectionsSectionSplit title="Certification Bodies Accreditation" description="Evaluate certification processes, impartiality safeguards, and operational competence." image-url="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&q=80&w=1600" reverse />
 
-    <SectionSplit title="Inspection Bodies Accreditation" description="Strengthen inspection reliability through documented methods, qualified personnel, and oversight controls." image-url="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=1600" />
+    <SectionsSectionSplit title="Inspection Bodies Accreditation" description="Strengthen inspection reliability through documented methods, qualified personnel, and oversight controls." image-url="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=1600" />
 
-    <SectionSplit title="Calibration Services" description="Support precision and traceability in calibration through robust technical review workflows." image-url="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1600" reverse />
+    <SectionsSectionSplit title="Calibration Services" description="Support precision and traceability in calibration through robust technical review workflows." image-url="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1600" reverse />
 
-    <SectionTimeline
+    <SectionsSectionTimeline
       title="Service Process Overview"
       :items="[
         { title: 'Eligibility Check', description: 'Confirm scope fit and prerequisites.' },
@@ -40,7 +40,7 @@
       ]"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Requirements Checklist"
       :items="[
         { title: 'Legal Registration', description: 'Valid legal and operational registration evidence.' },
@@ -51,7 +51,7 @@
       :columns="4"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Benefits by Service"
       :items="[
         { title: 'Testing Labs', description: 'Improved confidence in analytical outputs.' },
@@ -62,7 +62,7 @@
       :columns="4"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Pricing (Mock)"
       :items="[
         { title: 'Starter Scope', description: 'KES 40,000 - Initial assessment package.' },
@@ -95,7 +95,7 @@
       </UContainer>
     </section>
 
-    <SectionCards
+    <SectionsSectionCards
       title="Workflow Diagram"
       :items="[
         { title: 'Input', description: 'Submission and documentation checks.' },
@@ -105,7 +105,7 @@
       :columns="3"
     />
 
-    <SectionFAQ
+    <SectionsSectionFAQ
       title="Service FAQs"
       :items="[
         { label: 'Can I apply for multiple scopes?', content: 'Yes, applications can include multiple scopes with corresponding evidence.' },
@@ -114,7 +114,7 @@
       ]"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Case Studies"
       :items="[
         { title: 'Regional Lab Expansion', description: 'Accreditation readiness achieved in record time.' },
@@ -124,7 +124,7 @@
       :columns="3"
     />
 
-    <SectionCTA
+    <SectionsSectionCTA
       title="Choose the accreditation service that fits your organization"
       description="Create an account and begin your structured, transparent service workflow today."
       button-label="Start Your Application"

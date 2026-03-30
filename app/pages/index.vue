@@ -45,7 +45,7 @@ const faqItems = [
 
 <template>
   <div>
-    <SectionHero
+    <SectionsSectionHero
       eyebrow="National Accreditation Platform"
       title="Accreditation Information Management System"
       description="A secure and transparent digital platform for accreditation applications, assessments, and decisions across Kenya."
@@ -74,13 +74,13 @@ const faqItems = [
       </UContainer>
     </section>
 
-    <SectionSplit
+    <SectionsSectionSplit
       title="About AIMS"
       description="AIMS modernizes accreditation by connecting applicants, assessors, technical reviewers, and administrators in one secure digital workspace with complete auditability."
       image-url="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1600"
     />
 
-    <SectionCards title="Services Overview" subtitle="Accreditation services tailored to national and international quality standards." :items="serviceItems" :columns="4" />
+    <SectionsSectionCards title="Services Overview" subtitle="Accreditation services tailored to national and international quality standards." :items="serviceItems" :columns="4" />
 
     <section class="py-16 md:py-24 bg-white dark:bg-[#111]">
       <UContainer class="max-w-7xl mx-auto">
@@ -95,9 +95,9 @@ const faqItems = [
       </UContainer>
     </section>
 
-    <SectionTimeline title="Accreditation Process Timeline" :items="timelineItems" />
+    <SectionsSectionTimeline title="Accreditation Process Timeline" :items="timelineItems" />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Benefits"
       :items="[
         { title: 'Faster Processing', description: 'Automated workflows reduce turnaround time.', icon: 'i-heroicons-bolt' },
@@ -108,7 +108,7 @@ const faqItems = [
       :columns="4"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Feature Grid"
       :items="[
         { title: 'Document Repository', description: 'Versioned evidence and report storage.', icon: 'i-heroicons-folder-open' },
@@ -119,7 +119,7 @@ const faqItems = [
       :columns="4"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="User Roles"
       subtitle="Dedicated experiences and responsibilities for each participant in the accreditation lifecycle."
       :items="[
@@ -131,7 +131,7 @@ const faqItems = [
       :columns="4"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Testimonials"
       :items="[
         { title: 'National Lab Network', description: 'AIMS reduced our submission cycle by over 35% and improved clarity across all stages.' },
@@ -141,7 +141,7 @@ const faqItems = [
       :columns="3"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Case Studies"
       :items="[
         { title: 'Food Safety Program', description: 'Scaled accreditation for 60+ laboratories in under one year.', badge: 'Impact' },
@@ -151,14 +151,14 @@ const faqItems = [
       :columns="3"
     />
 
-    <SectionCTA
+    <SectionsSectionCTA
       title="Ready to modernize accreditation management?"
       description="Adopt a secure national platform that supports transparent and efficient accreditation operations."
       button-label="Create Account"
       button-to="/auth/register"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="News & Updates"
       :items="[
         { title: 'Portal Upgrade', description: 'Enhanced assessor workspace and analytics module released this quarter.' },
@@ -179,7 +179,7 @@ const faqItems = [
       </UContainer>
     </section>
 
-    <SectionFAQ title="Frequently Asked Questions" :items="faqItems" />
+    <SectionsSectionFAQ title="Frequently Asked Questions" :items="faqItems" />
 
     <section class="py-14 bg-[#003087] text-white">
       <UContainer class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">

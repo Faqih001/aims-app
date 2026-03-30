@@ -19,5 +19,5 @@ const sections = [
 </script>
 
 <template>
-  <SectionLegalDoc title="Cookie Policy" updated-at="30 March 2026" :toc="toc" :sections="sections" />
+  <SectionsSectionLegalDoc title="Cookie Policy" updated-at="30 March 2026" :toc="toc" :sections="sections" />
 </template>

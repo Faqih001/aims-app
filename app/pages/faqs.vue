@@ -20,7 +20,7 @@ const filteredFaqs = computed(() => {
 
 <template>
   <div>
-    <SectionHero
+    <SectionsSectionHero
       eyebrow="Help Center"
       title="Frequently Asked Questions"
       description="Find clear answers to common accreditation questions and platform guidance."
@@ -51,15 +51,15 @@ const filteredFaqs = computed(() => {
       </UContainer>
     </section>
 
-    <SectionCards title="General FAQs" :items="[{ title: 'What is accreditation?', description: 'A formal recognition of technical competence and quality systems.' }, { title: 'Why use AIMS?', description: 'To centralize applications, communication, and decisions.' }]" :columns="2" />
-    <SectionCards title="Application FAQs" :items="[{ title: 'What documents are required?', description: 'Core legal and technical evidence documents are required.' }, { title: 'Can I update submissions?', description: 'Yes, document updates are supported during review phases.' }]" :columns="2" />
-    <SectionCards title="Payment FAQs" :items="[{ title: 'How do I pay?', description: 'Payment instructions are provided in your dashboard.' }, { title: 'Can I receive invoice copies?', description: 'Yes, downloadable invoice records are available.' }]" :columns="2" />
-    <SectionCards title="Technical FAQs" :items="[{ title: 'Browser support?', description: 'Latest major browser versions are supported.' }, { title: 'Document formats?', description: 'PDF, DOCX, XLSX, and selected image formats are accepted.' }]" :columns="2" />
-    <SectionCards title="Account FAQs" :items="[{ title: 'Password reset?', description: 'Use the forgot password page to reset access.' }, { title: 'Role changes?', description: 'Role changes are handled by authorized administrators.' }]" :columns="2" />
+    <SectionsSectionCards title="General FAQs" :items="[{ title: 'What is accreditation?', description: 'A formal recognition of technical competence and quality systems.' }, { title: 'Why use AIMS?', description: 'To centralize applications, communication, and decisions.' }]" :columns="2" />
+    <SectionsSectionCards title="Application FAQs" :items="[{ title: 'What documents are required?', description: 'Core legal and technical evidence documents are required.' }, { title: 'Can I update submissions?', description: 'Yes, document updates are supported during review phases.' }]" :columns="2" />
+    <SectionsSectionCards title="Payment FAQs" :items="[{ title: 'How do I pay?', description: 'Payment instructions are provided in your dashboard.' }, { title: 'Can I receive invoice copies?', description: 'Yes, downloadable invoice records are available.' }]" :columns="2" />
+    <SectionsSectionCards title="Technical FAQs" :items="[{ title: 'Browser support?', description: 'Latest major browser versions are supported.' }, { title: 'Document formats?', description: 'PDF, DOCX, XLSX, and selected image formats are accepted.' }]" :columns="2" />
+    <SectionsSectionCards title="Account FAQs" :items="[{ title: 'Password reset?', description: 'Use the forgot password page to reset access.' }, { title: 'Role changes?', description: 'Role changes are handled by authorized administrators.' }]" :columns="2" />
 
-    <SectionFAQ title="Accordion FAQ" :items="filteredFaqs" />
+    <SectionsSectionFAQ title="Accordion FAQ" :items="filteredFaqs" />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Popular Questions"
       :items="[
         { title: 'Average review time', description: 'Typically 21 business days depending on scope.' },
@@ -69,7 +69,7 @@ const filteredFaqs = computed(() => {
       :columns="3"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Help Guides"
       :items="[
         { title: 'Getting Started Guide', description: 'Complete onboarding guide for new applicants.' },
@@ -91,7 +91,7 @@ const filteredFaqs = computed(() => {
       </UContainer>
     </section>
 
-    <SectionCTA
+    <SectionsSectionCTA
       title="Still need help?"
       description="Our support teams are ready to assist with technical, process, and policy questions."
       button-label="Contact Support"
@@ -111,7 +111,7 @@ const filteredFaqs = computed(() => {
       </UContainer>
     </section>
 
-    <SectionCards
+    <SectionsSectionCards
       title="Related Resources"
       :items="[
         { title: 'Policy Documents', description: 'Official policy references and legal notices.' },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionHero
+    <SectionsSectionHero
       eyebrow="About AIMS"
       title="National Platform for Accreditation Excellence"
       description="AIMS strengthens institutional quality assurance through transparent, digital, and standards-aligned accreditation operations."
@@ -11,13 +11,13 @@
       secondary-to="/contact"
     />
 
-    <SectionSplit title="Organization Overview" description="AIMS is designed to coordinate accreditation applications, reviews, and oversight through a secure and auditable digital environment for all stakeholders." image-url="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1600" />
+    <SectionsSectionSplit title="Organization Overview" description="AIMS is designed to coordinate accreditation applications, reviews, and oversight through a secure and auditable digital environment for all stakeholders." image-url="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1600" />
 
-    <SectionCards title="Mission" :items="[{ title: 'Our Mission', description: 'To deliver trusted, efficient, and accessible accreditation services through digital transformation.' }]" :columns="2" />
+    <SectionsSectionCards title="Mission" :items="[{ title: 'Our Mission', description: 'To deliver trusted, efficient, and accessible accreditation services through digital transformation.' }]" :columns="2" />
 
-    <SectionCards title="Vision" :items="[{ title: 'Our Vision', description: 'To be the leading digital accreditation ecosystem supporting globally competitive quality infrastructure.' }]" :columns="2" />
+    <SectionsSectionCards title="Vision" :items="[{ title: 'Our Vision', description: 'To be the leading digital accreditation ecosystem supporting globally competitive quality infrastructure.' }]" :columns="2" />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Core Values"
       :items="[
         { title: 'Integrity', description: 'Upholding fairness and accountability in all accreditation decisions.' },
@@ -28,7 +28,7 @@
       :columns="4"
     />
 
-    <SectionTimeline
+    <SectionsSectionTimeline
       title="History Timeline"
       :items="[
         { title: 'Foundational Program', description: 'Initial digitization of accreditation workflows launched.' },
@@ -38,7 +38,7 @@
       ]"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Leadership Team"
       :items="[
         { title: 'Director General', description: 'Strategic oversight and policy implementation.' },
@@ -58,7 +58,7 @@
       </UContainer>
     </section>
 
-    <SectionCards
+    <SectionsSectionCards
       title="Achievements"
       :items="[
         { title: '96% SLA Compliance', description: 'Measured over the last reporting year.' },
@@ -68,9 +68,9 @@
       :columns="3"
     />
 
-    <SectionSplit title="Accreditation Mandate" description="Our mandate is to assess conformity assessment bodies against internationally recognized standards and provide trusted accreditation outcomes." image-url="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=1600" reverse />
+    <SectionsSectionSplit title="Accreditation Mandate" description="Our mandate is to assess conformity assessment bodies against internationally recognized standards and provide trusted accreditation outcomes." image-url="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=1600" reverse />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Global Partnerships"
       :items="[
         { title: 'Regional Accreditation Networks', description: 'Alignment with continental quality infrastructure initiatives.' },
@@ -80,7 +80,7 @@
       :columns="3"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Standards Compliance"
       :items="[
         { title: 'ISO/IEC 17011', description: 'Accreditation body competence and operation requirements.' },
@@ -90,7 +90,7 @@
       :columns="3"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Impact Statistics"
       :items="[
         { title: '47 Counties', description: 'Service availability across all counties.' },
@@ -100,7 +100,7 @@
       :columns="3"
     />
 
-    <SectionCards
+    <SectionsSectionCards
       title="Stakeholder Testimonials"
       :items="[
         { title: 'Public Health Lab', description: 'AIMS significantly improved response times and clarity of requirements.' },
@@ -110,7 +110,7 @@
       :columns="3"
     />
 
-    <SectionCTA
+    <SectionsSectionCTA
       title="Partner with AIMS for trusted accreditation outcomes"
       description="Start your accreditation journey with a modern and transparent digital process."
       button-label="Start Application"
