@@ -8,43 +8,12 @@
       "when": 1774870873714,
       "tag": "0000_abnormal_nehzno",
       "breakpoints": true
-    }
-  ]
-}
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1774881339861,
-      "tag": "0001_superb_blade",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1774881675021,
-      "tag": "0002_broad_dark_phoenix",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1774881767602,
-      "tag": "0003_heavy_leo",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1774881969735,
-      "tag": "0004_dry_polaris",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1774882089116,
-      "tag": "0005_nifty_harrier",
+      "when": 1774882964405,
+      "tag": "0001_colorful_joystick",
       "breakpoints": true
     }
   ]
