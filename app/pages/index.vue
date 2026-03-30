@@ -43,12 +43,12 @@ const faqItems = [
 ]
 
 const partners = [
-  { file: 'kebs.png', alt: 'KEBS' },
-  { file: 'nema.webp', alt: 'NEMA' },
-  { file: 'kenyamoh.png', alt: 'MOH' },
-  { file: 'kra.webp', alt: 'KRA' },
-  { file: 'kirdi.jpg', alt: 'KIRDI' },
-  { file: 'nca.webp', alt: 'NCA' }
+  { file: 'kebs.png', alt: 'KEBS', url: 'https://kebs.org' },
+  { file: 'nema.webp', alt: 'NEMA', url: 'https://www.nema.go.ke' },
+  { file: 'kenyamoh.png', alt: 'Ministry of Health', url: 'https://www.health.go.ke' },
+  { file: 'kra.webp', alt: 'KRA', url: 'https://www.kra.go.ke' },
+  { file: 'kirdi.jpg', alt: 'KIRDI', url: 'https://kirdi.go.ke' },
+  { file: 'nca.webp', alt: 'NCA', url: 'https://www.nca.go.ke' }
 ]
 </script>
 
@@ -182,7 +182,9 @@ const partners = [
         <h2 class="text-3xl md:text-4xl font-bold text-[#003087] dark:text-primary-300 mb-8">Partners</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
           <UCard v-for="p in partners" :key="p.file" class="rounded-xl grid place-items-center py-6">
-            <img :src="`/partners/${p.file}`" :alt="p.alt" class="max-h-24 md:max-h-28 lg:max-h-32 object-contain transform transition-transform duration-200 hover:scale-105" />
+            <a :href="p.url" target="_blank" rel="noopener noreferrer" class="block w-full flex items-center justify-center">
+              <img :src="`/partners/${p.file}`" :alt="p.alt" class="max-h-24 md:max-h-28 lg:max-h-32 object-contain transform transition-transform duration-200 hover:scale-105" />
+            </a>
           </UCard>
         </div>
       </UContainer>
