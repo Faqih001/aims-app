@@ -29,12 +29,6 @@ defineProps<{
             </div>
 
             <div class="flex items-center gap-2">
-              <NuxtLink to="/">
-                <UButton icon="i-heroicons-home-20-solid" color="primary" variant="solid" aria-label="Home" size="md" class="px-3">
-                  Home
-                </UButton>
-              </NuxtLink>
-
               <ClientOnly>
                 <UButton
                   :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'"
@@ -42,10 +36,13 @@ defineProps<{
                   variant="ghost"
                   aria-label="Theme toggle"
                   size="md"
-                  class="p-2"
                   @click="toggleTheme"
                 />
               </ClientOnly>
+
+              <NuxtLink to="/">
+                <UButton icon="i-heroicons-home-20-solid" color="primary" size="md">Home</UButton>
+              </NuxtLink>
             </div>
           </div>
 
