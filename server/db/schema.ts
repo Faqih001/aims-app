@@ -3,6 +3,7 @@ import { pgTable, text, timestamp, uuid, pgEnum, varchar } from 'drizzle-orm/pg-
 export const userRoleEnum = pgEnum('user_role', ['SYSTEM_ADMIN', 'ASSESSOR', 'APPLICANT', 'TECHNICAL_REVIEWER']);
 export const applicationStatusEnum = pgEnum('application_status', ['PENDING', 'IN_REVIEW', 'APPROVED', 'REJECTED']);
 export const accreditationStatusEnum = pgEnum('accreditation_status', ['ACTIVE', 'EXPIRED', 'PENDING_RENEWAL']);
+export const invoiceStatusEnum = pgEnum('invoice_status', ['PAID', 'PENDING', 'OVERDUE']);
 
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -45,4 +46,12 @@ export const auditLogs = pgTable('audit_logs', {
   userId: uuid('user_id').references(() => users.id),
   action: text('action').notNull(),
   details: text('details'),
+});
+
+export const invoices = pgTable('invoices', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  date: timestamp('date').defaultNow().notNull(),
+  amount: text('amount').notNull(),
+  status: invoiceStatusEnum('status').default('PENDING').notNull(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
 });
