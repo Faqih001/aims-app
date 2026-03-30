@@ -6,7 +6,7 @@
     </div>
     <UTable :rows="tickets" :columns="columns">
       <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewTicket(row)">View</UButton>
+        <UButton variant="ghost" @click="viewTicket(row as Ticket)">View</UButton>
       </template>
     </UTable>
 
@@ -32,6 +32,13 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 
+interface Ticket {
+  id: string;
+  subject: string;
+  status: string;
+  lastUpdate: string;
+}
+
 const columns = [
   { key: 'id', label: 'Ticket ID' },
   { key: 'subject', label: 'Subject' },
@@ -40,7 +47,7 @@ const columns = [
   { key: 'actions', label: 'Actions' },
 ];
 
-const tickets = ref([
+const tickets = ref<Ticket[]>([
   { id: 'TKT-005', subject: 'Clarification on review guidelines', status: 'In Progress', lastUpdate: '1 day ago' },
 ]);
 
@@ -58,6 +65,15 @@ function submitTicket() {
     status: 'Open',
     lastUpdate: 'Just now',
   });
+  isModalOpen.value = false;
+  newTicket.subject = '';
+  newTicket.message = '';
+}
+
+function viewTicket(ticket: Ticket) {
+  console.log('Viewing ticket:', ticket);
+}
+</script>
   isModalOpen.value = false;
   newTicket.subject = '';
   newTicket.message = '';

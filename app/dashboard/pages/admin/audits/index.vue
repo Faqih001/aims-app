@@ -47,9 +47,9 @@ const audits = ref<Audit[]>([
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Audit Logs</h1>
-    <UTable<Audit> :rows="audits" :columns="columns">
+    <UTable :rows="audits" :columns="columns">
       <template #user-data="{ row }">
-        <span>{{ row.user.name }} ({{ row.user.role }})</span>
+        <span>{{ (row as Audit).user.name }} ({{ (row as Audit).user.role }})</span>
       </template>
     </UTable>
   </div>

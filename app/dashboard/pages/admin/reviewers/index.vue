@@ -33,10 +33,10 @@ function viewReviews(reviewer: Reviewer) {
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Manage Reviewers</h1>
-    <UTable<Reviewer> :rows="reviewers" :columns="columns">
+    <UTable :rows="reviewers" :columns="columns">
       <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewProfile(row)">View Profile</UButton>
-        <UButton variant="ghost" @click="viewReviews(row)">Reviews</UButton>
+        <UButton variant="ghost" @click="viewProfile(row as Reviewer)">View Profile</UButton>
+        <UButton variant="ghost" @click="viewReviews(row as Reviewer)">Reviews</UButton>
       </template>
     </UTable>
   </div>

@@ -71,9 +71,9 @@ function deleteDocument(doc: Document) {
       <UButton @click="isUploadModalOpen = true" label="Upload Document" />
     </div>
 
-    <UTable<Document> :rows="documents" :columns="columns">
+    <UTable :rows="documents" :columns="columns">
       <template #actions-data="{ row }">
-        <UButton variant="ghost" icon="i-heroicons-trash" @click="deleteDocument(row)" />
+        <UButton variant="ghost" icon="i-heroicons-trash" @click="deleteDocument(row as Document)" />
       </template>
     </UTable>
 

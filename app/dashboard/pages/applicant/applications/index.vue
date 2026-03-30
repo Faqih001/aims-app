@@ -37,16 +37,12 @@ const items = (application: Application) => [
       <UButton to="/dashboard/applicant/applications/create" icon="i-heroicons-plus-20-solid">New Application</UButton>
     </div>
 
-    <div v-if="pending">Loading...</div>
-    <div v-else-if="error">Error: {{ error.message }}</div>
-    <template v-else>
-      <UTable<Application> :rows="applications" :columns="columns">
-        <template #actions-data="{ row }">
-          <UDropdown :items="items(row)">
-            <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
-          </UDropdown>
-        </template>
-      </UTable>
-    </template>
+    <UTable :rows="applications" :columns="columns">
+      <template #actions-data="{ row }">
+        <UDropdown :items="items(row as Application)">
+          <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
+        </UDropdown>
+      </template>
+    </UTable>
   </div>
 </template>

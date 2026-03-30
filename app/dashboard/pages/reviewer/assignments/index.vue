@@ -1,5 +1,16 @@
 <script setup lang="ts">
-const { data: applications, pending, error } = await useFetch('/api/applications')
+interface Application {
+  id: number;
+  applicant: {
+    name: string;
+  };
+  organization: {
+    name: string;
+  };
+  scope: string;
+  status: string;
+}
+const { data: applications, pending, error } = await useFetch<Application[]>('/api/applications')
 
 const columns = [
   { key: 'id', label: 'ID' },
@@ -10,7 +21,7 @@ const columns = [
   { key: 'actions', label: 'Actions' }
 ]
 
-const items = (application: any) => [
+const items = (application: Application) => [
   [{
     label: 'View',
     icon: 'i-heroicons-eye-20-solid',
@@ -27,7 +38,7 @@ const items = (application: any) => [
     <div v-else-if="error">Error: {{ error.message }}</div>
     <UTable v-else :rows="applications" :columns="columns">
       <template #actions-data="{ row }">
-        <UDropdown :items="items(row)">
+        <UDropdown :items="items(row as Application)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
         </UDropdown>
       </template>
