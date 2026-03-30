@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
+
 const { data: applications, pending, error } = await useFetch('/api/applications')
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'id', label: 'ID' },
   { key: 'applicant.name', label: 'Applicant' },
   { key: 'organization.name', label: 'Organization' },

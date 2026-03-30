@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Payment {
   transactionId: string;
@@ -9,7 +10,7 @@ interface Payment {
   status: string;
 }
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'transactionId', label: 'Transaction ID' },
   { key: 'date', label: 'Date' },
   { key: 'user', label: 'User' },
@@ -34,10 +35,10 @@ function viewDetails(payment: Payment) {
     <h1 class="text-2xl font-bold mb-4">Payments</h1>
     <UTable :rows="payments" :columns="columns">
       <template #status-data="{ row }">
-        <UBadge :color="(row as Payment).status === 'Completed' ? 'success' : 'error'">{{ (row as Payment).status }}</UBadge>
+        <UBadge :color="row.status === 'Completed' ? 'success' : 'error'">{{ row.status }}</UBadge>
       </template>
       <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewDetails(row as Payment)">View Details</UButton>
+        <UButton variant="ghost" @click="viewDetails(row)">View Details</UButton>
       </template>
     </UTable>
   </div>

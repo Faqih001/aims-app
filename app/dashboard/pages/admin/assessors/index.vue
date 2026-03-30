@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Assessor {
   id: string;
@@ -8,7 +9,7 @@ interface Assessor {
   activeAssignments: number;
 }
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'id', label: 'ID' },
   { key: 'name', label: 'Name' },
   { key: 'email', label: 'Email' },
@@ -35,8 +36,8 @@ function viewAssignments(assessor: Assessor) {
     <h1 class="text-2xl font-bold mb-4">Manage Assessors</h1>
     <UTable :rows="assessors" :columns="columns">
       <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewProfile(row as Assessor)">View Profile</UButton>
-        <UButton variant="ghost" @click="viewAssignments(row as Assessor)">Assignments</UButton>
+        <UButton variant="ghost" @click="viewProfile(row)">View Profile</UButton>
+        <UButton variant="ghost" @click="viewAssignments(row)">Assignments</UButton>
       </template>
     </UTable>
   </div>

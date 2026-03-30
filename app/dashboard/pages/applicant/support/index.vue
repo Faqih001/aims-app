@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Ticket {
   id: string;
@@ -8,7 +9,7 @@ interface Ticket {
   lastUpdate: string;
 }
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'id', label: 'Ticket ID' },
   { key: 'subject', label: 'Subject' },
   { key: 'status', label: 'Status' },
@@ -52,7 +53,7 @@ function viewTicket(ticket: Ticket) {
     </div>
     <UTable :rows="tickets" :columns="columns">
       <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewTicket(row as Ticket)">View</UButton>
+        <UButton variant="ghost" @click="viewTicket(row)">View</UButton>
       </template>
     </UTable>
 

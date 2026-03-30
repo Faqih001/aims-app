@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
+
 interface Application {
   id: number;
   applicant: {
@@ -12,7 +14,7 @@ interface Application {
 }
 const { data: applications, pending, error } = await useFetch<Application[]>('/api/applications')
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'id', label: 'ID' },
   { key: 'applicant.name', label: 'Applicant' },
   { key: 'organization.name', label: 'Organization' },
@@ -38,7 +40,7 @@ const items = (application: Application) => [
     <div v-else-if="error">Error: {{ error.message }}</div>
     <UTable v-else :rows="applications" :columns="columns">
       <template #actions-data="{ row }">
-        <UDropdown :items="items(row as Application)">
+        <UDropdown :items="items(row)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
         </UDropdown>
       </template>

@@ -13,9 +13,10 @@
 </template>
 
 <script setup lang="ts">
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 import { ref } from 'vue';
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'auditId', label: 'Audit ID' },
   { key: 'applicationId', label: 'Application ID' },
   { key: 'date', label: 'Date' },

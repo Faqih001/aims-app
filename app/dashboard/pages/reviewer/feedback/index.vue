@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Feedback {
   applicationId: string;
@@ -11,7 +12,7 @@ const feedbackForm = reactive({
   comment: '',
 });
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'applicationId', label: 'Application ID' },
   { key: 'date', label: 'Date' },
 ];
@@ -48,7 +49,7 @@ function submitFeedback() {
 
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Previously Submitted Feedback</h2>
-      <UTable<Feedback> :rows="previousFeedback" :columns="columns" />
+      <UTable :rows="previousFeedback" :columns="columns" />
     </div>
   </div>
 </template>

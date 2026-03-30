@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Reviewer {
   id: string;
@@ -8,7 +9,7 @@ interface Reviewer {
   completedReviews: number;
 }
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'id', label: 'ID' },
   { key: 'name', label: 'Name' },
   { key: 'email', label: 'Email' },
@@ -35,8 +36,8 @@ function viewReviews(reviewer: Reviewer) {
     <h1 class="text-2xl font-bold mb-4">Manage Reviewers</h1>
     <UTable :rows="reviewers" :columns="columns">
       <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewProfile(row as Reviewer)">View Profile</UButton>
-        <UButton variant="ghost" @click="viewReviews(row as Reviewer)">Reviews</UButton>
+        <UButton variant="ghost" @click="viewProfile(row)">View Profile</UButton>
+        <UButton variant="ghost" @click="viewReviews(row)">Reviews</UButton>
       </template>
     </UTable>
   </div>
