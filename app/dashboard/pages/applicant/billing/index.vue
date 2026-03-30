@@ -38,18 +38,25 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
+
+interface Payment {
+    date: string;
+    amount: string;
+    status: string;
+}
 
 const paymentForm = reactive({
   amount: 0,
 });
 
-const paymentHistoryColumns = [
+const paymentHistoryColumns: TableColumn<Payment>[] = [
   { key: 'date', label: 'Date' },
   { key: 'amount', label: 'Amount' },
   { key: 'status', label: 'Status' },
 ];
 
-const paymentHistory = ref([
+const paymentHistory = ref<Payment[]>([
   { date: '2023-10-28', amount: '$500.00', status: 'Completed' },
   { date: '2023-09-10', amount: '$150.00', status: 'Completed' },
 ]);
@@ -57,7 +64,7 @@ const paymentHistory = ref([
 function makePayment() {
   console.log('Making payment:', paymentForm);
   paymentHistory.value.unshift({
-    date: new Date().toISOString().split('T')[0],
+    date: new Date().toISOString().split('T')[0] || '',
     amount: `$${paymentForm.amount.toFixed(2)}`,
     status: 'Processing',
   });

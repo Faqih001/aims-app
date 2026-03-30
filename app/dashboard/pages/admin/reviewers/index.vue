@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Reviewer {
   id: string;
@@ -9,7 +8,7 @@ interface Reviewer {
   completedReviews: number;
 }
 
-const columns: TableColumn<Reviewer>[] = [
+const columns = [
   { key: 'id', label: 'ID' },
   { key: 'name', label: 'Name' },
   { key: 'email', label: 'Email' },
