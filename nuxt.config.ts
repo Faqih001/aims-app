@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     jwtSecret: process.env.JWT_SECRET,
+    geminiApiKey: process.env.GEMINI_API_KEY,
     neonApiKey: process.env.NEON_API_KEY,
     neonBranch: process.env.NEON_BRANCH,
     neonProjectId: process.env.NEON_PROJECT_ID,

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+const route = useRoute();
+
+const isDashboardPage = computed(() => route.path.startsWith('/dashboard'));
+
 useHead({
   meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
   htmlAttrs: { lang: 'en' }
@@ -11,9 +15,10 @@ useSeoMeta({
 </script>
 
 <template>
-  <UApp>
+  <div>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+    <Chatbot v-if="!isDashboardPage" />
   </UApp>
 </template>
