@@ -1,33 +1,42 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
-
-interface Feedback {
-  applicationId: string;
-  date: string;
-}
+const authStore = useAuthStore();
+const toast = useToast();
 
 const feedbackForm = reactive({
   applicationId: '',
-  comment: '',
+  feedback: '',
+  recommendation: 'approve',
 });
+
+const { data: previousFeedback, pending, error, refresh } = useFetch(
+  `/api/reviewers/${authStore.user?.id}/reviews`
+);
 
 const columns = [
   { key: 'applicationId', label: 'Application ID' },
-  { key: 'date', label: 'Date' },
+  { key: 'createdAt', label: 'Date' },
+  { key: 'recommendation', label: 'Recommendation' },
 ];
 
-const previousFeedback = ref<Feedback[]>([
-  { applicationId: '12345', date: '2023-10-29' },
-]);
-
-function submitFeedback() {
-  console.log('Submitting feedback:', feedbackForm);
-  previousFeedback.value.unshift({
-    applicationId: feedbackForm.applicationId,
-    date: new Date().toISOString().split('T')[0] || '',
-  });
-  feedbackForm.applicationId = '';
-  feedbackForm.comment = '';
+async function submitFeedback() {
+  try {
+    await $fetch('/api/reviews', {
+      method: 'POST',
+      body: {
+        applicationId: feedbackForm.applicationId,
+        reviewerId: authStore.user?.id,
+        feedback: feedbackForm.feedback,
+        recommendation: feedbackForm.recommendation,
+      },
+    });
+    toast.add({ title: 'Review submitted successfully.' });
+    feedbackForm.applicationId = '';
+    feedbackForm.feedback = '';
+    feedbackForm.recommendation = 'approve';
+    refresh();
+  } catch (submitError) {
+    toast.add({ title: 'Failed to submit review.', color: 'red' });
+  }
 }
 </script>
 
@@ -39,8 +48,11 @@ function submitFeedback() {
         <UFormGroup label="Application ID" name="applicationId">
           <UInput v-model="feedbackForm.applicationId" placeholder="e.g., 12345" />
         </UFormGroup>
-        <UFormGroup label="Feedback / Comments" name="comment">
-          <UTextarea v-model="feedbackForm.comment" />
+        <UFormGroup label="Feedback / Comments" name="feedback">
+          <UTextarea v-model="feedbackForm.feedback" />
+        </UFormGroup>
+        <UFormGroup label="Recommendation" name="recommendation">
+          <USelect v-model="feedbackForm.recommendation" :options="['approve', 'reject', 'request-information']" />
         </UFormGroup>
         <UButton type="submit" label="Submit Feedback" class="mt-4" />
       </UForm>
@@ -48,7 +60,7 @@ function submitFeedback() {
 
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Previously Submitted Feedback</h2>
-      <UTable<Feedback> :rows="previousFeedback" :columns="columns" />
+      <UTable :rows="previousFeedback" :columns="columns" :loading="pending" />
     </div>
   </div>
 </template>
