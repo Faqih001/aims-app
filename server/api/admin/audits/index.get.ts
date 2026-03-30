@@ -1,10 +1,16 @@
-import { db } from '~/server/db/drizzle';
+import { db } from '../../../utils/db';
 
 export default defineEventHandler(async () => {
-  const auditLogs = await db.query.auditLogs.findMany({
+  const audits = await db.query.auditLogs.findMany({
     with: {
-      user: true,
+      user: {
+        columns: {
+          name: true,
+          role: true,
+        },
+      },
     },
+    orderBy: (logs, { desc }) => [desc(logs.timestamp)],
   });
-  return auditLogs;
+  return audits;
 });

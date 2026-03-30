@@ -74,4 +74,4 @@ export const payments = pgTable('payments', {
   userId: uuid('user_id').references(() => users.id).notNull(),
 });
 
-export * from './audit';
+
