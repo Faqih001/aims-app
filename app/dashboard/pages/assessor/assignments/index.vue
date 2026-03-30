@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { data: applications, pending, error } = await useFetch('/api/applications')
+const authStore = useAuthStore();
+const { data: applications, pending, error } = useFetch(`/api/assessors/${authStore.user?.id}/assignments`);
 
 const columns = [
   { key: 'id', label: 'ID' },
