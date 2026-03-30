@@ -33,7 +33,7 @@ function viewAssignments(assessor: Assessor) {
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Manage Assessors</h1>
-    <UTable :rows="assessors" :columns="columns">
+    <UTable<Assessor> :rows="assessors" :columns="columns">
       <template #actions-data="{ row }">
         <UButton variant="ghost" @click="viewProfile(row)">View Profile</UButton>
         <UButton variant="ghost" @click="viewAssignments(row)">Assignments</UButton>

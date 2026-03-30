@@ -1,20 +1,5 @@
-<template>
-  <div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">My Payments</h1>
-    <UTable :rows="payments" :columns="columns">
-      <template #status-data="{ row }">
-        <UBadge :color="row.status === 'Completed' ? 'success' : 'warning'">{{ row.status }}</UBadge>
-      </template>
-      <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewDetails(row)">View Details</UButton>
-      </template>
-    </UTable>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Payment {
   transactionId: string;
@@ -23,7 +8,7 @@ interface Payment {
   status: string;
 }
 
-const columns: TableColumn<Payment>[] = [
+const columns = [
   { key: 'transactionId', label: 'Transaction ID' },
   { key: 'date', label: 'Date' },
   { key: 'amount', label: 'Amount' },
@@ -40,3 +25,17 @@ function viewDetails(payment: Payment) {
   console.log('Viewing payment details:', payment);
 }
 </script>
+
+<template>
+  <div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">My Payments</h1>
+    <UTable :rows="payments" :columns="columns">
+      <template #status-data="{ row }">
+        <UBadge :color="row.status === 'Completed' ? 'success' : 'warning'">{{ row.status }}</UBadge>
+      </template>
+      <template #actions-data="{ row }">
+        <UButton variant="ghost" @click="viewDetails(row)">View Details</UButton>
+      </template>
+    </UTable>
+  </div>
+</template>
