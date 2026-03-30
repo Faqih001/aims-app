@@ -182,7 +182,7 @@ const partners = [
         <h2 class="text-3xl md:text-4xl font-bold text-[#003087] dark:text-primary-300 mb-8">Partners</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
           <UCard v-for="p in partners" :key="p.file" class="rounded-xl grid place-items-center py-6">
-            <img :src="`/partners/${p.file}`" :alt="p.alt" class="max-h-16 object-contain" />
+            <img :src="`/partners/${p.file}`" :alt="p.alt" class="max-h-24 md:max-h-28 lg:max-h-32 object-contain transform transition-transform duration-200 hover:scale-105" />
           </UCard>
         </div>
       </UContainer>
