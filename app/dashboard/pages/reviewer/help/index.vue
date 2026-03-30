@@ -30,15 +30,11 @@ import { ref, reactive } from 'vue';
 const faqItems = ref([
   {
     label: 'How do I view my assigned applications?',
-    content: 'Navigate to the "Assignments" page to see all applications assigned to you.',
+    content: 'Navigate to the "Assignments" page to see all applications assigned to you for review.',
   },
   {
-    label: 'How do I submit feedback?',
+    label: 'How do I submit my review feedback?',
     content: 'Go to the "Feedback" page and fill out the form for the respective application.',
-  },
-  {
-    label: 'Where can I see my schedule?',
-    content: 'Your schedule, including planned audits and meetings, is on the "Schedule" page.',
   },
 ]);
 
