@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 import { ref } from 'vue';
 
 interface Audit {
@@ -13,7 +12,7 @@ interface Audit {
   details: string;
 }
 
-const columns: TableColumn[] = [
+const columns = [
   { key: 'timestamp', label: 'Timestamp' },
   { key: 'user', label: 'User' },
   { key: 'action', label: 'Action' },
@@ -48,9 +47,9 @@ const audits = ref<Audit[]>([
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Audit Logs</h1>
-    <UTable :rows="audits" :columns="columns">
+    <UTable<Audit> :rows="audits" :columns="columns">
       <template #user-data="{ row }">
-        <span>{{ (row as Audit).user.name }} ({{ (row as Audit).user.role }})</span>
+        <span>{{ row.user.name }} ({{ row.user.role }})</span>
       </template>
     </UTable>
   </div>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Payment {
     date: string;
@@ -12,7 +11,7 @@ const paymentForm = reactive({
   amount: 0,
 });
 
-const paymentHistoryColumns: TableColumn[] = [
+const paymentHistoryColumns = [
   { key: 'date', label: 'Date' },
   { key: 'amount', label: 'Amount' },
   { key: 'status', label: 'Status' },
