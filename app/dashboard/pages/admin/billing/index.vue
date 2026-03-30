@@ -72,9 +72,9 @@ function downloadInvoice(invoice: Invoice) {
 
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Invoice History</h2>
-      <UTable<Invoice> :rows="invoices" :columns="invoiceColumns">
+      <UTable :rows="invoices" :columns="invoiceColumns">
         <template #actions-data="{ row }">
-          <UButton variant="ghost" icon="i-heroicons-arrow-down-tray" @click="downloadInvoice(row)" />
+          <UButton variant="ghost" icon="i-heroicons-arrow-down-tray" @click="downloadInvoice(row as Invoice)" />
         </template>
       </UTable>
     </div>

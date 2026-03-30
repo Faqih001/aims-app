@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Accreditation {
   id: string;
@@ -8,7 +9,7 @@ interface Accreditation {
   expiryDate: string;
 }
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'id', label: 'ID' },
   { key: 'name', label: 'Accreditation Name' },
   { key: 'status', label: 'Status' },
@@ -36,11 +37,11 @@ function manageAccreditation(accreditation: Accreditation) {
     <h1 class="text-2xl font-bold mb-4">Manage Accreditations</h1>
     <UTable :rows="accreditations" :columns="columns">
       <template #status-data="{ row }">
-        <UBadge :color="(row as Accreditation).status === 'Active' ? 'success' : 'warning'">{{ (row as Accreditation).status }}</UBadge>
+        <UBadge :color="row.status === 'Active' ? 'success' : 'warning'">{{ row.status }}</UBadge>
       </template>
       <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewDetails(row as Accreditation)">View Details</UButton>
-        <UButton variant="ghost" color="error" @click="manageAccreditation(row as Accreditation)">Manage</UButton>
+        <UButton variant="ghost" @click="viewDetails(row)">View Details</UButton>
+        <UButton variant="ghost" color="error" @click="manageAccreditation(row)">Manage</UButton>
       </template>
     </UTable>
   </div>
