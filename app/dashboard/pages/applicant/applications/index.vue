@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useAuthStore } from '../../../stores/auth'
-import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Application {
   id: number;
@@ -14,7 +13,7 @@ interface Application {
 const authStore = useAuthStore()
 const { data: applications, pending, error } = await useFetch<Application[]>(`/api/users/${authStore.user?.id}/applications`)
 
-const columns: TableColumn<Application>[] = [
+const columns = [
   { key: 'id', label: 'ID' },
   { key: 'organization.name', label: 'Organization' },
   { key: 'scope', label: 'Scope' },

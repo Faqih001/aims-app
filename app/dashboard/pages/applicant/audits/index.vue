@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Audit {
   auditId: string;
@@ -9,7 +8,7 @@ interface Audit {
   status: string;
 }
 
-const columns: TableColumn<Audit>[] = [
+const columns = [
   { key: 'auditId', label: 'Audit ID' },
   { key: 'date', label: 'Date' },
   { key: 'auditor', label: 'Auditor' },
