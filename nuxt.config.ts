@@ -1,5 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    jwtSecret: process.env.JWT_SECRET,
+    neonApiKey: process.env.NEON_API_KEY,
+    neonBranch: process.env.NEON_BRANCH,
+    neonProjectId: process.env.NEON_PROJECT_ID,
+    neonDatabaseUrl: process.env.NEON_DATABASE_URL,
+  },
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui',
