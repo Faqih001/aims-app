@@ -1,5 +1,5 @@
-import { db } from '../utils/db';
-import { applications, organizations } from '../db/schema';
+import { db } from '../../utils/db';
+import { applications, organizations } from '../../db/schema';
 import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 

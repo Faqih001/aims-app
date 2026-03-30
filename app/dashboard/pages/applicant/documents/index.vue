@@ -30,7 +30,7 @@ const newDocument = reactive({
 
 function onFileChange(event: Event) {
   const target = event.target as HTMLInputElement;
-  if (target.files) {
+  if (target.files && target.files.length > 0) {
     newDocument.file = target.files[0];
   } else {
     newDocument.file = null;
