@@ -27,6 +27,9 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 
+const authStore = useAuthStore();
+const toast = useToast();
+
 const faqItems = ref([
   {
     label: 'How do I submit an application?',
@@ -47,10 +50,20 @@ const contactForm = reactive({
   message: '',
 });
 
-function submitSupportTicket() {
-  console.log('Submitting support ticket:', contactForm);
-  alert('Support ticket submitted successfully!');
-  contactForm.subject = '';
-  contactForm.message = '';
+async function submitSupportTicket() {
+  try {
+    await $fetch('/api/support-tickets', {
+      method: 'POST',
+      body: {
+        ...contactForm,
+        userId: authStore.user?.id,
+      },
+    });
+    toast.add({ title: 'Support ticket submitted successfully!' });
+    contactForm.subject = '';
+    contactForm.message = '';
+  } catch (error) {
+    toast.add({ title: 'Error submitting support ticket.', color: 'red' });
+  }
 }
 </script>

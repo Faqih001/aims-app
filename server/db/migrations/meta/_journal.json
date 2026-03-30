@@ -15,6 +15,20 @@
       "when": 1774882964405,
       "tag": "0001_colorful_joystick",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1774891884447,
+      "tag": "0002_add_support_tickets",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1774892268174,
+      "tag": "0003_mature_triton",
+      "breakpoints": true
     }
   ]
 }

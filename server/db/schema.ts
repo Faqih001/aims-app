@@ -83,4 +83,11 @@ export const supportTickets = pgTable('support_tickets', {
   status: text('status').default('OPEN').notNull(),
 });
 
+export const applicationAssignments = pgTable('application_assignments', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  applicationId: uuid('application_id').references(() => applications.id).notNull(),
+  assessorId: uuid('assessor_id').references(() => users.id).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 
