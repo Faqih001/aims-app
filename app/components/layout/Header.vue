@@ -15,6 +15,14 @@ const navLinks = computed(() => [
   { label: 'FAQs', to: '/faqs' }
 ])
 
+const legalLinks = [
+  { label: 'Privacy Policy', to: '/legal/privacy' },
+  { label: 'Terms and Conditions', to: '/legal/terms' },
+  { label: 'Cookie Policy', to: '/legal/cookies' },
+  { label: 'Accessibility Statement', to: '/legal/accessibility' },
+  { label: 'Data Protection Policy', to: '/legal/data-protection' }
+]
+
 const localeItems = [
   { label: 'EN', value: 'en' },
   { label: 'SW', value: 'sw' }
@@ -42,7 +50,7 @@ function toggleTheme() {
           <span>AIMS</span>
         </NuxtLink>
 
-        <nav class="hidden lg:flex items-center gap-6">
+        <nav class="hidden xl:flex items-center gap-6">
           <NuxtLink
             v-for="link in navLinks"
             :key="link.to"
@@ -54,7 +62,7 @@ function toggleTheme() {
           </NuxtLink>
         </nav>
 
-        <div class="hidden md:flex items-center gap-2">
+        <div class="hidden xl:flex items-center gap-2">
           <USelect
             v-model="selectedLocale"
             :items="localeItems"
@@ -73,7 +81,7 @@ function toggleTheme() {
         </div>
 
         <UButton
-          class="md:hidden"
+          class="xl:hidden"
           icon="i-heroicons-bars-3"
           color="neutral"
           variant="ghost"
@@ -86,8 +94,20 @@ function toggleTheme() {
     <UModal v-model:open="openMobile" title="Navigation">
       <template #body>
         <div class="space-y-3">
+          <p class="text-xs uppercase tracking-wide text-muted">Main Pages</p>
           <NuxtLink
             v-for="link in navLinks"
+            :key="link.to"
+            :to="link.to"
+            class="block rounded-lg px-3 py-2 bg-elevated hover:bg-accented"
+            @click="openMobile = false"
+          >
+            {{ link.label }}
+          </NuxtLink>
+
+          <p class="text-xs uppercase tracking-wide text-muted pt-2">Legal Pages</p>
+          <NuxtLink
+            v-for="link in legalLinks"
             :key="link.to"
             :to="link.to"
             class="block rounded-lg px-3 py-2 bg-elevated hover:bg-accented"
