@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Document {
   id: number;
@@ -14,7 +15,7 @@ const documents = ref<Document[]>([
   { id: 2, name: 'Business License', type: 'pdf', size: '1.8 MB', uploadedAt: '2023-10-25' },
 ]);
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'name', label: 'Name' },
   { key: 'type', label: 'Type' },
   { key: 'size', label: 'Size' },

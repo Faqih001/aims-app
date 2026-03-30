@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Invoice {
   id: number;
@@ -8,7 +9,7 @@ interface Invoice {
   status: string;
 }
 
-const invoiceColumns = [
+const invoiceColumns: TableColumn[] = [
   { key: 'date', label: 'Date' },
   { key: 'amount', label: 'Amount' },
   { key: 'status', label: 'Status' },
@@ -73,7 +74,7 @@ function downloadInvoice(invoice: Invoice) {
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Invoice History</h2>
       <UTable :rows="invoices" :columns="invoiceColumns">
-        <template #actions-data="{ row }">
+        <template #actions-data="{ row }: { row: Invoice }">
           <UButton variant="ghost" icon="i-heroicons-arrow-down-tray" @click="downloadInvoice(row)" />
         </template>
       </UTable>

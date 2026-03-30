@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Ticket {
   id: string;
@@ -8,7 +9,7 @@ interface Ticket {
   lastUpdate: string;
 }
 
-const columns = [
+const columns: TableColumn[] = [
   { key: 'id', label: 'Ticket ID' },
   { key: 'subject', label: 'Subject' },
   { key: 'status', label: 'Status' },
@@ -51,7 +52,7 @@ function viewTicket(ticket: Ticket) {
       <UButton @click="isModalOpen = true">Create New Ticket</UButton>
     </div>
     <UTable :rows="tickets" :columns="columns">
-      <template #actions-data="{ row }">
+      <template #actions-data="{ row }: { row: Ticket }">
         <UButton variant="ghost" @click="viewTicket(row)">View</UButton>
       </template>
     </UTable>
