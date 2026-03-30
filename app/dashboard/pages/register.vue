@@ -13,11 +13,11 @@ const isLoading = ref(false)
 const apiError = ref<string | null>(null)
 
 const schema = z.object({
-  fullName: z.string().min(3, 'Must be at least 3 characters'),
+  name: z.string().min(3, 'Must be at least 3 characters'),
   email: z.string().email('Invalid email'),
   password: z.string().min(8, 'Must be at least 8 characters'),
   confirmPassword: z.string().min(8, 'Must be at least 8 characters'),
-  role: z.enum(['APPLICANT', 'ASSESSOR', 'REVIEWER']),
+  role: z.enum(['APPLICANT', 'ASSESSOR', 'TECHNICAL_REVIEWER']),
 }).refine(data => data.password === data.confirmPassword, {
   message: 'Passwords don\'t match',
   path: ['confirmPassword'],
@@ -26,7 +26,7 @@ const schema = z.object({
 type Schema = z.infer<typeof schema>
 
 const state = reactive({
-  fullName: '',
+  name: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -36,7 +36,7 @@ const state = reactive({
 const roleOptions = [
   { label: 'Applicant', value: 'APPLICANT' },
   { label: 'Assessor', value: 'ASSESSOR' },
-  { label: 'Reviewer', value: 'REVIEWER' },
+  { label: 'Technical Reviewer', value: 'TECHNICAL_REVIEWER' },
 ]
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
@@ -60,8 +60,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     </template>
 
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-      <UFormGroup label="Full Name" name="fullName">
-        <UInput v-model="state.fullName" placeholder="John Doe" icon="i-heroicons-user" />
+      <UFormGroup label="Full Name" name="name">
+        <UInput v-model="state.name" placeholder="John Doe" icon="i-heroicons-user" />
       </UFormGroup>
 
       <UFormGroup label="Email" name="email">

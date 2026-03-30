@@ -4,9 +4,9 @@ import { z } from 'zod'
 const UserSchema = z.object({
   id: z.string(),
   email: z.string().email(),
-  role: z.enum(['ADMIN', 'ASSESSOR', 'APPLICANT', 'REVIEWER']),
-  fullName: z.string().optional().nullable(),
-  avatarUrl: z.string().url().optional().nullable(),
+  role: z.enum(['SYSTEM_ADMIN', 'ASSESSOR', 'APPLICANT', 'TECHNICAL_REVIEWER']),
+  name: z.string(),
+  organizationId: z.string().uuid().optional().nullable(),
 })
 
 export type User = z.infer<typeof UserSchema>
@@ -18,10 +18,10 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated: false,
   }),
   getters: {
-    isAdmin: (state) => state.user?.role === 'ADMIN',
+    isAdmin: (state) => state.user?.role === 'SYSTEM_ADMIN',
     isAssessor: (state) => state.user?.role === 'ASSESSOR',
     isApplicant: (state) => state.user?.role === 'APPLICANT',
-    isReviewer: (state) => state.user?.role === 'REVIEWER',
+    isReviewer: (state) => state.user?.role === 'TECHNICAL_REVIEWER',
   },
   actions: {
     async login(credentials: { email: string, password: any }) {
