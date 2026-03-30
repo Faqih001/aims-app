@@ -29,6 +29,13 @@
       "when": 1774881767602,
       "tag": "0003_heavy_leo",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1774881969735,
+      "tag": "0004_dry_polaris",
+      "breakpoints": true
     }
   ]
 }

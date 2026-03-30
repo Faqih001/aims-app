@@ -55,3 +55,11 @@ export const invoices = pgTable('invoices', {
   status: invoiceStatusEnum('status').default('PENDING').notNull(),
   userId: uuid('user_id').references(() => users.id).notNull(),
 });
+
+export const notifications = pgTable('notifications', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  message: text('message').notNull(),
+  time: timestamp('time').defaultNow().notNull(),
+  read: text('read').default('false').notNull(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
+});

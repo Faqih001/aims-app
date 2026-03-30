@@ -1,25 +1,34 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import dayjs from 'dayjs';
 
 interface Invoice {
-  id: number;
+  id: string;
   date: string;
   amount: string;
   status: string;
+  user: {
+    name: string;
+  } | null;
 }
 
 const invoiceColumns = [
-  { key: 'date', label: 'Date' },
+  { key: 'formattedDate', label: 'Date' },
+  { key: 'user.name', label: 'User' },
   { key: 'amount', label: 'Amount' },
   { key: 'status', label: 'Status' },
   { key: 'actions', label: 'Actions' },
 ];
 
-const invoices = ref<Invoice[]>([
-  { id: 1, date: 'October 1, 2023', amount: '$999.00', status: 'Paid' },
-  { id: 2, date: 'September 1, 2023', amount: '$999.00', status: 'Paid' },
-  { id: 3, date: 'August 1, 2023', amount: '$999.00', status: 'Paid' },
-]);
+const { data: invoices, pending, error, refresh } = await useFetch('/api/admin/billing');
+
+const formattedInvoices = computed(() => {
+  if (!invoices.value) return [];
+  return invoices.value.map(invoice => ({
+    ...invoice,
+    formattedDate: dayjs(invoice.date).format('YYYY-MM-DD'),
+  }));
+});
 
 function downloadInvoice(invoice: Invoice) {
   console.log('Downloading invoice:', invoice);
@@ -72,9 +81,12 @@ function downloadInvoice(invoice: Invoice) {
 
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Invoice History</h2>
-      <UTable<Invoice> :rows="invoices" :columns="invoiceColumns">
+      <UTable :rows="formattedInvoices" :columns="invoiceColumns">
+        <template #status-data="{ row }">
+          <UBadge :color="row.status === 'PAID' ? 'success' : 'warning'">{{ row.status }}</UBadge>
+        </template>
         <template #actions-data="{ row }">
-          <UButton variant="ghost" icon="i-heroicons-arrow-down-tray" @click="downloadInvoice(row)" />
+          <UButton variant="ghost" @click="downloadInvoice(row)">Download</UButton>
         </template>
       </UTable>
     </div>

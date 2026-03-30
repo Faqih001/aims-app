@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
+import { useToast } from 'vue-toastification';
 
 const faqItems = ref([
   {
@@ -47,10 +48,11 @@ const contactForm = reactive({
   message: '',
 });
 
+const toast = useToast();
+
 function submitSupportTicket() {
   console.log('Submitting support ticket:', contactForm);
-  // Here you would typically send the data to a support system API
-  alert('Support ticket submitted successfully!');
+  toast.add({ title: 'Support ticket submitted!', description: 'We will get back to you shortly.' });
   contactForm.subject = '';
   contactForm.message = '';
 }
