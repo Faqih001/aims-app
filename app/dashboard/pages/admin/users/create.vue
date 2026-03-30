@@ -26,7 +26,7 @@ const roleOptions = [
 ]
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  await $fetch('/api/auth/register', {
+  await $fetch('/api/users', {
     method: 'POST',
     body: event.data,
   })

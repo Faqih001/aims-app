@@ -1,5 +1,5 @@
-import { db } from '~/server/utils/db';
-import { users } from '~/server/db/schema';
+import { db } from '../../utils/db';
+import { users } from '../../db/schema';
 import { z } from 'zod';
 
 const createUserSchema = z.object({

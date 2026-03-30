@@ -73,3 +73,5 @@ export const payments = pgTable('payments', {
   status: paymentStatusEnum('status').default('PENDING').notNull(),
   userId: uuid('user_id').references(() => users.id).notNull(),
 });
+
+export * from './audit';

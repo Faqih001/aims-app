@@ -3,8 +3,8 @@ import { users } from '../../../db/schema';
 import { eq } from 'drizzle-orm';
 
 export default defineEventHandler(async () => {
-  const assessors = await db.query.users.findMany({
-    where: eq(users.role, 'ASSESSOR'),
+  const reviewers = await db.query.users.findMany({
+    where: eq(users.role, 'TECHNICAL_REVIEWER'),
   });
-  return assessors;
+  return reviewers;
 });

@@ -16,10 +16,7 @@ const columns = [
   { key: 'actions', label: 'Actions' },
 ];
 
-const reviewers = ref<Reviewer[]>([
-  { id: 'REV001', name: 'Robert Brown', email: 'robert.brown@example.com', completedReviews: 12 },
-  { id: 'REV002', name: 'Emily White', email: 'emily.white@example.com', completedReviews: 8 },
-]);
+const { data: reviewers, pending, error, refresh } = await useFetch('/api/admin/reviewers');
 
 function viewProfile(reviewer: Reviewer) {
   console.log('Viewing profile for:', reviewer);
