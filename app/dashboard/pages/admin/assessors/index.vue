@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Assessor {
   id: string;
@@ -8,7 +9,7 @@ interface Assessor {
   activeAssignments: number;
 }
 
-const columns = [
+const columns: TableColumn<Assessor>[] = [
   { key: 'id', label: 'ID' },
   { key: 'name', label: 'Name' },
   { key: 'email', label: 'Email' },

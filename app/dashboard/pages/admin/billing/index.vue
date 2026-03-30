@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Invoice {
   id: number;
@@ -8,7 +9,7 @@ interface Invoice {
   status: string;
 }
 
-const invoiceColumns = [
+const invoiceColumns: TableColumn<Invoice>[] = [
   { key: 'date', label: 'Date' },
   { key: 'amount', label: 'Amount' },
   { key: 'status', label: 'Status' },
