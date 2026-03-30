@@ -2,10 +2,7 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 
-definePageMeta({
-  layout: 'auth',
-  middleware: 'auth',
-})
+
 
 const isLoading = ref(false)
 const emailSent = ref(false)

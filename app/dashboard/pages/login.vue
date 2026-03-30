@@ -3,10 +3,7 @@ import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 import { useAuthStore } from '../stores/auth'
 
-definePageMeta({
-  layout: 'auth',
-  middleware: 'auth',
-})
+
 
 const authStore = useAuthStore()
 const isLoading = ref(false)
