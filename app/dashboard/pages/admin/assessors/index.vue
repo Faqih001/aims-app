@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-
 interface Assessor {
   id: string;
   name: string;
   email: string;
 }
+
+const { data: assessors, pending, error, refresh } = await useFetch<Assessor[]>('/api/admin/assessors');
 
 const columns = [
   { key: 'id', label: 'ID' },
@@ -14,24 +14,36 @@ const columns = [
   { key: 'actions', label: 'Actions' },
 ];
 
-const { data: assessors, pending, error, refresh } = await useFetch('/api/admin/assessors');
-
-function viewProfile(assessor: Assessor) {
-  console.log('Viewing profile for:', assessor);
-}
-
-function viewAssignments(assessor: Assessor) {
-  console.log('Viewing assignments for:', assessor);
-}
+const items = (assessor: Assessor) => [
+  [{
+    label: 'Edit',
+    icon: 'i-heroicons-pencil-square-20-solid',
+    click: () => navigateTo(`/dashboard/admin/assessors/${assessor.id}/edit`)
+  }],
+  [{
+    label: 'Delete',
+    icon: 'i-heroicons-trash-20-solid',
+    click: async () => {
+      if (confirm('Are you sure you want to delete this assessor?')) {
+        await $fetch(`/api/admin/assessors/${assessor.id}`, { method: 'DELETE' })
+        refresh()
+      }
+    }
+  }]
+]
 </script>
 
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">Manage Assessors</h1>
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold">Manage Assessors</h1>
+      <UButton to="/dashboard/admin/assessors/create" icon="i-heroicons-plus-20-solid">Add Assessor</UButton>
+    </div>
     <UTable :rows="assessors" :columns="columns">
       <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewProfile(row)">View Profile</UButton>
-        <UButton variant="ghost" @click="viewAssignments(row)">Assignments</UButton>
+        <UDropdown :items="items(row as Assessor)">
+          <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
+        </UDropdown>
       </template>
     </UTable>
   </div>
