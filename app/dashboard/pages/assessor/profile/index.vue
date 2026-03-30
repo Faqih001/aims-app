@@ -3,7 +3,7 @@
     <h1 class="text-2xl font-bold mb-4">User Profile</h1>
     <UCard v-if="user">
       <template #header>
-        <h2 class="text-xl font-semibold">{{ user.firstName }} {{ user.lastName }}</h2>
+        <h2 class="text-xl font-semibold">{{ user.name }}</h2>
         <p class="text-gray-500">{{ user.email }}</p>
       </template>
 
@@ -11,10 +11,6 @@
         <div>
           <h3 class="font-semibold">Role</h3>
           <p>{{ user.role }}</p>
-        </div>
-        <div>
-          <h3 class="font-semibold">Created At</h3>
-          <p>{{ new Date(user.createdAt).toLocaleDateString() }}</p>
         </div>
       </div>
 

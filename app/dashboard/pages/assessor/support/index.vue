@@ -51,7 +51,7 @@ function viewTicket(ticket: Ticket) {
       <UButton @click="isModalOpen = true">Create New Ticket</UButton>
     </div>
     <UTable :rows="tickets" :columns="columns">
-      <template #actions-data="{ row }: { row: Ticket }">
+      <template #actions-data="{ row }">
         <UButton variant="ghost" @click="viewTicket(row)">View</UButton>
       </template>
     </UTable>
