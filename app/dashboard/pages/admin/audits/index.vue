@@ -19,29 +19,7 @@ const columns = [
   { key: 'details', label: 'Details' },
 ];
 
-const audits = ref<Audit[]>([
-  {
-    id: 1,
-    timestamp: '2023-10-27 10:00:00',
-    user: { name: 'Admin User', role: 'Admin' },
-    action: 'User Login',
-    details: 'User admin@example.com logged in successfully.',
-  },
-  {
-    id: 2,
-    timestamp: '2023-10-27 10:05:00',
-    user: { name: 'John Doe', role: 'Applicant' },
-    action: 'Application Submitted',
-    details: 'Application #12345 submitted.',
-  },
-  {
-    id: 3,
-    timestamp: '2023-10-27 10:15:00',
-    user: { name: 'Jane Smith', role: 'Assessor' },
-    action: 'Application Reviewed',
-    details: 'Application #12345 reviewed.',
-  },
-]);
+const { data: audits, pending, error, refresh } = await useFetch('/api/admin/audits');
 </script>
 
 <template>

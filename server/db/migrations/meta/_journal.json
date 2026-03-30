@@ -15,6 +15,13 @@
       "when": 1774881339861,
       "tag": "0001_superb_blade",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1774881675021,
+      "tag": "0002_broad_dark_phoenix",
+      "breakpoints": true
     }
   ]
 }
