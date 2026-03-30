@@ -4,6 +4,30 @@
 @theme static {
   --font-sans: 'Public Sans', sans-serif;
 
+  --color-primary-50: #e9effa;
+  --color-primary-100: #cedbf5;
+  --color-primary-200: #9fb7ea;
+  --color-primary-300: #6f92de;
+  --color-primary-400: #3f6ed3;
+  --color-primary-500: #003087;
+  --color-primary-600: #002b79;
+  --color-primary-700: #00256b;
+  --color-primary-800: #001f5c;
+  --color-primary-900: #00184d;
+  --color-primary-950: #000d2a;
+
+  --color-accent-50: #eaf9ef;
+  --color-accent-100: #d1f1dd;
+  --color-accent-200: #a3e3bb;
+  --color-accent-300: #75d599;
+  --color-accent-400: #47c777;
+  --color-accent-500: #00A651;
+  --color-accent-600: #00964a;
+  --color-accent-700: #008542;
+  --color-accent-800: #00753a;
+  --color-accent-900: #006432;
+  --color-accent-950: #003819;
+
   --color-green-50: #EFFDF5;
   --color-green-100: #D9FBE8;
   --color-green-200: #B3F5D1;
@@ -15,4 +39,33 @@
   --color-green-800: #016538;
   --color-green-900: #0A5331;
   --color-green-950: #052E16;
+}
+
+html,
+body,
+#__nuxt {
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f5f5f5;
+  color: #111827;
+}
+
+.dark body {
+  background-color: #1a1a1a;
+  color: #f1f5f9;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #003087;
+  outline-offset: 2px;
 }

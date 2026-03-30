@@ -14,7 +14,6 @@ export default defineNuxtConfig({
     ],
     defaultLocale: 'en',
     strategy: 'prefix_except_default',
-    lazy: true,
     langDir: 'locales/',
   },
 
@@ -26,7 +25,7 @@ export default defineNuxtConfig({
     enabled: true
   },
 
-  css: ['~/assets/css/main.css'],
+  css: ['~/app/assets/css/main.css'],
 
   routeRules: {
     '/': { prerender: true }
