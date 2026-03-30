@@ -4,6 +4,7 @@ export const userRoleEnum = pgEnum('user_role', ['SYSTEM_ADMIN', 'ASSESSOR', 'AP
 export const applicationStatusEnum = pgEnum('application_status', ['PENDING', 'IN_REVIEW', 'APPROVED', 'REJECTED']);
 export const accreditationStatusEnum = pgEnum('accreditation_status', ['ACTIVE', 'EXPIRED', 'PENDING_RENEWAL']);
 export const invoiceStatusEnum = pgEnum('invoice_status', ['PAID', 'PENDING', 'OVERDUE']);
+export const paymentStatusEnum = pgEnum('payment_status', ['COMPLETED', 'PENDING', 'FAILED']);
 
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -61,5 +62,14 @@ export const notifications = pgTable('notifications', {
   message: text('message').notNull(),
   time: timestamp('time').defaultNow().notNull(),
   read: text('read').default('false').notNull(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
+});
+
+export const payments = pgTable('payments', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  transactionId: text('transaction_id').notNull(),
+  date: timestamp('date').defaultNow().notNull(),
+  amount: text('amount').notNull(),
+  status: paymentStatusEnum('status').default('PENDING').notNull(),
   userId: uuid('user_id').references(() => users.id).notNull(),
 });
