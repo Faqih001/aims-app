@@ -33,6 +33,11 @@ defineProps<{
           />
         </ClientOnly>
       </div>
+      <div class="absolute top-4 left-4">
+        <NuxtLink to="/">
+          <UButton icon="i-heroicons-home-20-solid" color="neutral" variant="ghost" aria-label="Home" />
+        </NuxtLink>
+      </div>
       <div class="w-full max-w-md">
         <slot name="form" />
       </div>

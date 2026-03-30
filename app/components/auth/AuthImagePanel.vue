@@ -14,8 +14,7 @@ const defaultImage = 'https://images.unsplash.com/photo-1577495508048-b635879837
     <div class="relative h-full flex flex-col justify-center p-8 md:p-12 lg:p-20 text-white">
       <div class="mb-4 md:mb-8">
         <div class="flex items-center space-x-3 mb-4 md:mb-6">
-          <UIcon name="i-heroicons-shield-check" class="w-10 h-10 md:w-12 md:h-12 text-[#00A651]" />
-          <span class="text-2xl md:text-3xl font-bold tracking-tight">KENAS</span>
+          <AppLogo class="h-10 w-auto" />
         </div>
         <h1 class="text-2xl md:text-4xl lg:text-5xl font-extrabold mb-3 md:mb-4 leading-tight">
           Accreditation Information<br>
