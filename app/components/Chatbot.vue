@@ -35,7 +35,7 @@
         </div>
         <div class="flex items-center gap-2">
           <UInput v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type a message..." class="flex-1" />
-          <UButton @click="sendMessage" icon="i-heroicons-paper-airplane-20-solid" />
+          <UButton @click="() => sendMessage()" icon="i-heroicons-paper-airplane-20-solid" />
         </div>
       </div>
     </UCard>
@@ -72,7 +72,7 @@ async function sendMessage(prompt?: string) {
       method: 'POST',
       body: { message: text },
     });
-    messages.value.push({ id: Date.now() + 1, text: response.reply, isUser: false });
+    messages.value.push({ id: Date.now() + 1, text: response.reply as string, isUser: false });
   } catch (error) {
     console.error('Chatbot error:', error);
     messages.value.push({ id: Date.now() + 1, text: 'Sorry, I am having trouble connecting. Please try again later.', isUser: false });
