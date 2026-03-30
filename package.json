@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx ./server/db/migrate.ts",
     "dev": "nuxt dev",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
