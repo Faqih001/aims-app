@@ -2,6 +2,7 @@ import { pgTable, text, timestamp, uuid, pgEnum, varchar } from 'drizzle-orm/pg-
 
 export const userRoleEnum = pgEnum('user_role', ['SYSTEM_ADMIN', 'ASSESSOR', 'APPLICANT', 'TECHNICAL_REVIEWER']);
 export const applicationStatusEnum = pgEnum('application_status', ['PENDING', 'IN_REVIEW', 'APPROVED', 'REJECTED']);
+export const accreditationStatusEnum = pgEnum('accreditation_status', ['ACTIVE', 'EXPIRED', 'PENDING_RENEWAL']);
 
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -28,4 +29,12 @@ export const applications = pgTable('applications', {
   status: applicationStatusEnum('status').default('PENDING').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export const accreditations = pgTable('accreditations', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: text('name').notNull(),
+  status: accreditationStatusEnum('status').default('PENDING_RENEWAL').notNull(),
+  expiryDate: timestamp('expiry_date'),
+  applicationId: uuid('application_id').references(() => applications.id).notNull(),
 });
