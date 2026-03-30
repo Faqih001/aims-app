@@ -3,6 +3,8 @@ const route = useRoute()
 const colorMode = useColorMode()
 const { locale, setLocale } = useI18n()
 
+type LocaleCode = 'en' | 'sw'
+
 const openMobile = ref(false)
 
 const navLinks = computed(() => [
@@ -19,8 +21,8 @@ const localeItems = [
 ]
 
 const selectedLocale = computed({
-  get: () => locale.value,
-  set: async (value: string) => {
+  get: () => locale.value as LocaleCode,
+  set: async (value: LocaleCode) => {
     await setLocale(value)
   }
 })
