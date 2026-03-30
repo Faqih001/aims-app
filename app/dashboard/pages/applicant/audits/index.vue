@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Audit {
   auditId: string;
@@ -9,7 +8,7 @@ interface Audit {
   status: string;
 }
 
-const columns: TableColumn[] = [
+const columns = [
   { key: 'auditId', label: 'Audit ID' },
   { key: 'date', label: 'Date' },
   { key: 'auditor', label: 'Auditor' },
@@ -31,10 +30,10 @@ function viewDetails(audit: Audit) {
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">My Audits</h1>
     <UTable :rows="audits" :columns="columns">
-      <template #status-data="{ row }: { row: Audit }">
+      <template #status-data="{ row }">
         <UBadge :color="row.status === 'Completed' ? 'success' : 'warning'">{{ row.status }}</UBadge>
       </template>
-      <template #actions-data="{ row }: { row: Audit }">
+      <template #actions-data="{ row }">
         <UButton variant="ghost" @click="viewDetails(row)">View Details</UButton>
       </template>
     </UTable>
