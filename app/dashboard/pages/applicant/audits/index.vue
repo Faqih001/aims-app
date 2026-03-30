@@ -29,7 +29,7 @@ function viewDetails(audit: Audit) {
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">My Audits</h1>
-    <UTable :rows="audits" :columns="columns">
+    <UTable<Audit> :rows="audits" :columns="columns">
       <template #status-data="{ row }">
         <UBadge :color="row.status === 'Completed' ? 'success' : 'warning'">{{ row.status }}</UBadge>
       </template>

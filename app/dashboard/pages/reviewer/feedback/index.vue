@@ -48,7 +48,7 @@ function submitFeedback() {
 
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Previously Submitted Feedback</h2>
-      <UTable :rows="previousFeedback" :columns="columns" />
+      <UTable<Feedback> :rows="previousFeedback" :columns="columns" />
     </div>
   </div>
 </template>
