@@ -36,6 +36,13 @@
       "when": 1774892593745,
       "tag": "0004_lethal_leader",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1774894310814,
+      "tag": "0005_tan_viper",
+      "breakpoints": true
     }
   ]
 }

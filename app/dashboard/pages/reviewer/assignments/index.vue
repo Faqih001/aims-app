@@ -12,7 +12,10 @@ interface Application {
   scope: string;
   status: string;
 }
-const { data: applications, pending, error } = await useFetch<Application[]>('/api/applications')
+const authStore = useAuthStore();
+const { data: applications, pending, error } = await useFetch<Application[]>(
+  `/api/reviewers/${authStore.user?.id}/assignments`
+)
 
 const columns: TableColumn[] = [
   { key: 'id', label: 'ID' },
