@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import dayjs from 'dayjs';
 
 interface Accreditation {
@@ -9,6 +9,8 @@ interface Accreditation {
   expiryDate: string;
 }
 
+const { data: accreditations, pending, error, refresh } = await useFetch<Accreditation[]>('/api/admin/accreditations');
+
 const columns = [
   { key: 'id', label: 'ID' },
   { key: 'name', label: 'Accreditation Name' },
@@ -16,8 +18,6 @@ const columns = [
   { key: 'formattedExpiryDate', label: 'Expiry Date' },
   { key: 'actions', label: 'Actions' },
 ];
-
-const { data: accreditations, pending, error, refresh } = await useFetch('/api/admin/accreditations');
 
 const formattedAccreditations = computed(() => {
   if (!accreditations.value) return [];
@@ -27,25 +27,39 @@ const formattedAccreditations = computed(() => {
   }));
 });
 
-function viewDetails(accreditation: Accreditation) {
-  console.log('Viewing details for:', accreditation);
-}
-
-function manageAccreditation(accreditation: Accreditation) {
-  console.log('Managing accreditation:', accreditation);
-}
+const items = (accreditation: Accreditation) => [
+  [{
+    label: 'Edit',
+    icon: 'i-heroicons-pencil-square-20-solid',
+    click: () => navigateTo(`/dashboard/admin/accreditations/${accreditation.id}/edit`)
+  }],
+  [{
+    label: 'Delete',
+    icon: 'i-heroicons-trash-20-solid',
+    click: async () => {
+      if (confirm('Are you sure you want to delete this accreditation?')) {
+        await $fetch(`/api/admin/accreditations/${accreditation.id}`, { method: 'DELETE' })
+        refresh()
+      }
+    }
+  }]
+]
 </script>
 
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">Manage Accreditations</h1>
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold">Manage Accreditations</h1>
+      <UButton to="/dashboard/admin/accreditations/create" icon="i-heroicons-plus-20-solid">Add Accreditation</UButton>
+    </div>
     <UTable :rows="formattedAccreditations" :columns="columns">
       <template #status-data="{ row }">
         <UBadge :color="row.status === 'ACTIVE' ? 'success' : 'warning'">{{ row.status }}</UBadge>
       </template>
       <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewDetails(row)">View Details</UButton>
-        <UButton variant="ghost" color="error" @click="manageAccreditation(row)">Manage</UButton>
+        <UDropdown :items="items(row as Accreditation)">
+          <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
+        </UDropdown>
       </template>
     </UTable>
   </div>
