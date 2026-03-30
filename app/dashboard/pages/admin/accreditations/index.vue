@@ -35,10 +35,10 @@ function manageAccreditation(accreditation: Accreditation) {
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Manage Accreditations</h1>
     <UTable :rows="accreditations" :columns="columns">
-      <template #status-data="{ row }: { row: Accreditation }">
+      <template #status-data="{ row }">
         <UBadge :color="row.status === 'Active' ? 'success' : 'warning'">{{ row.status }}</UBadge>
       </template>
-      <template #actions-data="{ row }: { row: Accreditation }">
+      <template #actions-data="{ row }">
         <UButton variant="ghost" @click="viewDetails(row)">View Details</UButton>
         <UButton variant="ghost" color="error" @click="manageAccreditation(row)">Manage</UButton>
       </template>

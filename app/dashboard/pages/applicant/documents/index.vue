@@ -1,41 +1,15 @@
-<template>
-  <div class="p-4">
-    <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold">My Documents</h1>
-      <UButton @click="isUploadModalOpen = true" label="Upload Document" />
-    </div>
-
-    <UTable :rows="documents" :columns="columns">
-      <template #actions-data="{ row }">
-        <UButton variant="ghost" icon="i-heroicons-trash" @click="deleteDocument(row)" />
-      </template>
-    </UTable>
-
-    <UModal v-model="isUploadModalOpen">
-      <UCard>
-        <template #header>
-          <h2 class="text-xl font-semibold">Upload New Document</h2>
-        </template>
-        
-        <UForm :state="newDocument" @submit="uploadDocument">
-          <UFormGroup label="Document Name" name="name">
-            <UInput v-model="newDocument.name" />
-          </UFormGroup>
-          <UFormGroup label="File" name="file">
-            <UInput type="file" @change="onFileChange" />
-          </UFormGroup>
-          
-          <UButton type="submit" label="Upload" class="mt-4" />
-        </UForm>
-      </UCard>
-    </UModal>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 
-const documents = ref([
+interface Document {
+  id: number;
+  name: string;
+  type: string;
+  size: string;
+  uploadedAt: string;
+}
+
+const documents = ref<Document[]>([
   { id: 1, name: 'Certificate of Incorporation', type: 'pdf', size: '2.5 MB', uploadedAt: '2023-10-26' },
   { id: 2, name: 'Business License', type: 'pdf', size: '1.8 MB', uploadedAt: '2023-10-25' },
 ]);
@@ -75,7 +49,7 @@ async function uploadDocument() {
     name: newDocument.name || newDocument.file.name,
     type: newDocument.file.type,
     size: `${(newDocument.file.size / 1024 / 1024).toFixed(2)} MB`,
-    uploadedAt: new Date().toISOString().split('T')[0],
+    uploadedAt: new Date().toISOString().split('T')[0] || '',
   });
 
   isUploadModalOpen.value = false;
@@ -83,7 +57,41 @@ async function uploadDocument() {
   newDocument.file = null;
 }
 
-function deleteDocument(doc: any) {
+function deleteDocument(doc: Document) {
   documents.value = documents.value.filter(d => d.id !== doc.id);
 }
 </script>
+
+<template>
+  <div class="p-4">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold">My Documents</h1>
+      <UButton @click="isUploadModalOpen = true" label="Upload Document" />
+    </div>
+
+    <UTable :rows="documents" :columns="columns">
+      <template #actions-data="{ row }: { row: Document }">
+        <UButton variant="ghost" icon="i-heroicons-trash" @click="deleteDocument(row)" />
+      </template>
+    </UTable>
+
+    <UModal v-model="isUploadModalOpen">
+      <UCard>
+        <template #header>
+          <h2 class="text-xl font-semibold">Upload New Document</h2>
+        </template>
+        
+        <UForm :state="newDocument" @submit="uploadDocument">
+          <UFormGroup label="Document Name" name="name">
+            <UInput v-model="newDocument.name" />
+          </UFormGroup>
+          <UFormGroup label="File" name="file">
+            <UInput type="file" @change="onFileChange" />
+          </UFormGroup>
+          
+          <UButton type="submit" label="Upload" class="mt-4" />
+        </UForm>
+      </UCard>
+    </UModal>
+  </div>
+</template>

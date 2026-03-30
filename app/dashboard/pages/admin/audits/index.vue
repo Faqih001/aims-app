@@ -1,16 +1,16 @@
-<template>
-  <div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">Audit Logs</h1>
-    <UTable :rows="audits" :columns="columns">
-      <template #user-data="{ row }">
-        <span>{{ row.user.name }} ({{ row.user.role }})</span>
-      </template>
-    </UTable>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue';
+
+interface Audit {
+  id: number;
+  timestamp: string;
+  user: {
+    name: string;
+    role: string;
+  };
+  action: string;
+  details: string;
+}
 
 const columns = [
   { key: 'timestamp', label: 'Timestamp' },
@@ -19,7 +19,7 @@ const columns = [
   { key: 'details', label: 'Details' },
 ];
 
-const audits = ref([
+const audits = ref<Audit[]>([
   {
     id: 1,
     timestamp: '2023-10-27 10:00:00',
@@ -43,3 +43,14 @@ const audits = ref([
   },
 ]);
 </script>
+
+<template>
+  <div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">Audit Logs</h1>
+    <UTable :rows="audits" :columns="columns">
+      <template #user-data="{ row }:{ row: Audit }">
+        <span>{{ row.user.name }} ({{ row.user.role }})</span>
+      </template>
+    </UTable>
+  </div>
+</template>

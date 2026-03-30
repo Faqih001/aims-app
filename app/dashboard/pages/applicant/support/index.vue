@@ -1,36 +1,12 @@
-<template>
-  <div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">My Support Tickets</h1>
-    <div class="flex justify-end mb-4">
-      <UButton @click="isModalOpen = true">Create New Ticket</UButton>
-    </div>
-    <UTable :rows="tickets" :columns="columns">
-      <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewTicket(row)">View</UButton>
-      </template>
-    </UTable>
-
-    <UModal v-model="isModalOpen">
-      <UCard>
-        <template #header>
-          <h2 class="text-xl font-semibold">Create Support Ticket</h2>
-        </template>
-        <UForm :state="newTicket" @submit="submitTicket">
-          <UFormGroup label="Subject" name="subject">
-            <UInput v-model="newTicket.subject" />
-          </UFormGroup>
-          <UFormGroup label="Message" name="message">
-            <UTextarea v-model="newTicket.message" />
-          </UFormGroup>
-          <UButton type="submit" label="Submit" class="mt-4" />
-        </UForm>
-      </UCard>
-    </UModal>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
+
+interface Ticket {
+  id: string;
+  subject: string;
+  status: string;
+  lastUpdate: string;
+}
 
 const columns = [
   { key: 'id', label: 'Ticket ID' },
@@ -40,7 +16,7 @@ const columns = [
   { key: 'actions', label: 'Actions' },
 ];
 
-const tickets = ref([
+const tickets = ref<Ticket[]>([
   { id: 'TKT-001', subject: 'Cannot login', status: 'Open', lastUpdate: '2 hours ago' },
 ]);
 
@@ -63,7 +39,38 @@ function submitTicket() {
   newTicket.message = '';
 }
 
-function viewTicket(ticket: any) {
+function viewTicket(ticket: Ticket) {
   console.log('Viewing ticket:', ticket);
 }
 </script>
+
+<template>
+  <div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">My Support Tickets</h1>
+    <div class="flex justify-end mb-4">
+      <UButton @click="isModalOpen = true">Create New Ticket</UButton>
+    </div>
+    <UTable :rows="tickets" :columns="columns">
+      <template #actions-data="{ row }: { row: Ticket }">
+        <UButton variant="ghost" @click="viewTicket(row)">View</UButton>
+      </template>
+    </UTable>
+
+    <UModal v-model="isModalOpen">
+      <UCard>
+        <template #header>
+          <h2 class="text-xl font-semibold">Create Support Ticket</h2>
+        </template>
+        <UForm :state="newTicket" @submit="submitTicket">
+          <UFormGroup label="Subject" name="subject">
+            <UInput v-model="newTicket.subject" />
+          </UFormGroup>
+          <UFormGroup label="Message" name="message">
+            <UTextarea v-model="newTicket.message" />
+          </UFormGroup>
+          <UButton type="submit" label="Submit" class="mt-4" />
+        </UForm>
+      </UCard>
+    </UModal>
+  </div>
+</template>
