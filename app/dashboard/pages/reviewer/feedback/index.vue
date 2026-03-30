@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
+import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Feedback {
   applicationId: string;
@@ -11,7 +12,7 @@ const feedbackForm = reactive({
   comment: '',
 });
 
-const columns = [
+const columns: TableColumn<Feedback>[] = [
   { key: 'applicationId', label: 'Application ID' },
   { key: 'date', label: 'Date' },
 ];
