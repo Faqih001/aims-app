@@ -6,11 +6,11 @@
         <UFormGroup label="Application ID" name="applicationId">
           <UInput v-model="feedbackForm.applicationId" placeholder="e.g., 12345" />
         </UFormGroup>
-        <UFormGroup label="Feedback / Comments" name="comment">
-          <UTextarea v-model="feedbackForm.comment" />
+        <UFormGroup label="Feedback / Comments" name="notes">
+          <UTextarea v-model="feedbackForm.notes" />
         </UFormGroup>
-        <UFormGroup label="Overall Recommendation" name="recommendation">
-          <USelect v-model="feedbackForm.recommendation" :options="['Approve', 'Reject', 'Request Information']" />
+        <UFormGroup label="Overall Recommendation" name="outcome">
+          <USelect v-model="feedbackForm.outcome" :options="['approve', 'reject', 'request-information']" />
         </UFormGroup>
         <UButton type="submit" label="Submit Feedback" class="mt-4" />
       </UForm>
@@ -18,7 +18,7 @@
 
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Previously Submitted Feedback</h2>
-      <UTable :rows="previousFeedback" :columns="columns" />
+      <UTable :rows="previousFeedback" :columns="columns" :loading="pending" />
     </div>
   </div>
 </template>
@@ -26,34 +26,38 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 
+const authStore = useAuthStore();
+const toast = useToast();
+const { data: previousFeedback, pending, error, refresh } = useFetch(`/api/assessors/${authStore.user?.id}/feedback`);
+
 const feedbackForm = reactive({
   applicationId: '',
-  comment: '',
-  recommendation: 'Approve',
+  notes: '',
+  outcome: 'approve',
 });
 
 const columns = [
-  { key: 'applicationId', label: 'Application ID' },
-  { key: 'date', label: 'Date' },
-  { key: 'recommendation', label: 'Recommendation' },
+  { key: 'application.organization.name', label: 'Organization' },
+  { key: 'createdAt', label: 'Date' },
+  { key: 'outcome', label: 'Recommendation' },
 ];
 
-const previousFeedback = ref([
-  { applicationId: '12345', date: '2023-10-28', recommendation: 'Request Information' },
-  { applicationId: '67890', date: '2023-10-27', recommendation: 'Approve' },
-]);
-
-function submitFeedback() {
-  console.log('Submitting feedback:', feedbackForm);
-  // Add to previous feedback for demonstration
-  previousFeedback.value.unshift({
-    applicationId: feedbackForm.applicationId,
-    date: new Date().toISOString().split('T')[0],
-    recommendation: feedbackForm.recommendation,
-  });
-  // Reset form
-  feedbackForm.applicationId = '';
-  feedbackForm.comment = '';
-  feedbackForm.recommendation = 'Approve';
+async function submitFeedback() {
+  try {
+    await $fetch('/api/feedback', {
+      method: 'POST',
+      body: {
+        ...feedbackForm,
+        userId: authStore.user?.id,
+      },
+    });
+    toast.add({ title: 'Feedback submitted successfully!' });
+    feedbackForm.applicationId = '';
+    feedbackForm.notes = '';
+    feedbackForm.outcome = 'approve';
+    refresh();
+  } catch (error) {
+    toast.add({ title: 'Error submitting feedback.', color: 'red' });
+  }
 }
 </script>
