@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('auth', {
         })
 
         const validatedUser = UserSchema.parse(user)
-        this.token = token
+        this.token = token ?? null
         this.user = validatedUser
         this.isAuthenticated = true
 
@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('auth', {
           })
   
           const validatedUser = UserSchema.parse(user)
-          this.token = token
+          this.token = token ?? null
           this.user = validatedUser
           this.isAuthenticated = true
   
@@ -96,7 +96,7 @@ export const useAuthStore = defineStore('auth', {
         const validatedUser = UserSchema.parse(user)
         this.user = validatedUser
         this.isAuthenticated = true
-        this.token = cookie.value
+        this.token = cookie.value ?? null
       } catch (error) {
         this.logout()
       }

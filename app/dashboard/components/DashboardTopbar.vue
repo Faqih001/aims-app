@@ -25,16 +25,16 @@ const selectedLocale = computed({
       <UInput icon="i-heroicons-magnifying-glass" placeholder="Search..." />
     </div>
     <div class="flex items-center">
-      <UButton icon="i-heroicons-bell" variant="ghost" color="gray" />
+      <UButton icon="i-heroicons-bell" variant="ghost" color="primary" />
       <USelect v-model="selectedLocale" :items="localeItems" class="w-20 mx-4" />
       <UButton
         :icon="isDark ? 'i-heroicons-moon' : 'i-heroicons-sun'"
         variant="ghost"
-        color="gray"
+        color="primary"
         @click="toggleTheme"
       />
       <UDropdown :items="[]">
-        <UButton color="white" label="User" trailing-icon="i-heroicons-chevron-down" />
+        <UButton color="neutral" label="User" trailing-icon="i-heroicons-chevron-down" />
       </UDropdown>
     </div>
   </header>
