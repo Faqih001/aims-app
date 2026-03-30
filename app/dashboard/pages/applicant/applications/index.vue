@@ -1,7 +1,17 @@
 <script setup lang="ts">
-import { useAuthStore } from '~/app/dashboard/stores/auth'
+import { useAuthStore } from '../../../stores/auth'
+
+interface Application {
+  id: number;
+  organization: {
+    name: string;
+  };
+  scope: string;
+  status: string;
+}
+
 const authStore = useAuthStore()
-const { data: applications, pending, error } = await useFetch(`/api/users/${authStore.user?.id}/applications`)
+const { data: applications, pending, error } = await useFetch<Application[]>(`/api/users/${authStore.user?.id}/applications`)
 
 const columns = [
   { key: 'id', label: 'ID' },
@@ -11,7 +21,7 @@ const columns = [
   { key: 'actions', label: 'Actions' }
 ]
 
-const items = (application: any) => [
+const items = (application: Application) => [
   [{
     label: 'View',
     icon: 'i-heroicons-eye-20-solid',
@@ -30,9 +40,9 @@ const items = (application: any) => [
     <div v-if="pending">Loading...</div>
     <div v-else-if="error">Error: {{ error.message }}</div>
     <UTable v-else :rows="applications" :columns="columns">
-      <template #actions-data="{ row }">
+      <template #actions-data="{ row }: { row: Application }">
         <UDropdown :items="items(row)">
-          <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
+          <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
         </UDropdown>
       </template>
     </UTable>

@@ -1,3 +1,31 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+
+interface Invoice {
+  id: number;
+  date: string;
+  amount: string;
+  status: string;
+}
+
+const invoiceColumns = [
+  { key: 'date', label: 'Date' },
+  { key: 'amount', label: 'Amount' },
+  { key: 'status', label: 'Status' },
+  { key: 'actions', label: 'Actions' },
+];
+
+const invoices = ref<Invoice[]>([
+  { id: 1, date: 'October 1, 2023', amount: '$999.00', status: 'Paid' },
+  { id: 2, date: 'September 1, 2023', amount: '$999.00', status: 'Paid' },
+  { id: 3, date: 'August 1, 2023', amount: '$999.00', status: 'Paid' },
+]);
+
+function downloadInvoice(invoice: Invoice) {
+  console.log('Downloading invoice:', invoice);
+}
+</script>
+
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Billing</h1>
@@ -45,31 +73,10 @@
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Invoice History</h2>
       <UTable :rows="invoices" :columns="invoiceColumns">
-        <template #actions-data="{ row }">
+        <template #actions-data="{ row }: { row: Invoice }">
           <UButton variant="ghost" icon="i-heroicons-arrow-down-tray" @click="downloadInvoice(row)" />
         </template>
       </UTable>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-
-const invoiceColumns = [
-  { key: 'date', label: 'Date' },
-  { key: 'amount', label: 'Amount' },
-  { key: 'status', label: 'Status' },
-  { key: 'actions', label: 'Actions' },
-];
-
-const invoices = ref([
-  { id: 1, date: 'October 1, 2023', amount: '$999.00', status: 'Paid' },
-  { id: 2, date: 'September 1, 2023', amount: '$999.00', status: 'Paid' },
-  { id: 3, date: 'August 1, 2023', amount: '$999.00', status: 'Paid' },
-]);
-
-function downloadInvoice(invoice: any) {
-  console.log('Downloading invoice:', invoice);
-}
-</script>
