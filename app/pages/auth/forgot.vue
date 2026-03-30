@@ -83,6 +83,7 @@ async function onSubmit() {
               type="email"
               icon="i-heroicons-envelope"
               placeholder="name@organization.or.ke"
+              class="w-full"
               autocomplete="email"
               size="xl"
             />

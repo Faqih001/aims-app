@@ -81,6 +81,7 @@ async function onSubmit() {
               :type="showPassword ? 'text' : 'password'"
               icon="i-heroicons-lock-closed"
               placeholder="Enter new password"
+              class="w-full"
               autocomplete="new-password"
               size="xl"
             >
@@ -103,6 +104,7 @@ async function onSubmit() {
               :type="showConfirmPassword ? 'text' : 'password'"
               icon="i-heroicons-lock-closed"
               placeholder="Confirm new password"
+              class="w-full"
               autocomplete="new-password"
               size="xl"
             >

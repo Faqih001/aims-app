@@ -100,6 +100,7 @@ async function goToLogin() {
               v-model="state.fullName"
               icon="i-heroicons-user"
               placeholder="Enter your full name"
+              class="w-full"
               autocomplete="name"
               size="xl"
             />
@@ -111,6 +112,7 @@ async function goToLogin() {
               type="email"
               icon="i-heroicons-envelope"
               placeholder="name@organization.or.ke"
+              class="w-full"
               autocomplete="email"
               size="xl"
             />
@@ -121,6 +123,7 @@ async function goToLogin() {
               v-model="state.organizationName"
               icon="i-heroicons-building-office-2"
               placeholder="Organization"
+              class="w-full"
               autocomplete="organization"
               size="xl"
             />
@@ -141,6 +144,7 @@ async function goToLogin() {
               :type="showPassword ? 'text' : 'password'"
               icon="i-heroicons-lock-closed"
               placeholder="Create a strong password"
+              class="w-full"
               autocomplete="new-password"
               size="xl"
             >
@@ -163,6 +167,7 @@ async function goToLogin() {
               :type="showConfirmPassword ? 'text' : 'password'"
               icon="i-heroicons-lock-closed"
               placeholder="Re-enter password"
+              class="w-full"
               autocomplete="new-password"
               size="xl"
             >

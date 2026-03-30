@@ -79,6 +79,7 @@ async function onSubmit() {
               type="email"
               placeholder="name@organization.or.ke"
               icon="i-heroicons-envelope"
+              class="w-full"
               autocomplete="email"
               size="xl"
             />
@@ -90,6 +91,7 @@ async function onSubmit() {
               :type="showPassword ? 'text' : 'password'"
               placeholder="Enter your password"
               icon="i-heroicons-lock-closed"
+              class="w-full"
               autocomplete="current-password"
               size="xl"
             >
