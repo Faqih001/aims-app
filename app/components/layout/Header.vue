@@ -44,7 +44,7 @@ function toggleTheme() {
 <template>
   <header class="sticky top-0 z-40 border-b border-default/50 bg-white/80 dark:bg-[#1A1A1A]/85 backdrop-blur-xl">
     <UContainer class="max-w-7xl mx-auto">
-      <div class="h-16 flex items-center justify-between gap-4">
+      <div class="h-20 flex items-center justify-between gap-4">
         <NuxtLink to="/" class="flex items-center gap-2">
           <AppLogo class="h-8 w-auto" />
           <span class="sr-only">AIMS</span>
