@@ -66,7 +66,7 @@ function makePayment() {
     </div>
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Payment History</h2>
-      <UTable :rows="paymentHistory" :columns="paymentHistoryColumns" />
+      <UTable<Payment/> :rows="paymentHistory" :columns="paymentHistoryColumns" />
     </div>
   </div>
 </template>

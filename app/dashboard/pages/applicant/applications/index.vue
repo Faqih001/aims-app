@@ -39,12 +39,14 @@ const items = (application: Application) => [
 
     <div v-if="pending">Loading...</div>
     <div v-else-if="error">Error: {{ error.message }}</div>
-    <UTable<Application> v-else :rows="applications" :columns="columns">
-      <template #actions-data="{ row }">
-        <UDropdown :items="items(row)">
-          <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
-        </UDropdown>
-      </template>
-    </UTable>
+    <template v-else>
+      <UTable<Application> :rows="applications" :columns="columns">
+        <template #actions-data="{ row }">
+          <UDropdown :items="items(row)">
+            <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
+          </UDropdown>
+        </template>
+      </UTable>
+    </template>
   </div>
 </template>

@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  alias: {
+    '~': '/',
+    '@': '/',
+    'assets': '/assets',
+    'public': '/public'
+  },
   runtimeConfig: {
     jwtSecret: process.env.JWT_SECRET,
     neonApiKey: process.env.NEON_API_KEY,
