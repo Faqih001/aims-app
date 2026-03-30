@@ -38,3 +38,11 @@ export const accreditations = pgTable('accreditations', {
   expiryDate: timestamp('expiry_date'),
   applicationId: uuid('application_id').references(() => applications.id).notNull(),
 });
+
+export const auditLogs = pgTable('audit_logs', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  timestamp: timestamp('timestamp').defaultNow().notNull(),
+  userId: uuid('user_id').references(() => users.id),
+  action: text('action').notNull(),
+  details: text('details'),
+});

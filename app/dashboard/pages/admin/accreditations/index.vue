@@ -13,7 +13,6 @@ const columns = [
   { key: 'id', label: 'ID' },
   { key: 'name', label: 'Accreditation Name' },
   { key: 'status', label: 'Status' },
-  { key: 'expiryDate', label: 'Expiry Date', hidden: true },
   { key: 'formattedExpiryDate', label: 'Expiry Date' },
   { key: 'actions', label: 'Actions' },
 ];
