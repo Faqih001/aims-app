@@ -25,12 +25,14 @@ defineProps<{
         <div class="w-full flex flex-col">
           <div class="w-full max-w-md mx-auto flex items-center justify-between mb-3 z-20">
             <div class="flex items-center">
-              <AppLogo class="h-12 w-auto" />
+              <AppLogo class="h-9 w-auto" />
             </div>
 
             <div class="flex items-center gap-2">
               <NuxtLink to="/">
-                <UButton icon="i-heroicons-home-20-solid" color="neutral" variant="ghost" aria-label="Home" size="md" />
+                <UButton icon="i-heroicons-home-20-solid" color="primary" variant="solid" aria-label="Home" size="md" class="px-3">
+                  Home
+                </UButton>
               </NuxtLink>
 
               <ClientOnly>
@@ -40,6 +42,7 @@ defineProps<{
                   variant="ghost"
                   aria-label="Theme toggle"
                   size="md"
+                  class="p-2"
                   @click="toggleTheme"
                 />
               </ClientOnly>
