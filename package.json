@@ -5,7 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "tsx ./server/db/migrate.ts",
+    "db:migrate": "tsx --env-file=.env ./server/db/migrate.ts",
     "dev": "nuxt dev",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -27,6 +27,7 @@
     "@vee-validate/zod": "^4.15.1",
     "bcrypt": "^6.0.0",
     "dayjs": "^1.11.20",
+    "dotenv": "^17.3.1",
     "drizzle-orm": "^0.45.2",
     "jsonwebtoken": "^9.0.3",
     "nuxt": "^4.4.2",
