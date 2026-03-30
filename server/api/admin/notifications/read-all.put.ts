@@ -1,7 +1,7 @@
-import { db } from '~/server/db/drizzle';
-import { notifications } from '~/server/db/schema';
+import { db } from '../../../utils/db';
+import { notifications } from '../../../db/schema';
 
 export default defineEventHandler(async () => {
   await db.update(notifications).set({ read: 'true' });
-  return { success: true };
+  return { message: 'All notifications marked as read' };
 });

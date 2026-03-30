@@ -1,5 +1,5 @@
-import { db } from '../../../utils/db';
-import { applications } from '../../../db/schema';
+import { db } from '../../../../utils/db';
+import { applications } from '../../../../db/schema';
 import { eq } from 'drizzle-orm';
 
 export default defineEventHandler(async (event) => {
@@ -7,15 +7,18 @@ export default defineEventHandler(async (event) => {
   if (!userId) {
     throw createError({ statusCode: 400, statusMessage: 'Missing user ID' });
   }
-  const userApplications = await db.query.applications.findMany({
+
+  const latestApplication = await db.query.applications.findFirst({
     where: eq(applications.applicantId, userId),
+    orderBy: (applications, { desc }) => [desc(applications.createdAt)],
     with: {
       organization: {
         columns: {
           name: true,
         },
       },
-    }
+    },
   });
-  return userApplications;
+
+  return latestApplication;
 });

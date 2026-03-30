@@ -9,16 +9,14 @@ interface Document {
   uploadedAt: string;
 }
 
-const documents = ref<Document[]>([
-  { id: 1, name: 'Certificate of Incorporation', type: 'pdf', size: '2.5 MB', uploadedAt: '2023-10-26' },
-  { id: 2, name: 'Business License', type: 'pdf', size: '1.8 MB', uploadedAt: '2023-10-25' },
-]);
+const authStore = useAuthStore();
+const { data: documents, pending, error, refresh } = useFetch(`/api/users/${authStore.user?.id}/documents`);
 
 const columns = [
   { key: 'name', label: 'Name' },
-  { key: 'type', label: 'Type' },
-  { key: 'size', label: 'Size' },
-  { key: 'uploadedAt', label: 'Uploaded At' },
+  { key: 'url', label: 'Type' },
+  { key: 'application.organization.name', label: 'Organization' },
+  { key: 'createdAt', label: 'Uploaded At' },
   { key: 'actions', label: 'Actions' }
 ];
 
@@ -45,22 +43,25 @@ async function uploadDocument() {
 
   // Here you would typically upload the file to a server
   // For this example, we'll just add it to our local array
-  const newId = documents.value.length + 1;
-  documents.value.push({
-    id: newId,
-    name: newDocument.name || newDocument.file.name,
-    type: newDocument.file.type,
-    size: `${(newDocument.file.size / 1024 / 1024).toFixed(2)} MB`,
-    uploadedAt: new Date().toISOString().split('T')[0] || '',
-  });
+  // const newId = documents.value.length + 1;
+  // documents.value.push({
+  //   id: newId,
+  //   name: newDocument.name || newDocument.file.name,
+  //   type: newDocument.file.type,
+  //   size: `${(newDocument.file.size / 1024 / 1024).toFixed(2)} MB`,
+  //   uploadedAt: new Date().toISOString().split('T')[0] || '',
+  // });
 
   isUploadModalOpen.value = false;
   newDocument.name = '';
   newDocument.file = null;
 }
 
-function deleteDocument(doc: Document) {
-  documents.value = documents.value.filter(d => d.id !== doc.id);
+async function deleteDocument(doc: any) {
+  await $fetch(`/api/documents/${doc.id}`, {
+    method: 'DELETE',
+  });
+  refresh();
 }
 </script>
 
@@ -71,9 +72,10 @@ function deleteDocument(doc: Document) {
       <UButton @click="isUploadModalOpen = true" label="Upload Document" />
     </div>
 
-    <UTable<Document> :rows="documents" :columns="columns">
+    <UTable :rows="documents" :columns="columns" :loading="pending">
       <template #actions-data="{ row }">
         <UButton variant="ghost" icon="i-heroicons-trash" @click="deleteDocument(row)" />
+        <UButton variant="ghost" icon="i-heroicons-eye" :to="row.url" target="_blank" />
       </template>
     </UTable>
 

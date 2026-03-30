@@ -1,5 +1,5 @@
-import { db } from '~/server/db/drizzle';
-import { notifications } from '~/server/db/schema';
+import { db } from '../../../utils/db';
+import { notifications } from '../../../db/schema';
 import { eq } from 'drizzle-orm';
 
 export default defineEventHandler(async (event) => {
@@ -8,5 +8,5 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Missing notification ID' });
   }
   await db.update(notifications).set({ read: 'true' }).where(eq(notifications.id, notificationId));
-  return { success: true };
+  return { message: 'Notification marked as read' };
 });

@@ -7,6 +7,9 @@ interface Payment {
     status: string;
 }
 
+const authStore = useAuthStore();
+const { data: billing, pending, error } = useFetch(`/api/users/${authStore.user?.id}/billing`);
+
 const paymentForm = reactive({
   amount: 0,
 });
@@ -17,18 +20,26 @@ const paymentHistoryColumns = [
   { key: 'status', label: 'Status' },
 ];
 
-const paymentHistory = ref<Payment[]>([
-  { date: '2023-10-28', amount: '$500.00', status: 'Completed' },
-  { date: '2023-09-10', amount: '$150.00', status: 'Completed' },
-]);
+const invoiceHistoryColumns = [
+  { key: 'date', label: 'Date' },
+  { key: 'amount', label: 'Amount' },
+  { key: 'status', label: 'Status' },
+];
+
+function formatCurrency(amount: number) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(amount);
+}
 
 function makePayment() {
   console.log('Making payment:', paymentForm);
-  paymentHistory.value.unshift({
-    date: new Date().toISOString().split('T')[0] || '',
-    amount: `$${paymentForm.amount.toFixed(2)}`,
-    status: 'Processing',
-  });
+  // paymentHistory.value.unshift({
+  //   date: new Date().toISOString().split('T')[0] || '',
+  //   amount: `$${paymentForm.amount.toFixed(2)}`,
+  //   status: 'Processing',
+  // });
   paymentForm.amount = 0;
 }
 </script>
@@ -66,7 +77,19 @@ function makePayment() {
     </div>
     <div class="mt-8">
       <h2 class="text-xl font-bold mb-4">Payment History</h2>
-      <UTable<Payment> :rows="paymentHistory" :columns="paymentHistoryColumns"></UTable>
+      <UTable :rows="billing?.payments" :columns="paymentHistoryColumns" :loading="pending">
+         <template #amount-data="{ row }">
+          {{ formatCurrency(row.amount) }}
+        </template>
+      </UTable>
+    </div>
+    <div class="mt-8">
+      <h2 class="text-xl font-bold mb-4">Invoice History</h2>
+      <UTable :rows="billing?.invoices" :columns="invoiceHistoryColumns" :loading="pending">
+        <template #amount-data="{ row }">
+          {{ formatCurrency(row.amount) }}
+        </template>
+      </UTable>
     </div>
   </div>
 </template>

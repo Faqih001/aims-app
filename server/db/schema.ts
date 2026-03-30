@@ -74,4 +74,13 @@ export const payments = pgTable('payments', {
   userId: uuid('user_id').references(() => users.id).notNull(),
 });
 
+export const supportTickets = pgTable('support_tickets', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  subject: text('subject').notNull(),
+  message: text('message').notNull(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  status: text('status').default('OPEN').notNull(),
+});
+
 
