@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { getUserByEmail, createUser } from '~/server/utils/db'
+import { getUserByEmail, createUser } from '../../utils/db'
 
 const { jwtSecret } = useRuntimeConfig()
 

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
-import { db } from '~/server/utils/db'
-import { users } from '~/server/db/schema'
+import { db } from '../../utils/db'
+import { users } from '../../db/schema'
 import { eq } from 'drizzle-orm'
 
 const { jwtSecret } = useRuntimeConfig()

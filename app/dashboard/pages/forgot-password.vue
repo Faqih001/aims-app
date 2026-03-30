@@ -4,7 +4,7 @@ import type { FormSubmitEvent } from '#ui/types'
 
 definePageMeta({
   layout: 'auth',
-  middleware: ['auth'],
+  middleware: 'auth',
 })
 
 const isLoading = ref(false)
@@ -66,7 +66,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         Send Reset Link
       </UButton>
 
-      <UAlert v-if="apiError" icon="i-heroicons-exclamation-triangle" color="red" variant="soft" :title="apiError" class="mt-4" />
+      <UAlert v-if="apiError" icon="i-heroicons-exclamation-triangle" color="error" variant="soft" :title="apiError" class="mt-4" />
     </UForm>
 
     <template #footer>

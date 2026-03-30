@@ -1,4 +1,4 @@
-import { useAuthStore } from '~/app/dashboard/stores/auth'
+import { useAuthStore } from '../stores/auth'
 
 export default defineNuxtRouteMiddleware(async (to) => {
   if (process.server) return

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
-import { useAuthStore } from '~/app/dashboard/stores/auth'
+import { useAuthStore } from '../stores/auth'
 
 definePageMeta({
   layout: 'auth',
-  middleware: ['auth'],
+  middleware: 'auth',
 })
 
 const authStore = useAuthStore()
@@ -84,7 +84,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         Register
       </UButton>
 
-      <UAlert v-if="apiError" icon="i-heroicons-exclamation-triangle" color="red" variant="soft" :title="apiError" class="mt-4" />
+      <UAlert v-if="apiError" icon="i-heroicons-exclamation-triangle" color="error" variant="soft" :title="apiError" class="mt-4" />
     </UForm>
 
     <template #footer>

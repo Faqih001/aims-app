@@ -5,7 +5,7 @@ import { useAuthStore } from '../stores/auth'
 
 definePageMeta({
   layout: 'auth',
-  middleware: ['auth'],
+  middleware: 'auth',
 })
 
 const authStore = useAuthStore()
@@ -62,7 +62,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         Login
       </UButton>
 
-       <UAlert v-if="apiError" icon="i-heroicons-exclamation-triangle" color="red" variant="soft" :title="apiError" class="mt-4" />
+       <UAlert v-if="apiError" icon="i-heroicons-exclamation-triangle" color="error" variant="soft" :title="apiError" class="mt-4" />
     </UForm>
 
     <template #footer>

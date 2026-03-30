@@ -1,20 +1,12 @@
-<template>
-  <div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">Manage Accreditations</h1>
-    <UTable :rows="accreditations" :columns="columns">
-      <template #status-data="{ row }">
-        <UBadge :color="row.status === 'Active' ? 'green' : 'orange'">{{ row.status }}</UBadge>
-      </template>
-      <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewDetails(row)">View Details</UButton>
-        <UButton variant="ghost" color="red" @click="manageAccreditation(row)">Manage</UButton>
-      </template>
-    </UTable>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue';
+
+interface Accreditation {
+  id: string;
+  name: string;
+  status: string;
+  expiryDate: string;
+}
 
 const columns = [
   { key: 'id', label: 'ID' },
@@ -24,17 +16,32 @@ const columns = [
   { key: 'actions', label: 'Actions' },
 ];
 
-const accreditations = ref([
+const accreditations = ref<Accreditation[]>([
   { id: 'ACC001', name: 'ISO 9001:2015', status: 'Active', expiryDate: '2024-12-31' },
   { id: 'ACC002', name: 'ISO 14001:2015', status: 'Active', expiryDate: '2025-06-30' },
   { id: 'ACC003', name: 'ISO 27001:2013', status: 'Pending Renewal', expiryDate: '2023-11-15' },
 ]);
 
-function viewDetails(accreditation: any) {
+function viewDetails(accreditation: Accreditation) {
   console.log('Viewing details for:', accreditation);
 }
 
-function manageAccreditation(accreditation: any) {
+function manageAccreditation(accreditation: Accreditation) {
   console.log('Managing accreditation:', accreditation);
 }
 </script>
+
+<template>
+  <div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">Manage Accreditations</h1>
+    <UTable :rows="accreditations" :columns="columns">
+      <template #status-data="{ row }: { row: Accreditation }">
+        <UBadge :color="row.status === 'Active' ? 'success' : 'warning'">{{ row.status }}</UBadge>
+      </template>
+      <template #actions-data="{ row }: { row: Accreditation }">
+        <UButton variant="ghost" @click="viewDetails(row)">View Details</UButton>
+        <UButton variant="ghost" color="error" @click="manageAccreditation(row)">Manage</UButton>
+      </template>
+    </UTable>
+  </div>
+</template>
