@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-
 interface Reviewer {
   id: string;
   name: string;
   email: string;
-  completedReviews: number;
+  completedReviews?: number;
 }
+
+const { data: reviewers, pending, error, refresh } = await useFetch<Reviewer[]>('/api/admin/reviewers');
 
 const columns = [
   { key: 'id', label: 'ID' },
@@ -16,24 +16,36 @@ const columns = [
   { key: 'actions', label: 'Actions' },
 ];
 
-const { data: reviewers, pending, error, refresh } = await useFetch('/api/admin/reviewers');
-
-function viewProfile(reviewer: Reviewer) {
-  console.log('Viewing profile for:', reviewer);
-}
-
-function viewReviews(reviewer: Reviewer) {
-  console.log('Viewing reviews for:', reviewer);
-}
+const items = (reviewer: Reviewer) => [
+  [{
+    label: 'Edit',
+    icon: 'i-heroicons-pencil-square-20-solid',
+    click: () => navigateTo(`/dashboard/admin/reviewers/${reviewer.id}/edit`)
+  }],
+  [{
+    label: 'Delete',
+    icon: 'i-heroicons-trash-20-solid',
+    click: async () => {
+      if (confirm('Are you sure you want to delete this reviewer?')) {
+        await $fetch(`/api/admin/reviewers/${reviewer.id}`, { method: 'DELETE' })
+        refresh()
+      }
+    }
+  }]
+]
 </script>
 
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">Manage Reviewers</h1>
-    <UTable<Reviewer> :rows="reviewers" :columns="columns">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold">Manage Reviewers</h1>
+      <UButton to="/dashboard/admin/reviewers/create" icon="i-heroicons-plus-20-solid">Add Reviewer</UButton>
+    </div>
+    <UTable :rows="reviewers" :columns="columns">
       <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewProfile(row)">View Profile</UButton>
-        <UButton variant="ghost" @click="viewReviews(row)">Reviews</UButton>
+        <UDropdown :items="items(row as Reviewer)">
+          <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
+        </UDropdown>
       </template>
     </UTable>
   </div>
