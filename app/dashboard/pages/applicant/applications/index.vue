@@ -37,7 +37,7 @@ const items = (application: Application) => [
       <UButton to="/dashboard/applicant/applications/create" icon="i-heroicons-plus-20-solid">New Application</UButton>
     </div>
 
-    <UTable<Application> :rows="applications" :columns="columns">
+    <UTable :rows="applications" :columns="columns">
       <template #actions-data="{ row }">
         <UDropdown :items="items(row)">
           <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />

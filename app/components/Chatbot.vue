@@ -1,11 +1,11 @@
 <template>
   <div class="fixed bottom-5 right-5">
-    <UButton v-if="!isOpen" @click="isOpen = true" icon="i-heroicons-chat-bubble-oval-left-ellipsis-20-solid" size="xl" :ui="{ rounded: 'rounded-full' }" />
+    <UButton v-if="!isOpen" @click="isOpen = true" icon="i-heroicons-chat-bubble-oval-left-ellipsis-20-solid" size="xl" class="rounded-full" />
     <UCard v-else class="w-96 h-[70vh] flex flex-col">
       <template #header>
         <div class="flex items-center justify-between">
           <h2 class="text-lg font-semibold">KENAS Chatbot</h2>
-          <UButton @click="isOpen = false" icon="i-heroicons-x-mark-20-solid" color="gray" variant="ghost" />
+          <UButton @click="isOpen = false" icon="i-heroicons-x-mark-20-solid" color="primary" variant="ghost" />
         </div>
       </template>
 
