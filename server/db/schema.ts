@@ -5,6 +5,7 @@ export const applicationStatusEnum = pgEnum('application_status', ['PENDING', 'I
 export const accreditationStatusEnum = pgEnum('accreditation_status', ['ACTIVE', 'EXPIRED', 'PENDING_RENEWAL']);
 export const invoiceStatusEnum = pgEnum('invoice_status', ['PAID', 'PENDING', 'OVERDUE']);
 export const paymentStatusEnum = pgEnum('payment_status', ['COMPLETED', 'PENDING', 'FAILED']);
+export const documentTypeEnum = pgEnum('document_type', ['CERTIFICATE', 'REPORT', 'OTHER']);
 
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -33,6 +34,15 @@ export const applications = pgTable('applications', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
+export const documents = pgTable('documents', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: text('name').notNull(),
+  url: text('url').notNull(),
+  type: documentTypeEnum('type').default('OTHER').notNull(),
+  applicationId: uuid('application_id').references(() => applications.id).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 export const accreditations = pgTable('accreditations', {
   id: uuid('id').defaultRandom().primaryKey(),
   name: text('name').notNull(),
@@ -47,6 +57,20 @@ export const auditLogs = pgTable('audit_logs', {
   userId: uuid('user_id').references(() => users.id),
   action: text('action').notNull(),
   details: text('details'),
+});
+
+export const reviewers = pgTable('reviewers', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
+  specialization: text('specialization'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const assessors = pgTable('assessors', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
+  certification: text('certification'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
 export const invoices = pgTable('invoices', {
@@ -87,6 +111,7 @@ export const applicationAssignments = pgTable('application_assignments', {
   id: uuid('id').defaultRandom().primaryKey(),
   applicationId: uuid('application_id').references(() => applications.id).notNull(),
   assessorId: uuid('assessor_id').references(() => users.id).notNull(),
+  role: userRoleEnum('role').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 

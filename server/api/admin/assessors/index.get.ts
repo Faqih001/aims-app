@@ -1,10 +1,7 @@
-import { db } from '../../../utils/db';
-import { users } from '../../../db/schema';
-import { eq } from 'drizzle-orm';
+import { db } from '~/server/db/drizzle';
+import { assessors } from '~/server/db/schema';
 
 export default defineEventHandler(async () => {
-  const assessors = await db.query.users.findMany({
-    where: eq(users.role, 'ASSESSOR'),
-  });
-  return assessors;
+  const allAssessors = await db.select().from(assessors);
+  return allAssessors;
 });

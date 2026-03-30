@@ -29,6 +29,13 @@
       "when": 1774892268174,
       "tag": "0003_mature_triton",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1774892593745,
+      "tag": "0004_lethal_leader",
+      "breakpoints": true
     }
   ]
 }
