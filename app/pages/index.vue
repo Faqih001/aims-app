@@ -41,6 +41,15 @@ const faqItems = [
   { label: 'Can I track my application status?', content: 'Yes, AIMS provides real-time tracking for each workflow stage, including notifications.' },
   { label: 'What documents are required?', content: 'Core legal and technical documents, quality manuals, and evidence of implementation are required.' }
 ]
+
+const partners = [
+  { file: 'kebs.png', alt: 'KEBS' },
+  { file: 'nema.webp', alt: 'NEMA' },
+  { file: 'kenyamoh.png', alt: 'MOH' },
+  { file: 'kra.webp', alt: 'KRA' },
+  { file: 'kirdi.jpg', alt: 'KIRDI' },
+  { file: 'nca.webp', alt: 'NCA' }
+]
 </script>
 
 <template>
@@ -172,8 +181,8 @@ const faqItems = [
       <UContainer class="max-w-7xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold text-[#003087] dark:text-primary-300 mb-8">Partners</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
-          <UCard v-for="item in ['KEBS', 'NEMA', 'MOH', 'KRA', 'KIRDI', 'NCA']" :key="item" class="rounded-xl grid place-items-center py-6 text-sm font-semibold text-muted">
-            {{ item }}
+          <UCard v-for="p in partners" :key="p.file" class="rounded-xl grid place-items-center py-6">
+            <img :src="`/partners/${p.file}`" :alt="p.alt" class="max-h-16 object-contain" />
           </UCard>
         </div>
       </UContainer>
