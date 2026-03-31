@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PageHeader from '~/app/components/shared/PageHeader.vue'
+import PageHeader from '~/components/shared/PageHeader.vue'
 import StandardDataTable from '~/app/components/shared/StandardDataTable.vue'
 import EntityFormModal from '~/app/components/shared/EntityFormModal.vue'
 

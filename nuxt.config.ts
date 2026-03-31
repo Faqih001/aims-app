@@ -1,8 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  srcDir: 'app/',
+  serverDir: 'server/',
   alias: {
-    '~': '/',
-    '@': '/',
+    '~': '/app',
+    '@': '/app',
     'assets': '/assets',
     'public': '/public'
   },
