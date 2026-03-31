@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { z } from 'zod'
+import { useAuthStore } from '~/dashboard/stores/auth'
 
 definePageMeta({
   layout: false
@@ -7,6 +8,7 @@ definePageMeta({
 
 const toast = useToast()
 const router = useRouter()
+const authStore = useAuthStore()
 
 const loading = ref(false)
 const showPassword = ref(false)
@@ -21,7 +23,7 @@ const roles = [
 
 const schema = z.object({
   fullName: z.string().min(3, 'Full name is required'),
-  email: z.email('Enter a valid email address'),
+  email: z.string().email('Enter a valid email address'),
   password: z.string().min(10, 'Password must be at least 10 characters').regex(/[A-Z]/, 'Password must include at least one uppercase letter').regex(/[a-z]/, 'Password must include at least one lowercase letter').regex(/[0-9]/, 'Password must include at least one number').regex(/[^A-Za-z0-9]/, 'Password must include at least one special character'),
   confirmPassword: z.string().min(1, 'Confirm your password'),
   role: z.enum(['APPLICANT', 'ASSESSOR', 'TECHNICAL_REVIEWER']),
@@ -48,7 +50,13 @@ async function onSubmit() {
   loading.value = true
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await authStore.register({
+      name: state.fullName,
+      email: state.email,
+      password: state.password,
+      role: state.role,
+      organizationName: state.organizationName
+    })
 
     toast.add({
       title: 'Registration successful',
@@ -59,10 +67,10 @@ async function onSubmit() {
 
     showSuccessModal.value = true
   }
-  catch {
+  catch (error: any) {
     toast.add({
       title: 'Registration failed',
-      description: 'Unable to complete registration, please try again',
+      description: error?.data?.statusMessage || 'Unable to complete registration, please try again',
       color: 'error',
       icon: 'i-heroicons-x-circle'
     })

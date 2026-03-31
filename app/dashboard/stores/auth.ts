@@ -40,7 +40,6 @@ export const useAuthStore = defineStore('auth', {
         const cookie = useCookie('auth-token')
         cookie.value = token
         
-        navigateTo('/dashboard')
       } catch (error) {
         this.logout()
         throw error
@@ -62,7 +61,6 @@ export const useAuthStore = defineStore('auth', {
           const cookie = useCookie('auth-token')
           cookie.value = token
           
-          navigateTo('/dashboard')
         } catch (error) {
           this.logout()
           throw error

@@ -74,10 +74,9 @@ const filteredFaqs = computed(() => {
             placeholder="Type your question here..."
             icon="i-heroicons-magnifying-glass"
             size="xl"
-            color="white"
+            color="neutral"
             variant="none"
             class="text-lg w-full"
-            :ui="{ icon: { size: { xl: 'h-6 w-6' } } }"
           />
         </UCard>
       </UContainer>
@@ -111,10 +110,6 @@ const filteredFaqs = computed(() => {
               variant="soft"
               size="lg"
               class="w-full shadow-sm rounded-xl overflow-hidden text-left bg-white dark:bg-[#1A1A1A] border border-gray-100 dark:border-gray-800"
-              :ui="{
-                item: { base: 'px-5 py-4', padding: 'pt-0 pb-5 px-5 text-gray-600 dark:text-gray-300' },
-                default: { class: 'mb-0 border-b border-gray-100 dark:border-gray-800 last:border-0' }
-              }"
             />
             <div v-else class="text-center py-16">
               <UIcon name="i-heroicons-question-mark-circle" class="w-16 h-16 mx-auto mb-4 text-gray-300 dark:text-gray-700" />

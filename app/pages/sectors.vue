@@ -89,7 +89,7 @@ const sectors = [
             v-for="sector in sectors"
             :key="sector.id"
             class="group hover:-translate-y-2 transition-transform duration-300 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-md hover:shadow-xl dark:bg-[#1A1A1A] flex flex-col h-full overflow-hidden"
-            :ui="{ body: { padding: 'p-0 sm:p-0' } }"
+            :ui="{ body: 'p-0 sm:p-0' }"
           >
             <!-- Card Header Pattern/Color -->
             <div :class="['h-2 w-full', sector.color]" />
@@ -111,7 +111,7 @@ const sectors = [
               <!-- Standard info footer -->
               <div class="pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
                 <span class="text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400">Standard</span>
-                <UBadge color="gray" variant="soft" class="text-xs font-mono">{{ sector.standards }}</UBadge>
+                <UBadge color="neutral" variant="soft" class="text-xs font-mono">{{ sector.standards }}</UBadge>
               </div>
             </div>
           </UCard>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { z } from 'zod'
+import { useAuthStore } from '~/dashboard/stores/auth'
 
 definePageMeta({
   layout: false
@@ -7,12 +8,13 @@ definePageMeta({
 
 const toast = useToast()
 const router = useRouter()
+const authStore = useAuthStore()
 
 const loading = ref(false)
 const showPassword = ref(false)
 
 const schema = z.object({
-  email: z.email('Enter a valid email address'),
+  email: z.string().email('Enter a valid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
   rememberMe: z.boolean().optional()
 })
@@ -31,21 +33,28 @@ async function onSubmit() {
   loading.value = true
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 800))
+    await authStore.login({
+      email: state.email,
+      password: state.password
+    })
 
     toast.add({
       title: 'Login successful',
-      description: 'Welcome to AIMS',
+      description: 'Welcome back to AIMS',
       color: 'success',
       icon: 'i-heroicons-check-circle'
     })
 
-    await router.push('/')
+    // Route based on role
+    if (authStore.isAdmin) await router.push('/dashboard/admin')
+    else if (authStore.isAssessor) await router.push('/dashboard/assessor')
+    else if (authStore.isReviewer) await router.push('/dashboard/reviewer')
+    else await router.push('/dashboard/applicant')
   }
-  catch {
+  catch (error: any) {
     toast.add({
       title: 'Login failed',
-      description: 'Please verify your credentials and try again',
+      description: error?.data?.statusMessage || 'Please verify your credentials and try again',
       color: 'error',
       icon: 'i-heroicons-x-circle'
     })
