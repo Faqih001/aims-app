@@ -15,9 +15,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PageHeader from '~/app/components/shared/PageHeader.vue'
-import StandardDataTable from '~/app/components/shared/StandardDataTable.vue'
-import EntityFormModal from '~/app/components/shared/EntityFormModal.vue'
+import PageHeader from '~/components/shared/PageHeader.vue'
+import StandardDataTable from '~/components/shared/StandardDataTable.vue'
+import EntityFormModal from '~/components/shared/EntityFormModal.vue'
 
 const isModalOpen = ref(false)
 const columns = [{ key: 'id', label: 'ID' }, { key: 'amount', label: 'Amount' }, { key: 'status', label: 'Status' }, { key: 'actions' }]

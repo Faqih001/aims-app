@@ -60,7 +60,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PageHeader from '~/app/components/shared/PageHeader.vue'
+import PageHeader from '~/components/shared/PageHeader.vue'
 
 const tickets = ref([
   { id: 'TKT-1029', subject: 'Cannot upload PDF document', message: 'Hi there, I am receiving a 500 error when trying to submit my ISO files. Can you assist?', status: 'OPEN' },

@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PageHeader from '~/app/components/shared/PageHeader.vue'
+import PageHeader from '~/components/shared/PageHeader.vue'
 
 const drawerOpen = ref(false)
 const activeCard = ref<any>(null)

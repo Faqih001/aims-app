@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PageHeader from '~/app/components/shared/PageHeader.vue'
+import PageHeader from '~/components/shared/PageHeader.vue'
 
 const invoices = ref({
   pending: [{ id: 'INV-101', description: 'Initial Assessment Fee', amount: '1500.00' }],

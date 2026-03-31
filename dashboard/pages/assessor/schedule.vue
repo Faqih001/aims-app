@@ -35,8 +35,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PageHeader from '~/app/components/shared/PageHeader.vue'
-import EntityFormModal from '~/app/components/shared/EntityFormModal.vue'
+import PageHeader from '~/components/shared/PageHeader.vue'
+import EntityFormModal from '~/components/shared/EntityFormModal.vue'
 
 const isModalOpen = ref(false)
 const schedules = ref([
