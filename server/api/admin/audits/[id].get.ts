@@ -4,6 +4,8 @@ import { auditLogs } from '~~/server/db/schema';
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id');
-  const result = await db.delete(auditLogs).where(eq(auditLogs.id, id)).returning();
-  return result[0];
+  const result = await db.query.auditLogs.findFirst({
+    where: eq(auditLogs.id, id)
+  });
+  return result;
 });

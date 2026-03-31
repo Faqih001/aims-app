@@ -1,9 +1,9 @@
 import { db } from '~~/server/utils/db';
 import { eq } from 'drizzle-orm';
-import { auditLogs } from '~~/server/db/schema';
+import { applications } from '~~/server/db/schema';
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id');
-  const result = await db.delete(auditLogs).where(eq(auditLogs.id, id)).returning();
+  const result = await db.delete(applications).where(eq(applications.id, id)).returning();
   return result[0];
 });
