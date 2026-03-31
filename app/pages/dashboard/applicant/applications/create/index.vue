@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
-import { useAuthStore } from '~/stores/auth'
 
 const authStore = useAuthStore()
 

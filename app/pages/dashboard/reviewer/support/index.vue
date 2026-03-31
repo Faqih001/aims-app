@@ -74,12 +74,3 @@ function viewTicket(ticket: Ticket) {
   console.log('Viewing ticket:', ticket);
 }
 </script>
-  isModalOpen.value = false;
-  newTicket.subject = '';
-  newTicket.message = '';
-}
-
-function viewTicket(ticket: any) {
-  console.log('Viewing ticket:', ticket);
-}
-</script>

@@ -4,21 +4,22 @@ import { ref } from 'vue';
 interface Audit {
   auditId: string;
   date: string;
-  auditor: string;
+  auditor?: string;
+  type?: string;
   status: string;
 }
 
 const columns = [
   { key: 'auditId', label: 'Audit ID' },
   { key: 'date', label: 'Date' },
-  { key: 'auditor', label: 'Auditor' },
+  { key: 'type', label: 'Type' },
   { key: 'status', label: 'Status' },
   { key: 'actions', label: 'Actions' },
 ];
 
 const audits = ref<Audit[]>([
-  { auditId: 'AUDIT-001', date: '2023-11-15', auditor: 'John Smith', status: 'Scheduled' },
-  { auditId: 'AUDIT-002', date: '2023-09-20', auditor: 'Jane Doe', status: 'Completed' },
+  { auditId: 'AUD-001', date: '2023-09-15', type: 'Initial Assessment', status: 'Completed' },
+  { auditId: 'AUD-002', date: '2023-11-05', type: 'Follow-up', status: 'Scheduled' },
 ]);
 
 function viewDetails(audit: Audit) {
@@ -39,17 +40,3 @@ function viewDetails(audit: Audit) {
     </UTable>
   </div>
 </template>
-  { key: 'type', label: 'Type' },
-  { key: 'status', label: 'Status' },
-  { key: 'actions', label: 'Actions' },
-];
-
-const audits = ref([
-  { auditId: 'AUD-001', date: '2023-09-15', type: 'Initial Assessment', status: 'Completed' },
-  { auditId: 'AUD-002', date: '2023-11-05', type: 'Follow-up', status: 'Scheduled' },
-]);
-
-function viewDetails(audit: any) {
-  console.log('Viewing audit details:', audit);
-}
-</script>
