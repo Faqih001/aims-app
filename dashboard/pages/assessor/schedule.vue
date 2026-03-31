@@ -12,8 +12,8 @@
            <h4 class="font-bold mb-4">Upcoming Scheduled Assessments</h4>
            <div v-for="sched in schedules" :key="sched.id" class="flex justify-between items-center p-3 border dark:border-gray-700 rounded-lg mb-2">
              <div>
-               <div class="font-medium">{{ sched.title }}</div>
-               <div class="text-sm text-gray-500">{{ sched.date }} at {{ sched.time }}</div>
+               <div class="font-medium">{{ sched.notes || `Application ${sched.applicationId}` }}</div>
+               <div class="text-sm text-gray-500">{{ new Date(sched.scheduledAt).toLocaleDateString() }} at {{ new Date(sched.scheduledAt).toLocaleTimeString() }}</div>
              </div>
              <UBadge color="green" variant="subtle">Confirmed</UBadge>
            </div>
@@ -39,10 +39,7 @@ import PageHeader from '~/app/components/shared/PageHeader.vue'
 import EntityFormModal from '~/app/components/shared/EntityFormModal.vue'
 
 const isModalOpen = ref(false)
-const schedules = ref([
-  { id: 1, title: 'On-site Assessment: Tech Corp', date: '2026-04-10', time: '09:00 AM' },
-  { id: 2, title: 'Virtual Review: CyberNet', date: '2026-04-15', time: '02:00 PM' }
-])
+const { data: schedules } = await useFetch('/api/assessor/schedule', { default: () => [] })
 
 const blockDate = (data: any) => {
   alert(`Blocked date: ${data.date} for reason: ${data.reason}`)

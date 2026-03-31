@@ -64,7 +64,7 @@ import { ref } from 'vue'
 import PageHeader from '~/app/components/shared/PageHeader.vue'
 
 // Fetch dynamically vs mock
-const { data: tickets, refresh } = await useFetch('/api/support-tickets', { default: () => [] })
+const { data: tickets, refresh } = await useFetch('/api/admin/support', { default: () => [] })
 const activeTicket = ref<any>(null)
 const replyText = ref('')
 

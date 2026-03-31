@@ -1,0 +1,19 @@
+{
+  "admin_audits": [
+    { "id": 1, "timestamp": "2026-03-31", "ipAddress": "192.168.1.1", "userId": "SYSTEM", "action": "STARTUP", "details": "System initialized" }
+  ],
+  "assessor_schedule": [
+    { "id": 1, "title": "On-site Assessment: Tech Corp", "date": "2026-04-10", "time": "09:00 AM" },
+    { "id": 2, "title": "Virtual Review: CyberNet", "date": "2026-04-15", "time": "02:00 PM" }
+  ],
+  "assessor_assignments_to_do": [
+    { "id": "APP-2026-01", "scope": "ISO 9001 Auditing - Tech Corp", "date": "Oct 12" },
+    { "id": "APP-2026-05", "scope": "ISO 27001 Security - CyberNet", "date": "Oct 14" }
+  ],
+  "assessor_assignments_in_progress": [
+    { "id": "APP-2026-03", "scope": "ISO 14001 Env - Green Co", "date": "Oct 10" }
+  ],
+  "assessor_assignments_completed": [
+    { "id": "APP-2026-02", "scope": "ISO 9001 Auditing - BuildIt", "date": "Oct 08" }
+  ]
+}

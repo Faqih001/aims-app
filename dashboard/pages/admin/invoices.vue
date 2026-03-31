@@ -23,7 +23,7 @@ const isModalOpen = ref(false)
 const columns = [{ key: 'id', label: 'ID' }, { key: 'amount', label: 'Amount' }, { key: 'status', label: 'Status' }, { key: 'actions' }]
 
 // Real API Fetch
-const { data: invoices, refresh } = await useFetch('/api/invoices', { default: () => [] })
+const { data: invoices, refresh } = await useFetch('/api/admin/invoices', { default: () => [] })
 
 const invoiceFields = [
   { name: 'amount', label: 'Amount', type: 'text' },

@@ -31,7 +31,5 @@ const columns = [
 ]
 
 // Assuming an audit logs API exists, else defaults to empty
-const { data: auditLogs } = await useFetch('/api/audit-logs', { default: () => [
-  { id: 1, timestamp: new Date().toISOString(), ipAddress: '192.168.1.1', userId: 'SYSTEM', action: 'STARTUP', details: 'System initialized' }
-]})
+const { data: auditLogs } = await useFetch('/api/admin/audits', { default: () => [] })
 </script>

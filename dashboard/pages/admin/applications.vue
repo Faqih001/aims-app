@@ -32,7 +32,7 @@ const columns = [
   { key: 'actions' }
 ]
 
-const { data: applications, refresh } = await useFetch('/api/applications', { default: () => [] })
+const { data: applications, refresh } = await useFetch('/api/admin/applications', { default: () => [] })
 
 const appFields = [
   { name: 'scope', label: 'Assessment Scope', type: 'text' },

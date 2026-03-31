@@ -68,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import PageHeader from '~/app/components/shared/PageHeader.vue'
 
 const drawerOpen = ref(false)
@@ -76,30 +76,34 @@ const activeCard = ref<any>(null)
 const verdict = ref('Approve')
 const notes = ref('')
 
-const columns = ref([
-  {
-    status: 'TO_DO',
-    title: 'To Do',
-    cards: [
-      { id: 'APP-2026-01', scope: 'ISO 9001 Auditing - Tech Corp', date: 'Oct 12' },
-      { id: 'APP-2026-05', scope: 'ISO 27001 Security - CyberNet', date: 'Oct 14' }
-    ]
-  },
-  {
-    status: 'IN_PROGRESS',
-    title: 'In Progress',
-    cards: [
-      { id: 'APP-2026-03', scope: 'ISO 14001 Env - Green Co', date: 'Oct 10' }
-    ]
-  },
-  {
-    status: 'DONE',
-    title: 'Completed',
-    cards: [
-      { id: 'APP-2026-02', scope: 'ISO 9001 Auditing - BuildIt', date: 'Oct 08' }
-    ]
-  }
-])
+
+const { data: assignmentsList } = await useFetch('/api/assessor/assignments', { default: () => [] })
+
+const columns = computed(() => {
+  const list = assignmentsList.value || []
+  return [
+    {
+      status: 'TO_DO',
+      title: 'To Do',
+      cards: list.map(a => ({
+        id: a.id,
+        scope: `Application ${a.applicationId}`,
+        date: new Date(a.createdAt).toLocaleDateString()
+      }))
+    },
+    {
+      status: 'IN_PROGRESS',
+      title: 'In Progress',
+      cards: [] // Additional logic based on assessment status can be added later
+    },
+    {
+      status: 'DONE',
+      title: 'Completed',
+      cards: []
+    }
+  ]
+})
+
 
 const openDrawer = (card: any) => {
   activeCard.value = card

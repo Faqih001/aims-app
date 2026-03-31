@@ -22,10 +22,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import PageHeader from '~/app/components/shared/PageHeader.vue'
 import TimelineStatus from '~/app/components/shared/TimelineStatus.vue'
 
 // Dummy representation
-const currentDbStatus = ref('REVIEWED')
+
+const { data: myApps } = await useFetch('/api/applicant/applications', { default: () => [] })
+const currentDbStatus = computed(() => myApps.value?.length ? myApps.value[0].status : 'PENDING')
+
 </script>

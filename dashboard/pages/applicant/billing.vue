@@ -33,7 +33,7 @@ import { computed } from 'vue'
 import PageHeader from '~/app/components/shared/PageHeader.vue'
 
 // API Fetch logic
-const { data: dbInvoices, refresh } = await useFetch('/api/invoices', { default: () => [] })
+const { data: dbInvoices, refresh } = await useFetch('/api/applicant/invoices', { default: () => [] })
 
 // Compute split statuses from the endpoint
 const pendingInvoices = computed(() => dbInvoices.value?.filter((i: any) => i.status === 'PENDING') || [])

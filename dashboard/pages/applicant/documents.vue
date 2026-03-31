@@ -35,7 +35,7 @@ const dragover = ref(false)
 const fileInput = ref()
 
 // Fetch from API
-const { data: documents, refresh } = await useFetch('/api/documents', { default: () => [] })
+const { data: documents, refresh } = await useFetch('/api/applicant/documents', { default: () => [] })
 
 const columns = [
   { key: 'name', label: 'File Name' },

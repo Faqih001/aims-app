@@ -32,7 +32,7 @@ const columns = [
   { key: 'actions' }
 ]
 
-const { data: payments, refresh } = await useFetch('/api/payments', { default: () => [] })
+const { data: payments, refresh } = await useFetch('/api/admin/payments', { default: () => [] })
 
 const paymentFields = [
   { name: 'transactionId', label: 'Transaction ID', type: 'text' },

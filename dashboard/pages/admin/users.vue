@@ -33,7 +33,7 @@ const columns = [
 ]
 
 // Fetch from Generic CRUD mapped API (Assumption: we have /api/users or use dummy data until backend is fully seeded)
-const { data: users, refresh } = await useFetch('/api/users', { default: () => [] })
+const { data: users, refresh } = await useFetch('/api/admin/users', { default: () => [] })
 
 // Define Form schema
 const userFields = [
