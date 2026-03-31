@@ -211,6 +211,7 @@ export const messages = pgTable('messages', {
   applicationId: uuid('application_id').references(() => applications.id),
   subject: text('subject'),
   body: text('body').notNull(),
+  attachmentUrl: text('attachment_url'),
   isRead: boolean('is_read').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
@@ -229,6 +230,25 @@ export const ticketMessages = pgTable('ticket_messages', {
   ticketId: uuid('ticket_id').references(() => supportTickets.id).notNull(),
   senderId: uuid('sender_id').references(() => users.id).notNull(),
   message: text('message').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const actionItems = pgTable('action_items', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
+  applicationId: uuid('application_id').references(() => applications.id),
+  title: text('title').notNull(),
+  description: text('description'),
+  status: actionItemStatusEnum('status').default('PENDING').notNull(),
+  dueDate: timestamp('due_date'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const helpArticles = pgTable('help_articles', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  title: text('title').notNull(),
+  content: text('content').notNull(),
+  category: text('category').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
