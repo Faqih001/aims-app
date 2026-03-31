@@ -38,7 +38,7 @@ const items = (accreditation: Accreditation) => [
     icon: 'i-heroicons-trash-20-solid',
     click: async () => {
       if (confirm('Are you sure you want to delete this accreditation?')) {
-        await $fetch(`/api/admin/accreditations/${accreditation.id}`, { method: 'DELETE' })
+        await $fetch<any>(`/api/admin/accreditations/${accreditation.id}`, { method: 'DELETE' })
         refresh()
       }
     }

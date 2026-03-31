@@ -13,7 +13,7 @@
 import { ref } from 'vue';
 
 const authStore = useAuthStore();
-const { data: audits, pending, error } = useFetch(`/api/assessors/${authStore.user?.id}/audits`);
+const { data: audits, pending, error } = useFetch<any>(`/api/assessors/${authStore.user?.id}/audits`);
 
 const columns: TableColumn[] = [
   { key: 'id', label: 'Audit ID' },

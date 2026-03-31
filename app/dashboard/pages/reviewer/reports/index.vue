@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const authStore = useAuthStore();
-const { data: reviews, pending, error } = useFetch(`/api/reviewers/${authStore.user?.id}/reviews`);
+const { data: reviews, pending, error } = useFetch<any>(`/api/reviewers/${authStore.user?.id}/reviews`);
 
 const totalReviews = computed(() => reviews.value?.length ?? 0);
 const latestRecommendation = computed(() => reviews.value?.[0]?.recommendation ?? 'n/a');

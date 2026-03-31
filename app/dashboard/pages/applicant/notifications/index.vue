@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const authStore = useAuthStore();
-const { data: notifications, pending, error, refresh } = useFetch(`/api/users/${authStore.user?.id}/notifications`);
+const { data: notifications, pending, error, refresh } = useFetch<any>(`/api/users/${authStore.user?.id}/notifications`);
 
 async function markAsRead(notification: any) {
   await $fetch(`/api/notifications/${notification.id}`, {

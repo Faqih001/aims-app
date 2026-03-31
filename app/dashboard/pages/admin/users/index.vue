@@ -27,7 +27,7 @@ const items = (user: User) => [
     icon: 'i-heroicons-trash-20-solid',
     click: async () => {
       if (confirm('Are you sure you want to delete this user?')) {
-        await $fetch(`/api/users/${user.id}`, { method: 'DELETE' })
+        await $fetch<any>(`/api/users/${user.id}`, { method: 'DELETE' })
         refresh()
       }
     }

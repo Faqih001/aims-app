@@ -5,7 +5,7 @@ import type { FormSubmitEvent } from '#ui/types'
 const route = useRoute()
 const reviewerId = route.params.id
 
-const { data: reviewer, pending } = await useFetch(`/api/admin/reviewers/${reviewerId}`)
+const { data: reviewer, pending } = await useFetch<any>(`/api/admin/reviewers/${reviewerId}`)
 
 const schema = z.object({
   name: z.string().min(3),

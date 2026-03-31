@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const { data: applications, pending, error } = await useFetch('/api/applications')
+const { data: applications, pending, error } = await useFetch<any>('/api/applications')
 
 const columns: TableColumn[] = [
   { key: 'id', label: 'ID' },

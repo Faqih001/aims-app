@@ -20,7 +20,7 @@ const invoiceColumns = [
   { key: 'actions', label: 'Actions' },
 ];
 
-const { data: invoices, pending, error, refresh } = await useFetch('/api/admin/billing');
+const { data: invoices, pending, error, refresh } = await useFetch<any>('/api/admin/billing');
 
 const formattedInvoices = computed(() => {
   if (!invoices.value) return [];

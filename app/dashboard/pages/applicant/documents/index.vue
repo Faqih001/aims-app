@@ -10,7 +10,7 @@ interface Document {
 }
 
 const authStore = useAuthStore();
-const { data: documents, pending, error, refresh } = useFetch(`/api/users/${authStore.user?.id}/documents`);
+const { data: documents, pending, error, refresh } = useFetch<any>(`/api/users/${authStore.user?.id}/documents`);
 
 const columns = [
   { key: 'name', label: 'Name' },

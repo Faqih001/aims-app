@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const authStore = useAuthStore();
-const { data: payments, pending, error } = useFetch(`/api/users/${authStore.user?.id}/payments`);
+const { data: payments, pending, error } = useFetch<any>(`/api/users/${authStore.user?.id}/payments`);
 
 const columns = [
   { key: 'id', label: 'Transaction ID' },

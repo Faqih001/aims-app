@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const authStore = useAuthStore();
-const { data: feedback, pending, error } = useFetch(`/api/users/${authStore.user?.id}/feedback`);
+const { data: feedback, pending, error } = useFetch<any>(`/api/users/${authStore.user?.id}/feedback`);
 </script>
 
 <template>

@@ -27,7 +27,7 @@ const items = (reviewer: Reviewer) => [
     icon: 'i-heroicons-trash-20-solid',
     click: async () => {
       if (confirm('Are you sure you want to delete this reviewer?')) {
-        await $fetch(`/api/admin/reviewers/${reviewer.id}`, { method: 'DELETE' })
+        await $fetch<any>(`/api/admin/reviewers/${reviewer.id}`, { method: 'DELETE' })
         refresh()
       }
     }

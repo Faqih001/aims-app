@@ -2,7 +2,7 @@
 const route = useRoute()
 const applicationId = route.params.id
 
-const { data: application, pending, error } = await useFetch(`/api/applications/${applicationId}`)
+const { data: application, pending, error } = await useFetch<any>(`/api/applications/${applicationId}`)
 
 const tabs = [
   { label: 'Details', key: 'details' },

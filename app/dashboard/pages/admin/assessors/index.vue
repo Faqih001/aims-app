@@ -25,7 +25,7 @@ const items = (assessor: Assessor) => [
     icon: 'i-heroicons-trash-20-solid',
     click: async () => {
       if (confirm('Are you sure you want to delete this assessor?')) {
-        await $fetch(`/api/admin/assessors/${assessor.id}`, { method: 'DELETE' })
+        await $fetch<any>(`/api/admin/assessors/${assessor.id}`, { method: 'DELETE' })
         refresh()
       }
     }

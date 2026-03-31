@@ -8,7 +8,7 @@ interface Payment {
 }
 
 const authStore = useAuthStore();
-const { data: billing, pending, error } = useFetch(`/api/users/${authStore.user?.id}/billing`);
+const { data: billing, pending, error } = useFetch<any>(`/api/users/${authStore.user?.id}/billing`);
 
 const paymentForm = reactive({
   amount: 0,

@@ -21,7 +21,7 @@ const columns = [
   { key: 'details', label: 'Details' },
 ];
 
-const { data: audits, pending, error, refresh } = await useFetch('/api/admin/audits');
+const { data: audits, pending, error, refresh } = await useFetch<any>('/api/admin/audits');
 
 const formattedAudits = computed(() => {
   if (!audits.value) return [];

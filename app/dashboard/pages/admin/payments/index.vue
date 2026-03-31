@@ -18,7 +18,7 @@ const columns = [
   { key: 'actions', label: 'Actions' },
 ];
 
-const { data: payments, pending, error, refresh } = await useFetch('/api/admin/payments');
+const { data: payments, pending, error, refresh } = await useFetch<any>('/api/admin/payments');
 
 function viewDetails(payment: Payment) {
   console.log('Viewing payment details:', payment);

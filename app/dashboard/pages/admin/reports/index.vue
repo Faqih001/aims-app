@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { data: userGrowth, pending: userPending } = useFetch('/api/admin/reports/user-growth');
-const { data: appSummary, pending: appPending } = useFetch('/api/admin/reports/applications-summary');
-const { data: revenue, pending: revenuePending } = useFetch('/api/admin/reports/revenue');
+const { data: userGrowth, pending: userPending } = useFetch<any>('/api/admin/reports/user-growth');
+const { data: appSummary, pending: appPending } = useFetch<any>('/api/admin/reports/applications-summary');
+const { data: revenue, pending: revenuePending } = useFetch<any>('/api/admin/reports/revenue');
 </script>
 
 <template>

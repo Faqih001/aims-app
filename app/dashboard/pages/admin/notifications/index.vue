@@ -22,15 +22,15 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
-const { data: notifications, pending, error, refresh } = await useFetch('/api/admin/notifications');
+const { data: notifications, pending, error, refresh } = await useFetch<any>('/api/admin/notifications');
 
 async function markAsRead(notification: any) {
-  await $fetch(`/api/admin/notifications/${notification.id}`, { method: 'PUT' });
+  await $fetch<any>(`/api/admin/notifications/${notification.id}`, { method: 'PUT' });
   refresh();
 }
 
 async function markAllAsRead() {
-  await $fetch('/api/admin/notifications/read-all', { method: 'PUT' });
+  await $fetch<any>('/api/admin/notifications/read-all', { method: 'PUT' });
   refresh();
 }
 

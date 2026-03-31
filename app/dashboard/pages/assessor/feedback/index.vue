@@ -28,7 +28,7 @@ import { ref, reactive } from 'vue';
 
 const authStore = useAuthStore();
 const toast = useToast();
-const { data: previousFeedback, pending, error, refresh } = useFetch(`/api/assessors/${authStore.user?.id}/feedback`);
+const { data: previousFeedback, pending, error, refresh } = useFetch<any>(`/api/assessors/${authStore.user?.id}/feedback`);
 
 const feedbackForm = reactive({
   applicationId: '',

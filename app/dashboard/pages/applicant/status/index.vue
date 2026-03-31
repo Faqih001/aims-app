@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 const authStore = useAuthStore();
-const { data: application, pending, error } = useFetch(`/api/users/${authStore.user?.id}/status`);
+const { data: application, pending, error } = useFetch<any>(`/api/users/${authStore.user?.id}/status`);
 
 const statusColor = computed(() => {
   if (!application.value) return 'gray';
