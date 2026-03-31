@@ -5,11 +5,15 @@ import { getUserByEmail, createUser } from '../../utils/db'
 
 const { jwtSecret } = useRuntimeConfig()
 
+import { db } from '../../utils/db'
+import { organizations } from '../../db/schema'
+
 const schema = z.object({
     name: z.string().min(3),
     email: z.string().email(),
     password: z.string().min(8),
     role: z.enum(['APPLICANT', 'ASSESSOR', 'TECHNICAL_REVIEWER']),
+    organizationName: z.string().optional()
 })
 
 export default defineEventHandler(async (event) => {
@@ -20,11 +24,24 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 400, statusMessage: 'Invalid input' })
     }
 
-    const { name, email, password, role } = validation.data
+    const { name, email, password, role, organizationName } = validation.data
 
     const existingUser = await getUserByEmail(email)
     if (existingUser) {
         throw createError({ statusCode: 409, statusMessage: 'User already exists' })
+    }
+
+    let orgId = null
+    if (role === 'APPLICANT' && organizationName) {
+        // Simple logic to create an organization 
+        // Need to pass registration_number or it'll fail. But registrationNumber is required and unique!
+        // We'll generate a dummy one for now if it's missing, since the form didn't capture it.
+        const [org] = await db.insert(organizations).values({
+            name: organizationName,
+            registrationNumber: `REG-${Date.now()}`,
+            contactEmail: email,
+        }).returning()
+        orgId = org.id
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -34,6 +51,7 @@ export default defineEventHandler(async (event) => {
         email,
         password: hashedPassword,
         role,
+        organizationId: orgId
     })
 
     const token = jwt.sign({ userId: newUser.id }, jwtSecret, { expiresIn: '7d' })

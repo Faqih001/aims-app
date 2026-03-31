@@ -26,7 +26,11 @@ async function onSubmit() {
   loading.value = true
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 800))
+    await $fetch('/api/auth/forgot-password', {
+      method: 'POST',
+      body: { email: state.email }
+    })
+    
     submitted.value = true
 
     toast.add({
