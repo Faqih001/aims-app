@@ -3,10 +3,10 @@ export default defineNuxtConfig({
   srcDir: 'app/',
   serverDir: 'server/',
   alias: {
-    '~': '/app',
-    '@': '/app',
-    'assets': '/assets',
-    'public': '/public'
+    '~': './app',
+    '@': './app',
+    'assets': './assets',
+    'public': './public'
   },
   runtimeConfig: {
     jwtSecret: process.env.JWT_SECRET,
