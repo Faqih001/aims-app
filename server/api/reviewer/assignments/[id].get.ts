@@ -1,6 +1,6 @@
 import { db } from '~~/server/utils/db';
 import { eq } from 'drizzle-orm';
-import { assignments } from '~~/server/db/schema';
+import { applicationAssignments as assignments } from '~~/server/db/schema';
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id');

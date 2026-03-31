@@ -1,5 +1,5 @@
 import { db } from '~~/server/utils/db';
-import { assignments } from '~~/server/db/schema';
+import { applicationAssignments as assignments } from '~~/server/db/schema';
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
