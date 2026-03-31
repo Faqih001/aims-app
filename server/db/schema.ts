@@ -106,6 +106,7 @@ export const notifications = pgTable('notifications', {
 
 export const payments = pgTable('payments', {
   id: uuid('id').defaultRandom().primaryKey(),
+  invoiceId: uuid('invoice_id').references(() => invoices.id),
   transactionId: text('transaction_id').notNull(),
   date: timestamp('date').defaultNow().notNull(),
   amount: text('amount').notNull(),
@@ -149,7 +150,7 @@ export const reviews = pgTable('reviews', {
 export const schedules = pgTable('schedules', {
   id: uuid('id').defaultRandom().primaryKey(),
   applicationId: uuid('application_id').references(() => applications.id).notNull(),
-  assessorId: uuid('assessor_id').references(() => users.id).notNull(),
+  userId: uuid('user_id').references(() => users.id).notNull(), // Both assessors and reviewers
   scheduledAt: timestamp('scheduled_at').notNull(),
   durationMinutes: integer('duration_minutes').notNull(),
   timezone: text('timezone').notNull(),
@@ -160,7 +161,7 @@ export const schedules = pgTable('schedules', {
 
 export const assessmentMetrics = pgTable('assessment_metrics', {
   id: uuid('id').defaultRandom().primaryKey(),
-  assessorId: uuid('assessor_id').references(() => users.id).notNull(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
   totalAssessments: integer('total_assessments').default(0).notNull(),
   completionRate: integer('completion_rate').default(0).notNull(),
   averageScore: integer('average_score'),
@@ -170,8 +171,46 @@ export const assessmentMetrics = pgTable('assessment_metrics', {
 export const applicationAssignments = pgTable('application_assignments', {
   id: uuid('id').defaultRandom().primaryKey(),
   applicationId: uuid('application_id').references(() => applications.id).notNull(),
-  assessorId: uuid('assessor_id').references(() => users.id).notNull(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
   role: userRoleEnum('role').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const userSettings = pgTable('user_settings', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').references(() => users.id).notNull().unique(),
+  emailNotifications: boolean('email_notifications').default(true).notNull(),
+  smsNotifications: boolean('sms_notifications').default(false).notNull(),
+  theme: text('theme').default('light').notNull(),
+  language: text('language').default('en').notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export const messages = pgTable('messages', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  senderId: uuid('sender_id').references(() => users.id).notNull(),
+  receiverId: uuid('receiver_id').references(() => users.id),
+  applicationId: uuid('application_id').references(() => applications.id),
+  subject: text('subject'),
+  body: text('body').notNull(),
+  isRead: boolean('is_read').default(false).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const systemFeedback = pgTable('system_feedback', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').references(() => users.id).notNull(),
+  rating: integer('rating').notNull(),
+  comments: text('comments'),
+  category: text('category'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const ticketMessages = pgTable('ticket_messages', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  ticketId: uuid('ticket_id').references(() => supportTickets.id).notNull(),
+  senderId: uuid('sender_id').references(() => users.id).notNull(),
+  message: text('message').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
