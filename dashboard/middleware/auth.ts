@@ -13,7 +13,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // Role-Based Access Control logic
   if (isDashboardRoute && userRole) {
     if (to.path.startsWith('/dashboard/pages/admin') && userRole !== 'SYSTEM_ADMIN') {
-      return navigateTo('/dashboard/pages/applicant') // Redirect unauthorised to applicant role
+      return navigateTo('/dashboard/pages/applicant') // Redirect unauthorised
     }
     if (to.path.startsWith('/dashboard/pages/assessor') && userRole !== 'ASSESSOR' && userRole !== 'SYSTEM_ADMIN') {
       return navigateTo('/dashboard/pages/applicant')

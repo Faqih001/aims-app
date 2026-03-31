@@ -15,7 +15,7 @@
         <input type="file" multiple class="hidden" ref="fileInput" @change="handleFileSelect" />
       </div>
 
-      <div class="mt-8" v-if="documents.length > 0">
+      <div class="mt-8" v-if="documents && documents.length > 0">
         <h3 class="text-lg font-semibold mb-4">Uploaded Documents</h3>
         <UTable :columns="columns" :rows="documents">
           <template #actions-data="{ row }">
@@ -33,14 +33,14 @@ import PageHeader from '~/app/components/shared/PageHeader.vue'
 
 const dragover = ref(false)
 const fileInput = ref()
-const documents = ref([
-  { id: 1, name: 'Company_Registration.pdf', type: 'CERTIFICATE', date: '2026-03-31' }
-])
+
+// Fetch from API
+const { data: documents, refresh } = await useFetch('/api/documents', { default: () => [] })
 
 const columns = [
   { key: 'name', label: 'File Name' },
   { key: 'type', label: 'Document Type' },
-  { key: 'date', label: 'Upload Date' },
+  { key: 'createdAt', label: 'Upload Date' },
   { key: 'actions' }
 ]
 
@@ -54,18 +54,25 @@ const handleFileSelect = (e: Event) => {
   if (target.files) processFiles(target.files)
 }
 
-const processFiles = (files: FileList) => {
-  Array.from(files).forEach(file => {
-    documents.value.push({
-      id: Math.random(),
-      name: file.name,
-      type: 'OTHER',
-      date: new Date().toISOString().split('T')[0]
-    })
-  })
+const processFiles = async (files: FileList) => {
+  for (const file of Array.from(files)) {
+     // In a real app we would use FormData to upload the file to cloud storage here
+     // For this test we will just seed the metadata directly to the database
+     await $fetch('/api/documents', {
+       method: 'POST',
+       body: {
+         name: file.name,
+         url: `/uploads/tmp/${file.name}`,
+         type: 'OTHER',
+         applicationId: '00000000-0000-0000-0000-000000000000' // dummy ref
+       }
+     })
+  }
+  await refresh()
 }
 
-const removeDoc = (row: any) => {
-  documents.value = documents.value.filter(d => d.id !== row.id)
+const removeDoc = async (row: any) => {
+  await $fetch(`/api/documents/${row.id}`, { method: 'DELETE' })
+  await refresh()
 }
 </script>

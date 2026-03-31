@@ -4,8 +4,9 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-[70vh]">
       <!-- Ticket List -->
       <UCard :ui="{ body: { padding: 'p-0', base: 'flex flex-col h-full overflow-hidden' } }" class="md:col-span-1">
-        <div class="p-4 border-b dark:border-gray-800">
-          <UInput icon="i-heroicons-search" placeholder="Search tickets..." />
+        <div class="p-4 border-b dark:border-gray-800 flex justify-between gap-2">
+          <UInput class="flex-1" icon="i-heroicons-search" placeholder="Search tickets..." />
+          <UButton icon="i-heroicons-plus" color="gray" @click="createNew" />
         </div>
         <div class="flex-1 overflow-y-auto">
           <div 
@@ -30,22 +31,22 @@
              <h3 class="font-bold text-lg">{{ activeTicket.subject }}</h3>
              <p class="text-sm text-gray-500">Ticket #{{ activeTicket.id }}</p>
           </div>
-          <UButton v-if="activeTicket.status === 'OPEN'" color="gray" label="Mark as Closed" @click="activeTicket.status = 'CLOSED'" />
+          <UButton v-if="activeTicket.status === 'OPEN'" color="gray" label="Mark as Closed" @click="closeTicket" />
         </div>
         
         <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50 dark:bg-gray-900/50">
           <div class="flex gap-4">
             <UAvatar src="https://avatars.githubusercontent.com/u/101?v=4" />
             <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg flex-1">
-              <p class="text-sm font-semibold mb-1">Applicant User</p>
+              <p class="text-sm font-semibold mb-1">Applicant User ({{ activeTicket.userId }})</p>
               <p class="text-sm">{{ activeTicket.message }}</p>
             </div>
           </div>
         </div>
 
         <div class="p-4 border-t dark:border-gray-800 flex gap-2">
-          <UInput class="flex-1" placeholder="Type a response..." v-model="replyText" @keyup.enter="sendReply" />
-          <UButton icon="i-heroicons-paper-airplane" color="primary" @click="sendReply" />
+          <UInput class="flex-1" placeholder="Admin reply currently disabled..." v-model="replyText" disabled />
+          <UButton icon="i-heroicons-paper-airplane" color="primary" disabled />
         </div>
       </UCard>
       <UCard v-else class="md:col-span-2 flex items-center justify-center bg-gray-50/50 dark:bg-gray-800/20">
@@ -62,18 +63,31 @@
 import { ref } from 'vue'
 import PageHeader from '~/app/components/shared/PageHeader.vue'
 
-const tickets = ref([
-  { id: 'TKT-1029', subject: 'Cannot upload PDF document', message: 'Hi there, I am receiving a 500 error when trying to submit my ISO files. Can you assist?', status: 'OPEN' },
-  { id: 'TKT-1028', subject: 'Invoice Billing issue', message: 'I was accidentally double charged for the registration fee.', status: 'OPEN' },
-  { id: 'TKT-1020', subject: 'Change of Assessment Scope', message: 'Need to update our scope before next week.', status: 'CLOSED' }
-])
-
+// Fetch dynamically vs mock
+const { data: tickets, refresh } = await useFetch('/api/support-tickets', { default: () => [] })
 const activeTicket = ref<any>(null)
 const replyText = ref('')
 
-const sendReply = () => {
-  if (!replyText.value) return;
-  alert('Reply Sent: ' + replyText.value)
-  replyText.value = ''
+const closeTicket = async () => {
+  if(!activeTicket.value) return;
+  await $fetch(`/api/support-tickets/${activeTicket.value.id}`, {
+    method: 'PUT',
+    body: { status: 'CLOSED' }
+  })
+  activeTicket.value.status = 'CLOSED'
+  await refresh()
+}
+
+const createNew = async () => {
+  await $fetch('/api/support-tickets', {
+    method: 'POST',
+    body: {
+      subject: 'Generated Dummy Request',
+      message: 'This is a test request from the admin side just to populate the DB.',
+      userId: '00000000-0000-0000-0000-000000000000',
+      status: 'OPEN'
+    }
+  })
+  await refresh()
 }
 </script>
