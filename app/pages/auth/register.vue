@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { z } from 'zod'
-import { useAuthStore } from '../../stores/auth'
+import { useAuthStore } from '~/stores/auth'
 
 definePageMeta({
   layout: false

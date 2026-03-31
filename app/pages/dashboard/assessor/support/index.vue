@@ -50,7 +50,7 @@ function viewTicket(ticket: Ticket) {
     <div class="flex justify-end mb-4">
       <UButton @click="isModalOpen = true">Create New Ticket</UButton>
     </div>
-    <UTable<Ticket> :rows="tickets" :columns="columns">
+    <UTable :rows="tickets" :columns="columns">
       <template #actions-data="{ row }">
         <UButton variant="ghost" @click="viewTicket(row)">View</UButton>
       </template>

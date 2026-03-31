@@ -72,7 +72,7 @@ export const useAuthStore = defineStore('auth', {
       this.isAuthenticated = false
       const cookie = useCookie('auth-token')
       cookie.value = null
-      navigateTo('/dashboard/login')
+      navigateTo('/auth/login')
     },
     async fetchUser() {
         const cookie = useCookie('auth-token')

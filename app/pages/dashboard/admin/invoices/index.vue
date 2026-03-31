@@ -40,32 +40,17 @@ const { data: invoices, pending, error, refresh } = await useFetch<any>('/api/ad
 
 const formattedInvoices = computed(() => {
   if (!invoices.value) return [];
-  return invoices.value.map(invoice => ({
+  return invoices.value.map((invoice: any) => ({
     ...invoice,
-    formattedDate: dayjs(invoice.date).format('YYYY-MM-DD'),
+    formattedDate: dayjs(invoice.createdAt).format('YYYY-MM-DD'),
   }));
 });
 
-function viewInvoice(invoice: Invoice) {
-  console.log('Viewing invoice:', invoice);
-}
+const viewInvoice = (invoice: Invoice) => {
+  console.log('View invoice', invoice);
+};
 
-function downloadInvoice(invoice: Invoice) {
-  console.log('Downloading invoice:', invoice);
-}
+const downloadInvoice = (invoice: Invoice) => {
+  console.log('Download invoice', invoice);
+};
 </script>
-
-<template>
-  <div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">Invoices</h1>
-    <UTable :rows="formattedInvoices" :columns="columns as any">
-      <template #status-data="{ row }">
-        <UBadge :color="row.status === 'PAID' ? 'success' : 'warning'">{{ row.status }}</UBadge>
-      </template>
-      <template #actions-data="{ row }">
-        <UButton variant="ghost" @click="viewInvoice(row as Invoice)">View</UButton>
-        <UButton variant="ghost" @click="downloadInvoice(row as Invoice)">Download</UButton>
-      </template>
-    </UTable>
-  </div>
-</template>

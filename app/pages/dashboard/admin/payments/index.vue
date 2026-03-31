@@ -28,7 +28,7 @@ function viewDetails(payment: Payment) {
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Payments</h1>
-    <UTable<Payment> :rows="payments" :columns="columns as any">
+    <UTable :rows="payments" :columns="columns as any">
       <template #status-data="{ row }">
         <UBadge :color="row.status === 'Completed' ? 'success' : 'error'">{{ row.status }}</UBadge>
       </template>

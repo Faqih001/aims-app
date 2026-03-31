@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useSidebarStore } from '../stores/sidebar'
-import { useAuthStore } from '../stores/auth'
+import { useSidebarStore } from '~/stores/sidebar'
+import { useAuthStore } from '~/stores/auth'
 
 const sidebarStore = useSidebarStore()
 const authStore = useAuthStore()
