@@ -8,7 +8,7 @@
           <USelectMenu v-else-if="field.type === 'select'" v-model="formData[field.name]" :options="field.options" />
         </UFormGroup>
         <div class="flex justify-end gap-2 mt-4">
-          <UButton label="Cancel" color="gray" @click="isOpen = false" />
+          <UButton label="Cancel" color="neutral" @click="isOpen = false" />
           <UButton type="submit" label="Save" color="primary" />
         </div>
       </form>

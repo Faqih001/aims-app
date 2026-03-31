@@ -4,10 +4,10 @@
       <UInput v-model="q" placeholder="Search..." icon="i-heroicons-search" />
       <UButton label="Add New" @click="$emit('add')" />
     </div>
-    <UTable :columns="columns" :rows="filteredRows">
+    <UTable :columns="columns as any" :rows="filteredRows">
       <template #actions-data="{ row }">
         <UDropdown :items="actions(row)">
-          <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal" />
+          <UButton color="neutral" variant="ghost" icon="i-heroicons-ellipsis-horizontal" />
         </UDropdown>
       </template>
     </UTable>
