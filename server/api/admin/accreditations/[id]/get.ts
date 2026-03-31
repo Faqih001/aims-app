@@ -1,5 +1,5 @@
-import { db } from '~/server/db/drizzle';
-import { accreditations } from '~/server/db/schema';
+import { db } from '~~/server/db/drizzle';
+import { accreditations } from '~~/server/db/schema';
 import { desc, eq } from 'drizzle-orm';
 
 export default defineEventHandler(async (event) => {

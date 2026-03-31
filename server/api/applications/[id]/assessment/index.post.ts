@@ -1,5 +1,5 @@
-import { db } from '~/server/db/drizzle';
-import { assessments } from '~/server/db/schema';
+import { db } from '~~/server/db/drizzle';
+import { assessments } from '~~/server/db/schema';
 
 export default defineEventHandler(async (event) => {
   try {

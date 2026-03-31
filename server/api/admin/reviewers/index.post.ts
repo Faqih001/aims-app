@@ -1,5 +1,5 @@
-import { db } from '~/server/db/drizzle';
-import { users } from '~/server/db/schema';
+import { db } from '~~/server/db/drizzle';
+import { users } from '~~/server/db/schema';
 
 export default defineEventHandler(async (event) => {
   try {
