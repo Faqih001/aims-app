@@ -23,8 +23,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PageHeader from '~/components/shared/PageHeader.vue'
-import TimelineStatus from '~/components/shared/TimelineStatus.vue'
+import PageHeader from '~/app/components/shared/PageHeader.vue'
+import TimelineStatus from '~/app/components/shared/TimelineStatus.vue'
 
 // This would normally be fetched from /api/applications/[id]
 const currentDbStatus = ref('REVIEWED')

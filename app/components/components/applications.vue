@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PageHeader from '~/components/shared/PageHeader.vue'
+import PageHeader from '~/app/components/shared/PageHeader.vue'
 
 const steps = ['Basic Details', 'Documentation', 'Review']
 const currentStep = ref(0)
