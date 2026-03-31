@@ -20,5 +20,5 @@ useSeoMeta({
       <NuxtPage />
     </NuxtLayout>
     <Chatbot v-if="!isDashboardPage" />
-  </UApp>
+  </div>
 </template>
