@@ -24,7 +24,10 @@
     <EntityFormModal 
       v-model="isModalOpen" 
       title="Block Date" 
-      :fields="[{ name: 'date', label: 'Date', type: 'text' }, { name: 'reason', label: 'Reason', type: 'text' }]"
+      :fields="[
+        { name: 'date', label: 'Date', type: 'text' }, 
+        { name: 'reason', label: 'Reason', type: 'text' }
+      ]"
       @save="blockDate"
     />
   </div>
@@ -43,5 +46,6 @@ const schedules = ref([
 
 const blockDate = (data: any) => {
   alert(`Blocked date: ${data.date} for reason: ${data.reason}`)
+  isModalOpen.value = false
 }
 </script>
