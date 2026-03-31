@@ -46,6 +46,7 @@ export const documents = pgTable('documents', {
   url: text('url').notNull(),
   type: documentTypeEnum('type').default('OTHER').notNull(),
   applicationId: uuid('application_id').references(() => applications.id).notNull(),
+  uploadedBy: uuid('uploaded_by').references(() => users.id),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
