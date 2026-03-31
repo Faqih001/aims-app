@@ -9,6 +9,7 @@ const openMobile = ref(false)
 
 const navLinks = computed(() => [
   { label: 'About', to: '/about' },
+  { label: 'Sectors', to: '/sectors' },
   { label: 'Services', to: '/services' },
   { label: 'Contact', to: '/contact' },
   { label: 'FAQs', to: '/faqs' }
