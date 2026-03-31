@@ -121,10 +121,10 @@
       <button
         v-if="!isOpen"
         @click="isOpen = true"
-        class="group relative w-[85px] h-[85px] bg-green-500 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.15)] flex items-center justify-center transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-300 border-[3.5px] border-white dark:border-gray-800"
+        class="group relative w-[85px] h-[85px] bg-green-500 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.15)] bg-cover bg-center transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-300 border-[3.5px] border-white dark:border-gray-800"
+        style="background-image: url('/avatar.png')"
         aria-label="Open AI Assistant"
       >
-        <img src="/avatar.png" alt="AIMS Assistant" class="w-full h-full object-contain rounded-full group-hover:scale-105 transition-transform duration-300 pointer-events-none" />
         <!-- Notification Dot -->
         <span class="absolute top-1 right-1 flex h-5 w-5 z-10">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>

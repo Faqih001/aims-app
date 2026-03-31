@@ -8,7 +8,6 @@ type LocaleCode = 'en' | 'sw'
 const openMobile = ref(false)
 
 const navLinks = computed(() => [
-  { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
   { label: 'Services', to: '/services' },
   { label: 'Contact', to: '/contact' },
