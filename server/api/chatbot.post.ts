@@ -15,14 +15,12 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    // Determine the right model, ideally gemini-1.5-flash for standard chat tasks
+    // Upgraded to a more capable model, instructing it to think aloud if it helps.
     const model = genAI.getGenerativeModel({ 
       model: 'gemini-1.5-flash',
-      systemInstruction: 'You are a helpful, professional AI assistant for KENAS (The Kenya Accreditation Service). Provide clear, concise, and friendly answers about accreditation, standards, and services. Only format with markdown when needed.'
+      systemInstruction: 'You are a helpful, professional AI assistant for KENAS. Provide clear answers. Before giving the final answer, you MUST ALWAYS write your internal reasoning inside <think>...</think> tags. Then provide the final user-facing answer below it. Be concise.'
     });
 
-    // Map history to Gemini format
-    // Vue sends: { role: 'user' | 'model', parts: [{ text: '...'}] }
     const formattedHistory = [
       ...history.map((msg: any) => ({
         role: msg.isUser ? 'user' : 'model',
@@ -33,7 +31,7 @@ export default defineEventHandler(async (event) => {
     const chat = model.startChat({
       history: formattedHistory,
       generationConfig: {
-        maxOutputTokens: 800,
+        maxOutputTokens: 2000,
         temperature: 0.7,
       },
     });
@@ -47,7 +45,7 @@ export default defineEventHandler(async (event) => {
     console.error('Gemini API error:', error);
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to get response from AI',
+      statusMessage: 'Failed to output response from AI',
     });
   }
 });

@@ -1,116 +1,137 @@
 <template>
-  <div class="fixed bottom-6 right-6 z-50">
-    <!-- Chat Button -->
-    <transition name="fade">
-      <button 
-        v-if="!isOpen" 
-        @click="isOpen = true" 
-        class="w-16 h-16 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-transform transform hover:scale-110 focus:outline-none"
-        aria-label="Open Chat"
-      >
-        <UIcon name="i-heroicons-chat-bubble-left-right-solid" class="w-8 h-8" />
-      </button>
-    </transition>
-
-    <!-- Chat Widget -->
-    <transition name="slide-up">
-      <div v-if="isOpen" class="w-[380px] h-[600px] max-h-[80vh] flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-800">
+  <div class="fixed bottom-6 right-6 z-50 flex items-end justify-end flex-col">
+    <!-- Chat Widget Panel -->
+    <transition name="chat-panel">
+      <div v-if="isOpen" class="w-[400px] h-[650px] max-h-[85vh] mb-6 flex flex-col bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50 dark:border-gray-800/50 transform origin-bottom-right">
         
         <!-- Header -->
-        <div class="bg-primary-600 p-4 flex items-center justify-between text-white shadow-md relative z-10">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
-              <img src="/favicon.ico" alt="KENAS" class="w-6 h-6 object-contain" onerror="this.style.display='none'" />
-              <UIcon name="i-heroicons-sparkles" class="w-6 h-6 absolute" v-if="false" />
+        <div class="bg-gradient-to-r from-primary-600 to-primary-500 p-5 flex items-center justify-between text-white shadow-sm relative z-10">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-md shadow-inner">
+              <img src="/favicon.ico" alt="KENAS" class="w-7 h-7 object-contain" onerror="this.style.display='none'" />
             </div>
             <div>
-              <h2 class="text-lg font-semibold tracking-wide leading-tight">KENAS Assistant</h2>
-              <div class="flex items-center gap-1.5 opacity-90 mt-0.5">
-                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                <p class="text-xs font-medium">Online</p>
+              <h2 class="text-xl font-bold tracking-tight leading-tight">AIMS Assistant</h2>
+              <div class="flex items-center gap-2 opacity-90 mt-1">
+                <span class="w-2.5 h-2.5 rounded-full bg-green-400 border border-green-200 animate-pulse"></span>
+                <p class="text-xs font-medium uppercase tracking-wider">Online</p>
               </div>
             </div>
           </div>
-          <button @click="isOpen = false" class="p-1 hover:bg-white/20 rounded-lg transition-colors focus:outline-none">
-            <UIcon name="i-heroicons-x-mark-20-solid" class="w-6 h-6" />
+          <button @click="isOpen = false" class="p-2 hover:bg-white/20 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-white">
+            <UIcon name="i-heroicons-x-mark-20-solid" class="w-7 h-7" />
           </button>
         </div>
 
         <!-- Chat Area -->
-        <div ref="chatContainer" class="flex-1 overflow-y-auto p-5 space-y-5 bg-slate-50 dark:bg-gray-800/50 scroll-smooth">
+        <div ref="chatContainer" class="flex-1 overflow-y-auto p-5 space-y-6 bg-slate-50/50 dark:bg-gray-900/50 scroll-smooth">
           
-          <div v-for="message in messages" :key="message.id" class="flex" :class="message.isUser ? 'justify-end' : 'justify-start'">
-            <div class="flex items-end gap-2 max-w-[85%]">
+          <div v-for="message in messages" :key="message.id" class="flex flex-col" :class="message.isUser ? 'items-end' : 'items-start'">
+            
+            <!-- AI Thinking Process (Parsed from <think> tags) -->
+            <div v-if="message.thinkingHtml" class="mb-2 w-[85%]">
+               <details class="group bg-gray-100 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden text-sm shadow-sm transition-all duration-300 open:pb-2">
+                 <summary class="cursor-pointer font-medium p-3 text-gray-500 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
+                   <UIcon name="i-heroicons-light-bulb" class="w-5 h-5 text-yellow-500" />
+                   AI Thinking Process
+                   <UIcon name="i-heroicons-chevron-down" class="w-4 h-4 ml-auto group-open:rotate-180 transition-transform" />
+                 </summary>
+                 <div class="px-4 pt-1 text-gray-600 dark:text-gray-400 text-xs md:text-sm prose dark:prose-invert prose-p:my-1 opacity-80" v-html="message.thinkingHtml"></div>
+               </details>
+            </div>
+
+            <div class="flex items-end gap-3 max-w-[85%]">
               
-              <!-- Bot Avatar -->
-              <div v-if="!message.isUser" class="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 flex-shrink-0 flex items-center justify-center mb-1">
-                 <UIcon name="i-heroicons-cpu-chip-solid" class="w-4 h-4 text-primary-600 dark:text-primary-400" />
+              <!-- Bot Avatar (optional) -->
+              <div v-if="!message.isUser" class="w-9 h-9 rounded-full bg-gradient-to-tr from-primary-100 to-primary-200 dark:from-primary-900 dark:to-primary-800 shadow-sm flex-shrink-0 flex items-center justify-center mb-1">
+                 <UIcon name="i-heroicons-sparkles-solid" class="w-5 h-5 text-primary-600 dark:text-primary-300" />
               </div>
               
               <!-- Message Bubble -->
               <div 
-                class="px-4 py-3 rounded-2xl text-sm leading-relaxed" 
+                class="px-5 py-3.5 text-[15px] leading-relaxed relative" 
                 :class="message.isUser 
-                  ? 'bg-primary-600 text-white rounded-br-sm shadow-sm' 
-                  : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-bl-sm shadow-sm border border-gray-100 dark:border-gray-700'"
+                  ? 'bg-gradient-to-br from-primary-600 to-primary-500 text-white rounded-2xl rounded-br-sm shadow-md' 
+                  : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-2xl rounded-bl-sm shadow-md border border-gray-100 dark:border-gray-700/50'"
               >
-                <div class="prose dark:prose-invert prose-sm max-w-none prose-p:my-1 prose-a:text-blue-400" v-html="message.html"></div>
+                <div class="prose dark:prose-invert prose-sm max-w-none prose-p:my-1.5 prose-a:text-blue-500" v-html="message.html"></div>
               </div>
-              
             </div>
           </div>
 
-          <!-- Thinking Indicator -->
-          <div v-if="isLoading" class="flex justify-start">
-            <div class="flex items-end gap-2 max-w-[85%]">
-              <div class="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 flex-shrink-0 flex items-center justify-center mb-1">
-                 <UIcon name="i-heroicons-cpu-chip-solid" class="w-4 h-4 text-primary-600 dark:text-primary-400 animate-pulse" />
+          <!-- Loading/Thinking Indicator -->
+          <div v-if="isLoading" class="flex flex-col items-start gap-2">
+            <div class="flex items-center gap-2 text-xs font-medium text-primary-600/80 dark:text-primary-400 ml-12 animate-pulse">
+               <UIcon name="i-heroicons-arrow-path-rounded-square" class="w-4 h-4 animate-spin" /> Gathering thoughts...
+            </div>
+            <div class="flex items-end gap-3 max-w-[85%]">
+              <div class="w-9 h-9 rounded-full bg-primary-100 dark:bg-primary-900 border border-primary-200 dark:border-primary-800 flex-shrink-0 flex items-center justify-center mb-1">
+                 <UIcon name="i-heroicons-cpu-chip-solid" class="w-5 h-5 text-primary-600 dark:text-primary-400 animate-pulse" />
               </div>
-              <div class="px-4 py-3 rounded-2xl bg-white dark:bg-gray-800 rounded-bl-sm shadow-sm border border-gray-100 dark:border-gray-700 flex gap-1.5 items-center">
-                <div class="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style="animation-duration: 1s"></div>
-                <div class="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style="animation-delay: 0.2s; animation-duration: 1s"></div>
-                <div class="w-2 h-2 bg-primary-600 rounded-full animate-bounce" style="animation-delay: 0.4s; animation-duration: 1s"></div>
+              <div class="px-5 py-4 bg-white dark:bg-gray-800 rounded-2xl rounded-bl-sm shadow-md border border-gray-100 dark:border-gray-700/50 flex gap-2 items-center">
+                <div class="w-2.5 h-2.5 bg-primary-400 rounded-full animate-bounce" style="animation-duration: 0.8s"></div>
+                <div class="w-2.5 h-2.5 bg-primary-500 rounded-full animate-bounce" style="animation-delay: 0.2s; animation-duration: 0.8s"></div>
+                <div class="w-2.5 h-2.5 bg-primary-600 rounded-full animate-bounce" style="animation-delay: 0.4s; animation-duration: 0.8s"></div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Input Area -->
-        <div class="p-4 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 z-10">
+        <div class="p-5 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-t border-gray-200/50 dark:border-gray-800 z-10 rounded-b-3xl">
           <!-- Suggestion Chips -->
-           <div class="flex gap-2 mb-3 overflow-x-auto pb-1 hide-scrollbar" v-if="messages.length === 1">
-            <button 
-              v-for="prompt in commonPrompts" 
-              :key="prompt" 
-              @click="sendMessage(prompt)" 
-              class="whitespace-nowrap px-3 py-1.5 bg-primary-50 hover:bg-primary-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-primary-700 dark:text-primary-300 text-xs rounded-full border border-primary-100 dark:border-gray-700 transition"
-            >
-              {{ prompt }}
-            </button>
-          </div>
+          <transition name="fade">
+            <div class="flex gap-2 mb-4 overflow-x-auto pb-2 hide-scrollbar" v-if="messages.length === 1">
+              <button 
+                v-for="prompt in commonPrompts" 
+                :key="prompt" 
+                @click="sendMessage(prompt)" 
+                class="whitespace-nowrap px-4 py-2 bg-white dark:bg-gray-800 hover:bg-primary-50 dark:hover:bg-primary-900/30 text-gray-700 dark:text-gray-300 font-medium text-[13px] rounded-full shadow-sm border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700 transition-all hover:-translate-y-0.5"
+              >
+                {{ prompt }}
+              </button>
+            </div>
+          </transition>
           
-          <div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 p-1.5 rounded-full border border-gray-200 dark:border-gray-700 focus-within:ring-2 focus-within:ring-primary-500/50 transition-all">
+          <div class="flex items-center gap-3 bg-gray-100 dark:bg-gray-800/80 p-2 rounded-2xl border border-transparent focus-within:border-primary-400 focus-within:bg-white dark:focus-within:bg-gray-900 shadow-inner transition-all duration-300">
             <input 
               v-model="newMessage" 
               @keyup.enter="() => sendMessage()" 
               type="text"
-              placeholder="Ask me anything..." 
-              class="flex-1 bg-transparent px-3 py-2 text-sm focus:outline-none dark:text-white"
+              placeholder="Ask a question..." 
+              class="flex-1 bg-transparent px-4 py-2.5 text-[15px] focus:outline-none dark:text-white placeholder-gray-400"
               :disabled="isLoading"
             />
             <button 
               @click="() => sendMessage()" 
               :disabled="isLoading || !newMessage.trim()"
-              class="w-10 h-10 flex items-center justify-center bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-full transition-colors flex-shrink-0"
+              class="w-12 h-12 flex items-center justify-center bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed text-white rounded-xl shadow-md transition-all active:scale-95 flex-shrink-0"
             >
-              <UIcon name="i-heroicons-paper-airplane-20-solid" class="w-5 h-5 ml-[-2px]" />
+              <UIcon name="i-heroicons-paper-airplane-20-solid" class="w-6 h-6 ml-[-2px]" />
             </button>
           </div>
-          <div class="text-center mt-2">
-            <p class="text-[10px] text-gray-400">Powered by Gemini AI (v1.5)</p>
+          <div class="text-center mt-3">
+            <p class="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Powered by Gemini AI</p>
           </div>
         </div>
       </div>
+    </transition>
+
+    <!-- Large Floating Action Button -->
+    <transition name="pop">
+      <button 
+        v-if="!isOpen" 
+        @click="isOpen = true" 
+        class="group w-20 h-20 bg-primary-600 hover:bg-primary-500 text-white rounded-[2rem] shadow-2xl flex items-center justify-center transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-300"
+        aria-label="Open AI Assistant"
+      >
+        <UIcon name="i-heroicons-chat-bubble-left-right-solid" class="w-10 h-10 group-hover:scale-110 transition-transform duration-300" />
+        <!-- Notification Dot -->
+        <span class="absolute top-0 right-0 flex h-5 w-5 -mt-1 -mr-1">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-5 w-5 bg-red-500 border-2 border-white dark:border-gray-900"></span>
+        </span>
+      </button>
     </transition>
   </div>
 </template>
@@ -124,6 +145,7 @@ interface Message {
   text: string;
   isUser: boolean;
   html: string;
+  thinkingHtml?: string;
 }
 
 const isOpen = ref(false);
@@ -131,7 +153,7 @@ const isLoading = ref(false);
 const newMessage = ref('');
 const chatContainer = ref<HTMLElement | null>(null);
 
-const defaultGreeting = 'Hello! I am your KENAS AI Assistant. How can I help you with accreditation, services, or standards today?';
+const defaultGreeting = "Hello! I am the AIMS Intelligent Assistant. I'm equipped with active reasoning capabilities. How can I help you today?";
 
 const messages = ref<Message[]>([
   { id: 1, text: defaultGreeting, isUser: false, html: marked(defaultGreeting) as string },
@@ -140,13 +162,13 @@ const messages = ref<Message[]>([
 const commonPrompts = ref([
   'How do I apply for accreditation?',
   'What are the fees involved?',
-  'Track my application',
+  'Explain ISO 9001 compliance',
 ]);
 
 const scrollToBottom = async () => {
   await nextTick();
   if (chatContainer.value) {
-    chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
+    chatContainer.value.scrollTop = chatContainer.value.scrollHeight + 100;
   }
 };
 
@@ -169,8 +191,6 @@ async function sendMessage(prompt?: string) {
   isLoading.value = true;
   await scrollToBottom();
 
-  // Extract previous history (excluding the very first greeting to save tokens, or include it)
-  // Let's include everything except the current message just added
   const historyPayload = messages.value.slice(0, -1).map(m => ({
     text: m.text,
     isUser: m.isUser
@@ -185,22 +205,37 @@ async function sendMessage(prompt?: string) {
       },
     });
     
-    const replyText = (response as any).reply || 'Sorry, I got an empty response.';
+    let rawReply = (response as any).reply || 'Sorry, I got an empty response.';
     
+    // Parse <think>...</think> tags if they exist
+    let outputText = rawReply;
+    let thinkingHtml = '';
+    
+    const thinkMatch = rawReply.match(/<think>([\s\S]*?)<\/think>/);
+    if (thinkMatch) {
+       thinkingHtml = marked(thinkMatch[1].trim()) as string;
+       outputText = rawReply.replace(/<think>[\s\S]*?<\/think>/, '').trim();
+    }
+    
+    // Safety check if output is empty but it was all thinking
+    if (!outputText) outputText = "Done thinking.";
+
     const botMessage: Message = {
       id: Date.now() + 1,
-      text: replyText,
+      text: outputText,
       isUser: false,
-      html: marked(replyText) as string,
+      html: marked(outputText) as string,
+      thinkingHtml: thinkingHtml ? thinkingHtml : undefined
     };
+    
     messages.value.push(botMessage);
   } catch (error) {
     console.error('Chatbot error:', error);
     const errorMessage: Message = {
       id: Date.now() + 1,
-      text: 'Sorry, I am having trouble connecting to AI services right now. Please try again later.',
+      text: 'Sorry, I am having trouble connecting to the intelligence server.',
       isUser: false,
-      html: marked('**Error:** Sorry, I am having trouble connecting to AI services right now. Please try again later.') as string,
+      html: '<p class="text-red-500">Error: Could not retrieve response.</p>',
     };
     messages.value.push(errorMessage);
   } finally {
@@ -211,6 +246,26 @@ async function sendMessage(prompt?: string) {
 </script>
 
 <style scoped>
+.chat-panel-enter-active,
+.chat-panel-leave-active {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.chat-panel-enter-from,
+.chat-panel-leave-to {
+  opacity: 0;
+  transform: scale(0.9) translateY(40px);
+}
+
+.pop-enter-active,
+.pop-leave-active {
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.pop-enter-from,
+.pop-leave-to {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
@@ -218,17 +273,6 @@ async function sendMessage(prompt?: string) {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  transform-origin: bottom right;
-}
-.slide-up-enter-from,
-.slide-up-leave-to {
-  opacity: 0;
-  transform: scale(0.95) translateY(20px);
 }
 
 .hide-scrollbar::-webkit-scrollbar {

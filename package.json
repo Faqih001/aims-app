@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^10.4.0",
+    "@google/genai": "^1.47.0",
     "@google/generative-ai": "^0.24.1",
     "@iconify-json/lucide": "^1.2.98",
     "@iconify-json/simple-icons": "^1.2.74",
