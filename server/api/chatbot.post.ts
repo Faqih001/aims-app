@@ -4,7 +4,8 @@ const config = useRuntimeConfig();
 const genAI = new GoogleGenerativeAI(config.geminiApiKey);
 
 export default defineEventHandler(async (event) => {
-  const { message } = await readBody(event);
+  const body = await readBody(event);
+  const { message, history = [] } = body;
 
   if (!message) {
     throw createError({
@@ -14,20 +15,26 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    // Determine the right model, ideally gemini-1.5-flash for standard chat tasks
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-1.5-flash',
+      systemInstruction: 'You are a helpful, professional AI assistant for KENAS (The Kenya Accreditation Service). Provide clear, concise, and friendly answers about accreditation, standards, and services. Only format with markdown when needed.'
+    });
+
+    // Map history to Gemini format
+    // Vue sends: { role: 'user' | 'model', parts: [{ text: '...'}] }
+    const formattedHistory = [
+      ...history.map((msg: any) => ({
+        role: msg.isUser ? 'user' : 'model',
+        parts: [{ text: msg.text }]
+      }))
+    ];
+
     const chat = model.startChat({
-      history: [
-        {
-          role: 'user',
-          parts: [{ text: 'You are a helpful assistant for The Kenya Accreditation Service (KENAS).' }],
-        },
-        {
-          role: 'model',
-          parts: [{ text: 'Great! How can I help you today?' }],
-        },
-      ],
+      history: formattedHistory,
       generationConfig: {
-        maxOutputTokens: 100,
+        maxOutputTokens: 800,
+        temperature: 0.7,
       },
     });
 
