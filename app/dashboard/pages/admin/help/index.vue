@@ -26,7 +26,6 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import { useToast } from 'vue-toastification';
 
 const faqItems = ref([
   {

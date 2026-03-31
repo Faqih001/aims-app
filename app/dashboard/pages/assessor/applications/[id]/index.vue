@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import AssessmentForm from '~/components/assessor/AssessmentForm.vue';
 const route = useRoute()
 const applicationId = route.params.id
 
