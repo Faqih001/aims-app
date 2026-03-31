@@ -1,11 +1,13 @@
-import { pgTable, text, timestamp, uuid, pgEnum, varchar, boolean, integer } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, pgEnum, varchar, boolean, integer, jsonb } from 'drizzle-orm/pg-core';
 
 export const userRoleEnum = pgEnum('user_role', ['SYSTEM_ADMIN', 'ASSESSOR', 'APPLICANT', 'TECHNICAL_REVIEWER']);
-export const applicationStatusEnum = pgEnum('application_status', ['PENDING', 'IN_REVIEW', 'APPROVED', 'REJECTED']);
-export const accreditationStatusEnum = pgEnum('accreditation_status', ['ACTIVE', 'EXPIRED', 'PENDING_RENEWAL']);
-export const invoiceStatusEnum = pgEnum('invoice_status', ['PAID', 'PENDING', 'OVERDUE']);
-export const paymentStatusEnum = pgEnum('payment_status', ['COMPLETED', 'PENDING', 'FAILED']);
-export const documentTypeEnum = pgEnum('document_type', ['CERTIFICATE', 'REPORT', 'OTHER']);
+export const applicationStatusEnum = pgEnum('application_status', ['PENDING', 'IN_REVIEW', 'APPROVED', 'REJECTED', 'PAYMENT_PENDING']);
+export const accreditationStatusEnum = pgEnum('accreditation_status', ['ACTIVE', 'EXPIRED', 'PENDING_RENEWAL', 'REVOKED']);
+export const invoiceStatusEnum = pgEnum('invoice_status', ['PAID', 'PENDING', 'OVERDUE', 'CANCELLED']);
+export const paymentStatusEnum = pgEnum('payment_status', ['COMPLETED', 'PENDING', 'FAILED', 'REFUNDED']);
+export const documentTypeEnum = pgEnum('document_type', ['CERTIFICATE', 'REPORT', 'EVIDENCE', 'POLICY', 'OTHER']);
+export const documentStatusEnum = pgEnum('document_status', ['PENDING', 'APPROVED', 'REJECTED']);
+export const actionItemStatusEnum = pgEnum('action_item_status', ['PENDING', 'IN_PROGRESS', 'COMPLETED']);
 
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -35,6 +37,7 @@ export const applications = pgTable('applications', {
   status: applicationStatusEnum('status').default('PENDING').notNull(),
   dueDate: timestamp('due_date'),
   assessmentType: text('assessment_type'),
+  formData: jsonb('form_data'), // Handles large application structures precisely
   reviewerAssignedDate: timestamp('reviewer_assigned_date'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
@@ -45,6 +48,8 @@ export const documents = pgTable('documents', {
   name: text('name').notNull(),
   url: text('url').notNull(),
   type: documentTypeEnum('type').default('OTHER').notNull(),
+  status: documentStatusEnum('status').default('PENDING').notNull(),
+  comments: text('comments'),
   applicationId: uuid('application_id').references(() => applications.id).notNull(),
   uploadedBy: uuid('uploaded_by').references(() => users.id),
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -93,6 +98,15 @@ export const invoices = pgTable('invoices', {
   description: text('description'),
 });
 
+export const invoiceItems = pgTable('invoice_items', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  invoiceId: uuid('invoice_id').references(() => invoices.id).notNull(),
+  description: text('description').notNull(),
+  quantity: integer('quantity').default(1).notNull(),
+  unitPrice: text('unit_price').notNull(),
+  total: text('total').notNull(),
+});
+
 export const notifications = pgTable('notifications', {
   id: uuid('id').defaultRandom().primaryKey(),
   message: text('message').notNull(),
@@ -130,8 +144,10 @@ export const assessments = pgTable('assessments', {
   id: uuid('id').defaultRandom().primaryKey(),
   applicationId: uuid('application_id').references(() => applications.id).notNull(),
   assessorId: uuid('assessor_id').references(() => users.id).notNull(),
+  status: text('status').default('IN_PROGRESS').notNull(),
   outcome: text('outcome').notNull(),
   notes: text('notes'),
+  reportUrl: text('report_url'), 
   score: integer('score'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
@@ -156,6 +172,7 @@ export const schedules = pgTable('schedules', {
   durationMinutes: integer('duration_minutes').notNull(),
   timezone: text('timezone').notNull(),
   status: text('status').default('SCHEDULED').notNull(),
+  meetingLink: text('meeting_link'),
   notes: text('notes'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
