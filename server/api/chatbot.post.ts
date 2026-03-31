@@ -1,7 +1,9 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 const config = useRuntimeConfig();
-const genAI = new GoogleGenerativeAI(config.geminiApiKey);
+
+// Read API key from environment config
+const geminiApiKey = config.geminiApiKey || process.env.GEMINI_API_KEY;
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
@@ -15,32 +17,48 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    // Upgraded to a more capable model, instructing it to think aloud if it helps.
-    const model = genAI.getGenerativeModel({ 
-      model: 'gemini-1.5-flash',
-      systemInstruction: 'You are a helpful, professional AI assistant for KENAS. Provide clear answers. Before giving the final answer, you MUST ALWAYS write your internal reasoning inside <think>...</think> tags. Then provide the final user-facing answer below it. Be concise.'
-    });
+    const ai = new GoogleGenAI({ apiKey: geminiApiKey });
 
-    const formattedHistory = [
+    const contents = [
       ...history.map((msg: any) => ({
         role: msg.isUser ? 'user' : 'model',
         parts: [{ text: msg.text }]
-      }))
+      })),
+      { role: 'user', parts: [{ text: message }] }
     ];
 
-    const chat = model.startChat({
-      history: formattedHistory,
-      generationConfig: {
-        maxOutputTokens: 2000,
+    const response = await ai.models.generateContent({
+      model: "gemini-3-flash-preview",
+      contents,
+      config: {
+        systemInstruction: "You are an intelligent, professional AI assistant for KENAS (Kenya Accreditation Service). Provide clear, accurate answers. Engage in a natural conversational tone, but be concise.",
         temperature: 0.7,
-      },
+        thinkingConfig: {
+          includeThoughts: true,
+        }
+      }
     });
 
-    const result = await chat.sendMessage(message);
-    const response = await result.response;
-    const text = response.text();
+    let thoughts = "";
+    let answer = "";
 
-    return { reply: text };
+    if (response.candidates && response.candidates.length > 0 && response.candidates[0].content.parts) {
+      for (const part of response.candidates[0].content.parts) {
+        if (!part.text) continue;
+        if (part.thought) {
+          thoughts += part.text + "\n\n";
+        } else {
+          answer += part.text;
+        }
+      }
+    } else {
+      answer = response.text || "";
+    }
+
+    return { 
+      reply: answer.trim(),
+      thoughts: thoughts.trim()
+    };
   } catch (error) {
     console.error('Gemini API error:', error);
     throw createError({
