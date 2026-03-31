@@ -35,6 +35,6 @@ const formattedAudits = computed(() => {
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Audit Logs</h1>
-    <UTable :rows="formattedAudits" :columns="columns" />
+    <UTable :rows="formattedAudits" :columns="columns as any" />
   </div>
 </template>

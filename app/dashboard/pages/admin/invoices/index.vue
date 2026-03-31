@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Invoices</h1>
-    <UTable :rows="formattedInvoices" :columns="columns">
+    <UTable :rows="formattedInvoices" :columns="columns as any">
       <template #status-data="{ row }">
         <UBadge :color="row.status === 'PAID' ? 'success' : 'warning'">{{ row.status }}</UBadge>
       </template>
@@ -58,7 +58,7 @@ function downloadInvoice(invoice: Invoice) {
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Invoices</h1>
-    <UTable :rows="formattedInvoices" :columns="columns">
+    <UTable :rows="formattedInvoices" :columns="columns as any">
       <template #status-data="{ row }">
         <UBadge :color="row.status === 'PAID' ? 'success' : 'warning'">{{ row.status }}</UBadge>
       </template>

@@ -52,7 +52,7 @@ const items = (accreditation: Accreditation) => [
       <h1 class="text-2xl font-bold">Manage Accreditations</h1>
       <UButton to="/dashboard/admin/accreditations/create" icon="i-heroicons-plus-20-solid">Add Accreditation</UButton>
     </div>
-    <UTable :rows="formattedAccreditations" :columns="columns">
+    <UTable :rows="formattedAccreditations" :columns="columns as any">
       <template #status-data="{ row }">
         <UBadge :color="row.status === 'ACTIVE' ? 'success' : 'warning'">{{ row.status }}</UBadge>
       </template>

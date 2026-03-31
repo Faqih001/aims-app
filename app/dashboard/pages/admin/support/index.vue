@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Support Tickets</h1>
-    <UTable :rows="tickets" :columns="columns">
+    <UTable :rows="tickets" :columns="columns as any">
       <template #actions-data="{ row }">
         <UButton variant="ghost" @click="viewTicket(row as Ticket)">View</UButton>
       </template>

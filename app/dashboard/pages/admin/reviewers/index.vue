@@ -41,7 +41,7 @@ const items = (reviewer: Reviewer) => [
       <h1 class="text-2xl font-bold">Manage Reviewers</h1>
       <UButton to="/dashboard/admin/reviewers/create" icon="i-heroicons-plus-20-solid">Add Reviewer</UButton>
     </div>
-    <UTable :rows="reviewers" :columns="columns">
+    <UTable :rows="reviewers" :columns="columns as any">
       <template #actions-data="{ row }">
         <UDropdown :items="items(row as Reviewer)">
           <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />

@@ -39,7 +39,7 @@ const items = (assessor: Assessor) => [
       <h1 class="text-2xl font-bold">Manage Assessors</h1>
       <UButton to="/dashboard/admin/assessors/create" icon="i-heroicons-plus-20-solid">Add Assessor</UButton>
     </div>
-    <UTable :rows="assessors" :columns="columns">
+    <UTable :rows="assessors" :columns="columns as any">
       <template #actions-data="{ row }">
         <UDropdown :items="items(row as Assessor)">
           <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />

@@ -44,7 +44,7 @@ const items = (user: User) => [
 
     <div v-if="pending">Loading...</div>
     <div v-else-if="error">Error: {{ error.message }}</div>
-    <UTable v-else :rows="users" :columns="columns">
+    <UTable v-else :rows="users" :columns="columns as any">
       <template #actions-data="{ row }">
         <UDropdown :items="items(row as User)">
           <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
