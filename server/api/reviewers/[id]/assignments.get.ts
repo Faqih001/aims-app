@@ -1,5 +1,5 @@
-import { db } from '../../../../utils/db';
-import { applicationAssignments } from '../../../../db/schema';
+import { db } from '~~/server/utils/db';
+import { applicationAssignments } from '~~/server/db/schema';
 import { eq, and } from 'drizzle-orm';
 
 export default defineEventHandler(async (event) => {

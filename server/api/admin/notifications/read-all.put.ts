@@ -1,5 +1,5 @@
-import { db } from '../../../utils/db';
-import { notifications } from '../../../db/schema';
+import { db } from '~~/server/utils/db';
+import { notifications } from '~~/server/db/schema';
 
 export default defineEventHandler(async () => {
   await db.update(notifications).set({ read: 'true' });

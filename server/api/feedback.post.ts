@@ -1,5 +1,5 @@
-import { db } from '../../../utils/db';
-import { assessments } from '../../../db/schema';
+import { db } from '~~/server/utils/db';
+import { assessments } from '~~/server/db/schema';
 
 export default defineEventHandler(async (event) => {
   const { applicationId, userId, notes, outcome } = await readBody(event);

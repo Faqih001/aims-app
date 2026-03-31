@@ -1,5 +1,5 @@
-import { db } from '../../../utils/db';
-import { supportTickets } from '../../../db/schema';
+import { db } from '~~/server/utils/db';
+import { supportTickets } from '~~/server/db/schema';
 
 export default defineEventHandler(async (event) => {
   const { subject, message, userId } = await readBody(event);
