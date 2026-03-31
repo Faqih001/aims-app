@@ -28,18 +28,6 @@
 
           <div v-for="message in messages" :key="message.id" class="flex flex-col" :class="message.isUser ? 'items-end' : 'items-start'">
 
-            <!-- AI Thinking Process (Parsed from API) -->
-            <div v-if="message.thinkingHtml" class="mb-2 w-[85%]">
-               <details class="group bg-gray-100 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden text-sm shadow-sm transition-all duration-300 open:pb-2">
-                 <summary class="cursor-pointer font-medium p-3 text-gray-500 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
-                   <UIcon name="i-heroicons-light-bulb" class="w-5 h-5 text-yellow-500" />
-                   AI Thinking Process
-                   <UIcon name="i-heroicons-chevron-down" class="w-4 h-4 ml-auto group-open:rotate-180 transition-transform" />
-                 </summary>
-                 <div class="px-4 pt-1 text-gray-600 dark:text-gray-400 text-xs md:text-sm prose dark:prose-invert prose-p:my-1 opacity-80" v-html="message.thinkingHtml"></div>
-               </details>
-            </div>
-
             <div class="flex items-end gap-3 max-w-[85%]">
 
               <!-- Bot Avatar -->
