@@ -10,6 +10,7 @@ export const documentTypeEnum = pgEnum('document_type', ['CERTIFICATE', 'REPORT'
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
   email: varchar('email', { length: 255 }).notNull().unique(),
+  password: text('password').notNull(),
   name: text('name').notNull(),
   fullName: text('full_name'),
   phone: text('phone'),
