@@ -3,13 +3,10 @@ import { neon } from '@neondatabase/serverless';
 import * as schema from '~~/server/db/schema';
 import { eq } from 'drizzle-orm';
 
-const { neonApiKey, neonBranch, neonProjectId } = useRuntimeConfig()
+const { neonDatabaseUrl } = useRuntimeConfig()
 
-const sql = neon({
-    apiKey: neonApiKey,
-    branch: neonBranch,
-    projectId: neonProjectId,
-});
+// Initialize neon strictly with the connection string rather than an unsupported config object
+const sql = neon(neonDatabaseUrl || process.env.NEON_DATABASE_URL!);
 
 export const db = drizzle(sql, { schema });
 
