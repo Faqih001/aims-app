@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 const { data: applications, pending, error } = await useFetch('/api/applications')
 

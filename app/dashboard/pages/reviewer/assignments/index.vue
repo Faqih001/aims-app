@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 
 interface Application {
   id: number;

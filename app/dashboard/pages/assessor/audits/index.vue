@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import type { TableColumn } from '@nuxt/ui/dist/runtime/types';
 import { ref } from 'vue';
 
 const authStore = useAuthStore();
