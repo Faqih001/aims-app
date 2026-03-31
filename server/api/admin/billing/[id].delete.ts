@@ -1,10 +1,10 @@
 import { db } from '~~/server/utils/db';
-import { notifications } from '~~/server/db/schema';
+import { invoices } from '~~/server/db/schema';
 import { eq } from 'drizzle-orm';
 
 export default defineEventHandler(async (event) => {
   const id = event.context.params?.id;
-  if (!id) return;
-  await db.update(notifications).set({ isRead: true }).where(eq(notifications.id, id));
+  if (!id) throw createError({ statusCode: 400 });
+  await db.delete(invoices).where(eq(invoices.id, id));
   return { success: true };
 });

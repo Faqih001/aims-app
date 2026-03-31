@@ -1,16 +1,10 @@
 import { db } from '~~/server/utils/db';
+import { payments } from '~~/server/db/schema';
 
 export default defineEventHandler(async () => {
-  const invoices = await db.query.invoices.findMany({
-    columns: {
-      amount: true,
-      status: true,
-      date: true,
-    },
-  });
-
+  const allPayments = await db.select().from(payments);
   return {
-    totalInvoices: invoices.length,
-    invoices,
+    totalRevenue: allPayments.reduce((acc, p) => acc + (parseFloat(p.amount) || 0), 0),
+    payments: allPayments
   };
 });
