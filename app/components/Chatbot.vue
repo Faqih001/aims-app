@@ -121,14 +121,14 @@
       <button
         v-if="!isOpen"
         @click="isOpen = true"
-        class="group w-20 h-20 bg-primary-600 hover:bg-primary-500 text-white rounded-[2rem] shadow-2xl flex items-center justify-center transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-300"
+        class="group relative w-[85px] h-[85px] bg-green-500 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.15)] flex items-center justify-center transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus:ring-4 focus:ring-primary-300 border-[3.5px] border-white dark:border-gray-800"
         aria-label="Open AI Assistant"
       >
-        <UIcon name="i-heroicons-chat-bubble-left-right-solid" class="w-10 h-10 group-hover:scale-110 transition-transform duration-300" />
+        <img src="/avatar.png" alt="AIMS Assistant" class="w-full h-full object-contain rounded-full group-hover:scale-105 transition-transform duration-300 pointer-events-none" />
         <!-- Notification Dot -->
-        <span class="absolute top-0 right-0 flex h-5 w-5 -mt-1 -mr-1">
+        <span class="absolute top-1 right-1 flex h-5 w-5 z-10">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-5 w-5 bg-red-500 border-2 border-white dark:border-gray-900"></span>
+          <span class="relative inline-flex rounded-full h-full w-full bg-red-500 border-2 border-white dark:border-gray-900"></span>
         </span>
       </button>
     </transition>
