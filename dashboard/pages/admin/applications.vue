@@ -54,9 +54,9 @@ const editApp = (row: any) => {
 
 const saveApp = async (data: any) => { 
   if (data.id) {
-    await $fetch(`/api/applications/${data.id}`, { method: 'PUT', body: data })
+    await $fetch(`/api/admin/applications/${data.id}`, { method: 'PUT', body: data })
   } else {
-    await $fetch('/api/applications', { method: 'POST', body: data })
+    await $fetch('/api/admin/applications', { method: 'POST', body: data })
   }
   isModalOpen.value = false
   await refresh()
@@ -64,7 +64,7 @@ const saveApp = async (data: any) => {
 
 const deleteApp = async (row: any) => { 
   if(confirm(`Are you sure you want to delete this application?`)) {
-    await $fetch(`/api/applications/${row.id}`, { method: 'DELETE' })
+    await $fetch(`/api/admin/applications/${row.id}`, { method: 'DELETE' })
     await refresh()
   }
 }

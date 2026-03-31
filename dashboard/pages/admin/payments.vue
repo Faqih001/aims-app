@@ -55,9 +55,9 @@ const editPayment = (row: any) => {
 
 const savePayment = async (data: any) => { 
   if (data.id) {
-    await $fetch(`/api/payments/${data.id}`, { method: 'PUT', body: data })
+    await $fetch(`/api/admin/payments/${data.id}`, { method: 'PUT', body: data })
   } else {
-    await $fetch('/api/payments', { method: 'POST', body: data })
+    await $fetch('/api/admin/payments', { method: 'POST', body: data })
   }
   isModalOpen.value = false
   await refresh()
@@ -65,7 +65,7 @@ const savePayment = async (data: any) => {
 
 const deletePayment = async (row: any) => { 
   if(confirm(`Delete transaction ${row.transactionId}?`)) {
-    await $fetch(`/api/payments/${row.id}`, { method: 'DELETE' })
+    await $fetch(`/api/admin/payments/${row.id}`, { method: 'DELETE' })
     await refresh()
   }
 }

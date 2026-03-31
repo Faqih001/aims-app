@@ -32,14 +32,14 @@ const invoiceFields = [
 ]
 
 const saveInvoice = async (data: any) => { 
-  await $fetch('/api/invoices', { method: 'POST', body: { ...data, date: new Date().toISOString() } })
+  await $fetch('/api/admin/invoices', { method: 'POST', body: { ...data, date: new Date().toISOString() } })
   isModalOpen.value = false
   await refresh()
 }
 
 const editInvoice = (row: any) => { alert('Edit modal would open for: ' + row.id) }
 const deleteInvoice = async (row: any) => { 
-  await $fetch(`/api/invoices/${row.id}`, { method: 'DELETE' })
+  await $fetch(`/api/admin/invoices/${row.id}`, { method: 'DELETE' })
   await refresh()
 }
 </script>

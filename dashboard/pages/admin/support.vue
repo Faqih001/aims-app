@@ -70,7 +70,7 @@ const replyText = ref('')
 
 const closeTicket = async () => {
   if(!activeTicket.value) return;
-  await $fetch(`/api/support-tickets/${activeTicket.value.id}`, {
+  await $fetch(`/api/admin/support-tickets/${activeTicket.value.id}`, {
     method: 'PUT',
     body: { status: 'CLOSED' }
   })
@@ -79,7 +79,7 @@ const closeTicket = async () => {
 }
 
 const createNew = async () => {
-  await $fetch('/api/support-tickets', {
+  await $fetch('/api/admin/support-tickets', {
     method: 'POST',
     body: {
       subject: 'Generated Dummy Request',

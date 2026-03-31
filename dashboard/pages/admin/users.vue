@@ -56,9 +56,9 @@ const editUser = (row: any) => {
 
 const saveUser = async (data: any) => { 
   if (data.id) {
-    await $fetch(`/api/users/${data.id}`, { method: 'PUT', body: data })
+    await $fetch(`/api/admin/users/${data.id}`, { method: 'PUT', body: data })
   } else {
-    await $fetch('/api/users', { method: 'POST', body: data })
+    await $fetch('/api/admin/users', { method: 'POST', body: data })
   }
   isModalOpen.value = false
   await refresh()
@@ -66,7 +66,7 @@ const saveUser = async (data: any) => {
 
 const deleteUser = async (row: any) => { 
   if(confirm(`Are you sure you want to delete ${row.name}?`)) {
-    await $fetch(`/api/users/${row.id}`, { method: 'DELETE' })
+    await $fetch(`/api/admin/users/${row.id}`, { method: 'DELETE' })
     await refresh()
   }
 }
