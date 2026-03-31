@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# Fix User Detail Route
+cat << 'VUE' > app/dashboard/pages/admin/users/[id]/index.vue
 <script setup lang="ts">
 import { ref } from 'vue'
 const route = useRoute()
@@ -55,3 +59,5 @@ const activityLogs = ref([
     </div>
   </div>
 </template>
+VUE
+
