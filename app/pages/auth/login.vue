@@ -54,7 +54,7 @@ async function onSubmit() {
     toast.add({
       title: 'Login failed',
       description: error?.data?.statusMessage || 'Please verify your credentials and try again',
-      color: 'red',
+      color: 'error',
       icon: 'i-heroicons-x-circle'
     })
   }
