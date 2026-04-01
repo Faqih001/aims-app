@@ -22,8 +22,14 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxtjs/i18n',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    'nuxt-google-translate'
   ],
+
+  googleTranslate: {
+    defaultLanguage: 'en',
+    supportedLanguages: ['en', 'fr', 'es', 'de', 'sw']
+  },
 
   i18n: {
     locales: [

@@ -103,12 +103,9 @@ function toggleTheme() {
         </nav>
 
         <div class="hidden xl:flex items-center gap-2">
-          <USelect
-            v-model="selectedLocale"
-            :items="localeItems"
-            size="sm"
-            class="w-20"
-          />
+          <ClientOnly>
+            <GoogleTranslate />
+          </ClientOnly>
           <UButton
             :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'"
             color="neutral"
@@ -172,8 +169,10 @@ function toggleTheme() {
             {{ link.label }}
           </NuxtLink>
 
-          <div class="flex items-center gap-2 pt-2">
-            <USelect v-model="selectedLocale" :items="localeItems" size="sm" class="w-24" />
+          <div class="flex items-center justify-between gap-2 pt-2">
+            <ClientOnly>
+              <GoogleTranslate />
+            </ClientOnly>
             <UButton :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'" color="neutral" variant="ghost" @click="toggleTheme" />
           </div>
 

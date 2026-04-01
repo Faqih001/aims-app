@@ -79,7 +79,11 @@ const dropdownItems = computed(() => [
     </div>
     <div class="flex items-center">
       <UButton icon="i-heroicons-bell" variant="ghost" color="primary" />
-      <USelect v-model="selectedLocale" :items="localeItems" class="w-20 mx-2 lg:mx-4" />
+      <div class="mx-2 lg:mx-4 flex items-center">
+        <ClientOnly>
+          <GoogleTranslate />
+        </ClientOnly>
+      </div>
       <UButton
         :icon="isDark ? 'i-heroicons-moon' : 'i-heroicons-sun'"
         variant="ghost"
