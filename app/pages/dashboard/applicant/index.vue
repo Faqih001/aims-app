@@ -20,16 +20,16 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <UCard>
         <template #header><h3 class="font-bold">Next Steps Required</h3></template>
-        <UAlert icon="i-heroicons-credit-card" title="Action Pending" description="Please pay your initial registration invoice to proceed." color="yellow" variant="subtle">
-           <template #footer><UButton color="yellow" label="Go to Billing" to="/dashboard/applicant/billing" class="mt-2" /></template>
+        <UAlert icon="i-heroicons-credit-card" title="Action Pending" description="Please pay your initial registration invoice to proceed." color="warning" variant="subtle">
+           <template #footer><UButton color="warning" label="Go to Billing" to="/dashboard/applicant/billing" class="mt-2" /></template>
         </UAlert>
       </UCard>
       <UCard>
         <template #header><h3 class="font-bold">Quick Links</h3></template>
         <div class="space-y-3 flex flex-col">
-           <UButton to="/dashboard/applicant/applications" color="gray" variant="ghost" icon="i-heroicons-document-text" label="My Applications" class="justify-start border" />
-           <UButton to="/dashboard/applicant/documents" color="gray" variant="ghost" icon="i-heroicons-folder-open" label="Document Manager" class="justify-start border" />
-           <UButton to="/dashboard/applicant/status" color="gray" variant="ghost" icon="i-heroicons-chart-bar" label="Live Tracker" class="justify-start border" />
+           <UButton to="/dashboard/applicant/applications" color="neutral" variant="ghost" icon="i-heroicons-document-text" label="My Applications" class="justify-start border" />
+           <UButton to="/dashboard/applicant/documents" color="neutral" variant="ghost" icon="i-heroicons-folder-open" label="Document Manager" class="justify-start border" />
+           <UButton to="/dashboard/applicant/status" color="neutral" variant="ghost" icon="i-heroicons-chart-bar" label="Live Tracker" class="justify-start border" />
         </div>
       </UCard>
     </div>
