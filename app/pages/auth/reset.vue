@@ -38,7 +38,7 @@ async function onSubmit() {
     toast.add({
       title: 'Password updated',
       description: 'Your password has been reset successfully',
-      color: 'success',
+      color: 'green',
       icon: 'i-heroicons-check-circle'
     })
 
@@ -48,7 +48,7 @@ async function onSubmit() {
     toast.add({
       title: 'Reset failed',
       description: 'Unable to reset password, try again',
-      color: 'error',
+      color: 'red',
       icon: 'i-heroicons-x-circle'
     })
   }

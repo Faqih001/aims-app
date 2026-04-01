@@ -40,7 +40,7 @@ async function onSubmit() {
     toast.add({
       title: 'Login successful',
       description: 'Welcome back to AIMS',
-      color: 'success',
+      color: 'green',
       icon: 'i-heroicons-check-circle'
     })
 
@@ -54,7 +54,7 @@ async function onSubmit() {
     toast.add({
       title: 'Login failed',
       description: error?.data?.statusMessage || 'Please verify your credentials and try again',
-      color: 'error',
+      color: 'red',
       icon: 'i-heroicons-x-circle'
     })
   }

@@ -37,12 +37,19 @@ const reviewerLinks = [
   { icon: 'i-heroicons-chat-bubble-left-right', label: 'Feedback', to: '/dashboard/reviewer/feedback' },
 ]
 
-const generalLinks = [
-    { icon: 'i-heroicons-user-circle', label: 'Profile', to: '/dashboard/profile' },
-    { icon: 'i-heroicons-bell', label: 'Notifications', to: '/dashboard/notifications' },
-    { icon: 'i-heroicons-question-mark-circle', label: 'Help', to: '/dashboard/help' },
-    { icon: 'i-heroicons-lifebuoy', label: 'Support', to: '/dashboard/support' },
-]
+const generalLinks = computed(() => {
+  let prefix = '/dashboard/applicant';
+  if (authStore.isAdmin) prefix = '/dashboard/admin';
+  else if (authStore.isAssessor) prefix = '/dashboard/assessor';
+  else if (authStore.isReviewer) prefix = '/dashboard/reviewer';
+
+  return [
+    { icon: 'i-heroicons-user-circle', label: 'Profile', to: `${prefix}/profile` },
+    { icon: 'i-heroicons-bell', label: 'Notifications', to: `${prefix}/notifications` },
+    { icon: 'i-heroicons-question-mark-circle', label: 'Help', to: `${prefix}/help` },
+    { icon: 'i-heroicons-lifebuoy', label: 'Support', to: `${prefix}/support` },
+  ];
+})
 
 </script>
 

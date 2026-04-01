@@ -36,7 +36,7 @@ async function onSubmit() {
     toast.add({
       title: 'Reset link sent',
       description: 'Check your email for password reset instructions',
-      color: 'success',
+      color: 'green',
       icon: 'i-heroicons-envelope'
     })
   }
@@ -44,7 +44,7 @@ async function onSubmit() {
     toast.add({
       title: 'Request failed',
       description: 'Unable to send reset link at this time',
-      color: 'error',
+      color: 'red',
       icon: 'i-heroicons-x-circle'
     })
   }

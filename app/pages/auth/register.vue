@@ -60,7 +60,7 @@ async function onSubmit() {
     toast.add({
       title: 'Registration successful',
       description: 'Your account has been created',
-      color: 'success',
+      color: 'green',
       icon: 'i-heroicons-check-circle'
     })
 
@@ -70,7 +70,7 @@ async function onSubmit() {
     toast.add({
       title: 'Registration failed',
       description: error?.data?.statusMessage || 'Unable to complete registration, please try again',
-      color: 'error',
+      color: 'red',
       icon: 'i-heroicons-x-circle'
     })
   }
