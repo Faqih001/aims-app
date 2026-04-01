@@ -2,10 +2,50 @@
 const route = useRoute()
 const colorMode = useColorMode()
 const { locale, setLocale } = useI18n()
+const authStore = useAuthStore()
 
 type LocaleCode = 'en' | 'sw'
 
 const openMobile = ref(false)
+
+const getPrefix = () => {
+  if (authStore.isAdmin) return '/dashboard/admin';
+  if (authStore.isAssessor) return '/dashboard/assessor';
+  if (authStore.isReviewer) return '/dashboard/reviewer';
+  return '/dashboard/applicant';
+};
+
+const userInitials = computed(() => {
+  const name = authStore.user?.name || 'US';
+  return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+});
+
+const userRole = computed(() => {
+  return authStore.user?.role || 'User';
+});
+
+const dropdownItems = computed(() => [
+  [{
+    label: 'Dashboard',
+    icon: 'i-heroicons-squares-2x2',
+    to: getPrefix()
+  }],
+  [{
+    label: 'Profile',
+    icon: 'i-heroicons-user',
+    to: `${getPrefix()}/profile`
+  }],
+  [{
+    label: 'Settings',
+    icon: 'i-heroicons-cog-8-tooth',
+    to: `${getPrefix()}/settings`
+  }],
+  [{
+    label: 'Logout',
+    icon: 'i-heroicons-arrow-left-on-rectangle',
+    click: () => authStore.logout()
+  }]
+]);
 
 const navLinks = computed(() => [
   { label: 'About', to: '/about' },
@@ -76,8 +116,24 @@ function toggleTheme() {
             aria-label="Toggle color mode"
             @click="toggleTheme"
           />
-          <UButton to="/auth/login" variant="ghost" color="primary">Login</UButton>
-          <UButton to="/auth/register" color="primary" class="transition-transform duration-200 hover:scale-105">Register</UButton>
+          <template v-if="!authStore.isAuthenticated">
+            <UButton to="/auth/login" variant="ghost" color="primary">Login</UButton>
+            <UButton to="/auth/register" color="primary" class="transition-transform duration-200 hover:scale-105">Register</UButton>
+          </template>
+          <template v-else>
+            <UDropdownMenu :items="dropdownItems" mode="hover" :content="{ align: 'end', class: 'w-48 sm:w-56' }" class="ml-2">
+              <div class="w-full sm:w-56 flex items-center justify-between gap-2 cursor-pointer px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                <div class="flex items-center gap-2">
+                  <UAvatar :alt="userInitials" size="sm" />
+                  <div class="flex flex-col text-left mr-1 md:mr-2 hidden sm:flex">
+                    <span class="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight">{{ authStore.user?.name || 'User' }}</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400 capitalize">{{ userRole.toLowerCase().replace('_', ' ') }}</span>
+                  </div>
+                </div>
+                <UIcon name="i-heroicons-chevron-down" class="h-4 w-4 text-gray-500 hidden sm:block" />
+              </div>
+            </UDropdownMenu>
+          </template>
         </div>
 
         <UButton
@@ -121,9 +177,23 @@ function toggleTheme() {
             <UButton :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'" color="neutral" variant="ghost" @click="toggleTheme" />
           </div>
 
-          <div class="grid grid-cols-2 gap-2 pt-2">
+          <div class="grid grid-cols-2 gap-2 pt-2" v-if="!authStore.isAuthenticated">
             <UButton to="/auth/login" variant="soft" color="primary" @click="openMobile = false">Login</UButton>
             <UButton to="/auth/register" color="primary" @click="openMobile = false">Register</UButton>
+          </div>
+          <div class="flex flex-col gap-2 pt-2" v-else>
+            <UDropdownMenu :items="dropdownItems" mode="click" :content="{ class: 'w-full' }" class="w-full">
+              <div class="w-full flex items-center justify-between gap-2 cursor-pointer px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                <div class="flex items-center gap-3">
+                  <UAvatar :alt="userInitials" size="md" />
+                  <div class="flex flex-col text-left">
+                    <span class="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight">{{ authStore.user?.name || 'User' }}</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400 capitalize">{{ userRole.toLowerCase().replace('_', ' ') }}</span>
+                  </div>
+                </div>
+                <UIcon name="i-heroicons-chevron-down" class="h-4 w-4 text-gray-500" />
+              </div>
+            </UDropdownMenu>
           </div>
         </div>
       </template>
