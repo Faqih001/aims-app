@@ -1,11 +1,11 @@
 <template>
   <div>
-    <LayoutHeader />
-    <LayoutTopbar />
+    <Header />
+    <Topbar />
     <main>
       <slot />
     </main>
-    <LayoutFooter />
-    <LayoutBottomBar />
+    <Footer />
+    <BottomBar />
   </div>
 </template>
