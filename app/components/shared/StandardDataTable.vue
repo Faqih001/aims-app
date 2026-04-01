@@ -6,9 +6,9 @@
     </div>
     <UTable :columns="columns as any" :rows="filteredRows">
       <template #actions-data="{ row }">
-        <UDropdown :items="actions(row)">
+        <UDropdownMenu :items="actions(row)">
           <UButton color="neutral" variant="ghost" icon="i-heroicons-ellipsis-horizontal" />
-        </UDropdown>
+        </UDropdownMenu>
       </template>
     </UTable>
     <div class="flex justify-between pt-4">

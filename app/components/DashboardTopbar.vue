@@ -87,7 +87,7 @@ const dropdownItems = computed(() => [
         @click="toggleTheme"
         class="hidden sm:flex"
       />
-      <UDropdown :items="dropdownItems" mode="hover" class="ml-2 md:ml-4">
+      <UDropdownMenu :items="dropdownItems" mode="hover" class="ml-2 md:ml-4">
         <div class="flex items-center gap-2 cursor-pointer px-2 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
           <UAvatar :alt="userInitials" size="sm" />
           <div class="flex flex-col text-left mr-1 md:mr-2 hidden sm:flex">
@@ -96,7 +96,7 @@ const dropdownItems = computed(() => [
           </div>
           <UIcon name="i-heroicons-chevron-down" class="h-4 w-4 text-gray-500 hidden sm:block" />
         </div>
-      </UDropdown>
+      </UDropdownMenu>
     </div>
   </header>
 </template>

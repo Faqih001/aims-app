@@ -15,11 +15,11 @@ useSeoMeta({
 </script>
 
 <template>
-  <div>
+  <div class="app-root"><UApp>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <UNotifications />
+    
     <Chatbot v-if="!isDashboardPage" />
-  </div>
+  </UApp></div>
 </template>

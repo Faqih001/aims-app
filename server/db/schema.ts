@@ -253,3 +253,28 @@ export const helpArticles = pgTable('help_articles', {
 });
 
 
+
+import { relations } from 'drizzle-orm';
+
+export const applicationsRelations = relations(applications, ({ one, many }) => ({
+  applicant: one(users, {
+    fields: [applications.applicantId],
+    references: [users.id],
+  }),
+  organization: one(organizations, {
+    fields: [applications.organizationId],
+    references: [organizations.id],
+  }),
+}));
+
+export const organizationsRelations = relations(organizations, ({ many }) => ({
+  applications: many(applications),
+}));
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+  organization: one(organizations, {
+    fields: [users.organizationId],
+    references: [organizations.id],
+  }),
+  applications: many(applications),
+}));
