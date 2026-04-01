@@ -1,8 +1,11 @@
 import { defineStore } from 'pinia'
 
+import { defineStore } from 'pinia'
+
 export const useSidebarStore = defineStore('sidebar', {
   state: () => ({
     isCollapsed: false,
+    isOpenMobile: false,
   }),
   actions: {
     toggle() {
@@ -10,6 +13,12 @@ export const useSidebarStore = defineStore('sidebar', {
     },
     set(collapsed: boolean) {
       this.isCollapsed = collapsed
+    },
+    toggleMobile() {
+      this.isOpenMobile = !this.isOpenMobile
+    },
+    setMobile(isOpen: boolean) {
+      this.isOpenMobile = isOpen
     },
   },
 })

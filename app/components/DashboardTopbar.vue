@@ -66,7 +66,7 @@ const dropdownItems = computed(() => [
     <div class="flex items-center gap-4">
       <UButton 
         icon="i-heroicons-bars-3" 
-        color="gray" 
+        color="primary" 
         variant="ghost" 
         class="md:hidden" 
         @click="sidebarStore.toggleMobile()" 
@@ -97,9 +97,6 @@ const dropdownItems = computed(() => [
           <UIcon name="i-heroicons-chevron-down" class="h-4 w-4 text-gray-500 hidden sm:block" />
         </div>
       </UDropdown>
-    </div>
-  </header>
-</template>
     </div>
   </header>
 </template>

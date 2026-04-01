@@ -40,7 +40,7 @@ async function onSubmit() {
     toast.add({
       title: 'Login successful',
       description: 'Welcome back to AIMS',
-      color: 'green',
+      color: 'primary',
       icon: 'i-heroicons-check-circle'
     })
 

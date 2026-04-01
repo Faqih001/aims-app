@@ -3,6 +3,6 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <!-- trigger restart -->
+    <UNotifications />
   </UApp>
 </template>
