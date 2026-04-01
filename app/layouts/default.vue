@@ -1,12 +1,10 @@
 <template>
   <div>
-    <LayoutTopbar />
     <LayoutHeader />
-
+    <LayoutTopbar />
     <main>
       <slot />
     </main>
-
     <LayoutFooter />
     <LayoutBottomBar />
   </div>

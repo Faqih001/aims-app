@@ -20,7 +20,7 @@ const selectedLocale = computed({
 </script>
 
 <template>
-  <header class="flex items-center justify-between px-6 py-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+  <header class="flex items-center justify-between px-6 py-5 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
     <div class="flex items-center">
       <UInput icon="i-heroicons-magnifying-glass" placeholder="Search..." />
     </div>

@@ -99,6 +99,20 @@ const generalLinks = [
       </nav>
     </div>
     <div class="px-6 py-4">
+        <UButton
+            block
+            color="red"
+            size="lg"
+            class="flex items-center justify-center"
+            @click="authStore.logout"
+        >
+            <UIcon name="i-heroicons-arrow-left-on-rectangle" class="h-6 w-6" />
+            <span :class="{ 'hidden': sidebarStore.isCollapsed }">Logout</span>
+        </UButton>
+    </div>
+  </div>
+</template>
+    <div class="px-6 py-4">
       <button
         class="w-full flex items-center justify-center p-2 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
         @click="sidebarStore.toggle()"
