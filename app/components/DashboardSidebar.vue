@@ -76,15 +76,15 @@ watch(() => route.path, () => {
 
 <template>
   <div
-    class="flex flex-col justify-between h-full bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-all duration-300 fixed md:relative z-40 border-r border-gray-200 dark:border-gray-700"
+    class="flex flex-col justify-between h-full bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-all duration-300 fixed lg:relative z-40 border-r border-gray-200 dark:border-gray-700"
     :class="[
-      sidebarStore.isCollapsed ? 'md:w-20 w-64' : 'w-64',
-      sidebarStore.isOpenMobile ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+      sidebarStore.isCollapsed ? 'lg:w-20 w-64' : 'w-64',
+      sidebarStore.isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
     ]"
   >
     <div class="flex-1 overflow-y-auto custom-scrollbar">
       <div class="flex items-center justify-center h-20 border-b border-gray-200 dark:border-gray-700">
-        <AppLogo :class="{ 'md:hidden': sidebarStore.isCollapsed }" />
+        <AppLogo :class="{ 'lg:hidden': sidebarStore.isCollapsed }" />
       </div>
       <nav class="mt-4">
         <NuxtLink
@@ -92,31 +92,31 @@ watch(() => route.path, () => {
           class="flex items-center px-6 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
         >
           <UIcon name="i-heroicons-home" class="h-6 w-6 shrink-0" />
-          <span class="mx-4 whitespace-nowrap" :class="{ 'md:hidden': sidebarStore.isCollapsed }">Dashboard</span>
+          <span class="mx-4 whitespace-nowrap" :class="{ 'lg:hidden': sidebarStore.isCollapsed }">Dashboard</span>
         </NuxtLink>
 
         <template v-if="authStore.isAdmin">
             <NuxtLink v-for="link in adminLinks" :key="link.to" :to="link.to" class="flex items-center px-6 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <UIcon :name="link.icon" class="h-6 w-6 shrink-0" />
-                <span class="mx-4 whitespace-nowrap" :class="{ 'md:hidden': sidebarStore.isCollapsed }">{{ link.label }}</span>
+                <span class="mx-4 whitespace-nowrap" :class="{ 'lg:hidden': sidebarStore.isCollapsed }">{{ link.label }}</span>
             </NuxtLink>
         </template>
         <template v-if="authStore.isAssessor">
             <NuxtLink v-for="link in assessorLinks" :key="link.to" :to="link.to" class="flex items-center px-6 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <UIcon :name="link.icon" class="h-6 w-6 shrink-0" />
-                <span class="mx-4 whitespace-nowrap" :class="{ 'md:hidden': sidebarStore.isCollapsed }">{{ link.label }}</span>
+                <span class="mx-4 whitespace-nowrap" :class="{ 'lg:hidden': sidebarStore.isCollapsed }">{{ link.label }}</span>
             </NuxtLink>
         </template>
         <template v-if="authStore.isApplicant">
             <NuxtLink v-for="link in applicantLinks" :key="link.to" :to="link.to" class="flex items-center px-6 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <UIcon :name="link.icon" class="h-6 w-6 shrink-0" />
-                <span class="mx-4 whitespace-nowrap" :class="{ 'md:hidden': sidebarStore.isCollapsed }">{{ link.label }}</span>
+                <span class="mx-4 whitespace-nowrap" :class="{ 'lg:hidden': sidebarStore.isCollapsed }">{{ link.label }}</span>
             </NuxtLink>
         </template>
         <template v-if="authStore.isReviewer">
             <NuxtLink v-for="link in reviewerLinks" :key="link.to" :to="link.to" class="flex items-center px-6 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <UIcon :name="link.icon" class="h-6 w-6 shrink-0" />
-                <span class="mx-4 whitespace-nowrap" :class="{ 'md:hidden': sidebarStore.isCollapsed }">{{ link.label }}</span>
+                <span class="mx-4 whitespace-nowrap" :class="{ 'lg:hidden': sidebarStore.isCollapsed }">{{ link.label }}</span>
             </NuxtLink>
         </template>
 
@@ -124,7 +124,7 @@ watch(() => route.path, () => {
 
         <NuxtLink v-for="link in generalLinks" :key="link.to" :to="link.to" class="flex items-center px-6 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
             <UIcon :name="link.icon" class="h-6 w-6 shrink-0" />
-            <span class="mx-4 whitespace-nowrap" :class="{ 'md:hidden': sidebarStore.isCollapsed }">{{ link.label }}</span>
+            <span class="mx-4 whitespace-nowrap" :class="{ 'lg:hidden': sidebarStore.isCollapsed }">{{ link.label }}</span>
         </NuxtLink>
 
       </nav>
@@ -138,10 +138,10 @@ watch(() => route.path, () => {
             @click="authStore.logout"
         >
             <UIcon name="i-heroicons-arrow-left-on-rectangle" class="h-6 w-6 shrink-0" />
-            <span :class="{ 'md:hidden': sidebarStore.isCollapsed }">Logout</span>
+            <span :class="{ 'lg:hidden': sidebarStore.isCollapsed }">Logout</span>
         </UButton>
         <button
-            class="w-full hidden md:flex items-center justify-center p-2 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
+            class="w-full hidden lg:flex items-center justify-center p-2 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
             @click="sidebarStore.toggle()"
         >
             <UIcon :name="sidebarStore.isCollapsed ? 'i-heroicons-chevron-right' : 'i-heroicons-chevron-left'" class="h-6 w-6 text-gray-600 dark:text-gray-300" />
@@ -152,7 +152,7 @@ watch(() => route.path, () => {
   <!-- Mobile Overlay -->
   <div 
     v-if="sidebarStore.isOpenMobile" 
-    class="fixed inset-0 bg-black/50 z-30 md:hidden"
+    class="fixed inset-0 bg-black/50 z-30 lg:hidden"
     @click="sidebarStore.setMobile(false)"
   ></div>
 </template>
