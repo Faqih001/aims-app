@@ -3,6 +3,7 @@ const colorMode = useColorMode()
 const { locale, setLocale } = useI18n()
 const authStore = useAuthStore()
 const router = useRouter()
+const sidebarStore = useSidebarStore()
 
 const isDark = computed(() => colorMode.value === 'dark')
 
@@ -61,27 +62,40 @@ const dropdownItems = computed(() => [
 </script>
 
 <template>
-  <header class="flex items-center justify-between px-6 py-5 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-    <div class="flex items-center">
-      <UInput icon="i-heroicons-magnifying-glass" placeholder="Search..." />
+  <header class="flex items-center justify-between px-4 md:px-6 h-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+    <div class="flex items-center gap-4">
+      <UButton 
+        icon="i-heroicons-bars-3" 
+        color="gray" 
+        variant="ghost" 
+        class="md:hidden" 
+        @click="sidebarStore.toggleMobile()" 
+      />
+      <!-- Hidden on mobile/tablet as per latest instructions -->
+      <UInput 
+        icon="i-heroicons-magnifying-glass" 
+        placeholder="Search..." 
+        class="hidden lg:flex"
+      />
     </div>
     <div class="flex items-center">
       <UButton icon="i-heroicons-bell" variant="ghost" color="primary" />
-      <USelect v-model="selectedLocale" :items="localeItems" class="w-20 mx-4" />
+      <USelect v-model="selectedLocale" :items="localeItems" class="w-20 mx-2 md:mx-4" />
       <UButton
         :icon="isDark ? 'i-heroicons-moon' : 'i-heroicons-sun'"
         variant="ghost"
         color="primary"
         @click="toggleTheme"
+        class="hidden sm:flex"
       />
-      <UDropdown :items="dropdownItems" mode="hover" class="ml-4">
+      <UDropdown :items="dropdownItems" mode="hover" class="ml-2 md:ml-4">
         <div class="flex items-center gap-2 cursor-pointer px-2 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
           <UAvatar :text="userInitials" size="sm" class="bg-primary-100 dark:bg-primary-900 border border-primary-200 dark:border-primary-700 text-primary-700 dark:text-primary-300 font-bold" />
-          <div class="flex flex-col text-left mr-2">
+          <div class="flex flex-col text-left mr-1 md:mr-2 hidden sm:flex">
             <span class="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight">{{ authStore.user?.name || 'User' }}</span>
             <span class="text-xs text-gray-500 dark:text-gray-400 capitalize">{{ userRole.toLowerCase().replace('_', ' ') }}</span>
           </div>
-          <UIcon name="i-heroicons-chevron-down" class="h-4 w-4 text-gray-500" />
+          <UIcon name="i-heroicons-chevron-down" class="h-4 w-4 text-gray-500 hidden sm:block" />
         </div>
       </UDropdown>
     </div>
