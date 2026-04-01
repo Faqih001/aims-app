@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import './loadEnv';
+
 export default defineNuxtConfig({
   srcDir: 'app/',
   serverDir: 'server/',
