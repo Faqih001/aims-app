@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-screen bg-gray-100 dark:bg-gray-900">
-    <DashboardSidebar />
+    <DashboardSidebar class="hidden md:flex" />
     <div class="flex-1 flex flex-col overflow-hidden">
       <DashboardTopbar />
       <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900">

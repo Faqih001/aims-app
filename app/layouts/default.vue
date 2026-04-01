@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header />
     <Topbar />
+    <Header />
     <main>
       <slot />
     </main>
