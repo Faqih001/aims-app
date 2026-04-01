@@ -13,11 +13,11 @@ const authStore = useAuthStore()
 const { data: applications, pending, error } = await useFetch<Application[]>(`/api/users/${authStore.user?.id}/applications`)
 
 const columns = [
-  { key: 'id', label: 'ID' },
-  { key: 'organization.name', label: 'Organization' },
-  { key: 'scope', label: 'Scope' },
-  { key: 'status', label: 'Status' },
-  { key: 'actions', label: 'Actions' }
+  { id: 'id', key: 'id', label: 'ID' },
+  { id: 'organization.name', key: 'organization.name', label: 'Organization' },
+  { id: 'scope', key: 'scope', label: 'Scope' },
+  { id: 'status', key: 'status', label: 'Status' },
+  { id: 'actions', key: 'actions', label: 'Actions' }
 ]
 
 const items = (application: Application) => [
@@ -36,11 +36,11 @@ const items = (application: Application) => [
       <UButton to="/dashboard/applicant/applications/create" icon="i-heroicons-plus-20-solid">New Application</UButton>
     </div>
 
-    <UTable :rows="applications" :columns="columns">
+    <UTable :rows="applications || []" :columns="columns">
       <template #actions-data="{ row }">
-        <UDropdown :items="items(row)">
+        <UDropdownMenu :items="items(row)">
           <UButton color="primary" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
-        </UDropdown>
+        </UDropdownMenu>
       </template>
     </UTable>
   </div>

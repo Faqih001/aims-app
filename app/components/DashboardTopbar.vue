@@ -87,12 +87,14 @@ const dropdownItems = computed(() => [
         @click="toggleTheme"
         class="hidden sm:flex"
       />
-      <UDropdownMenu :items="dropdownItems" mode="hover" class="ml-2 md:ml-4">
-        <div class="flex items-center gap-2 cursor-pointer px-2 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
-          <UAvatar :alt="userInitials" size="sm" />
-          <div class="flex flex-col text-left mr-1 md:mr-2 hidden sm:flex">
-            <span class="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight">{{ authStore.user?.name || 'User' }}</span>
-            <span class="text-xs text-gray-500 dark:text-gray-400 capitalize">{{ userRole.toLowerCase().replace('_', ' ') }}</span>
+      <UDropdownMenu :items="dropdownItems" mode="hover" :content="{ align: 'end', class: 'w-48 sm:w-56' }" class="ml-2 md:ml-4">
+        <div class="w-full sm:w-56 flex items-center justify-between gap-2 cursor-pointer px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+          <div class="flex items-center gap-2">
+            <UAvatar :alt="userInitials" size="sm" />
+            <div class="flex flex-col text-left mr-1 md:mr-2 hidden sm:flex">
+              <span class="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight">{{ authStore.user?.name || 'User' }}</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400 capitalize">{{ userRole.toLowerCase().replace('_', ' ') }}</span>
+            </div>
           </div>
           <UIcon name="i-heroicons-chevron-down" class="h-4 w-4 text-gray-500 hidden sm:block" />
         </div>
