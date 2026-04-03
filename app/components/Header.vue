@@ -63,22 +63,54 @@ const legalLinks = [
   { label: 'Data Protection Policy', to: '/legal/data-protection' }
 ]
 
-const localeItems = [
-  { label: 'EN', value: 'en' },
-  { label: 'SW', value: 'sw' }
-]
-
-const selectedLocale = computed({
-  get: () => locale.value as LocaleCode,
-  set: async (value: LocaleCode) => {
-    await setLocale(value)
-  }
-})
-
 const isDark = computed(() => colorMode.value === 'dark')
 function toggleTheme() {
   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
 }
+
+// Accessibility Features
+const isHighContrast = ref(false)
+const fontSize = ref(16) // Base font size
+
+const toggleHighContrast = () => {
+  isHighContrast.value = !isHighContrast.value
+}
+
+const increaseFontSize = () => {
+  if (fontSize.value < 24) fontSize.value += 2
+}
+
+const decreaseFontSize = () => {
+  if (fontSize.value > 12) fontSize.value -= 2
+}
+
+watch([isHighContrast, fontSize], () => {
+  if (process.client) {
+    const root = document.documentElement
+    root.classList.toggle('high-contrast', isHighContrast.value)
+    root.style.fontSize = `${fontSize.value}px`
+  }
+}, { immediate: true })
+
+const accessibilityItems = [
+  [{
+    label: 'High Contrast',
+    icon: 'i-heroicons-contrast',
+    slot: 'contrast',
+    disabled: true
+  }],
+  [{
+    label: 'Font Size',
+    icon: 'i-heroicons-arrows-up-down',
+    slot: 'font-size',
+    disabled: true
+  }],
+  [{
+    label: 'Accessibility Statement',
+    icon: 'i-heroicons-document-text',
+    to: '/legal/accessibility'
+  }]
+]
 </script>
 
 <template>
@@ -106,6 +138,30 @@ function toggleTheme() {
           <ClientOnly>
             <GoogleTranslate />
           </ClientOnly>
+          <UDropdown :items="accessibilityItems" mode="hover" :popper="{ placement: 'bottom-end' }">
+            <UButton
+              icon="i-heroicons-universal-access"
+              color="neutral"
+              variant="ghost"
+              aria-label="Accessibility options"
+            />
+            <template #contrast="{ item }">
+              <div class="flex items-center justify-between px-2 py-1">
+                <span class="text-sm">{{ item.label }}</span>
+                <UToggle :model-value="isHighContrast" @update:model-value="toggleHighContrast" />
+              </div>
+            </template>
+            <template #font-size="{ item }">
+              <div class="flex items-center justify-between px-2 py-1">
+                <span class="text-sm">{{ item.label }}</span>
+                <div class="flex items-center gap-1">
+                  <UButton icon="i-heroicons-minus" size="xs" color="gray" @click="decreaseFontSize" />
+                  <span class="text-sm w-6 text-center">{{ fontSize }}px</span>
+                  <UButton icon="i-heroicons-plus" size="xs" color="gray" @click="increaseFontSize" />
+                </div>
+              </div>
+            </template>
+          </UDropdown>
           <UButton
             :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'"
             color="neutral"
