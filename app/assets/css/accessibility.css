@@ -1,0 +1,23 @@
+<style>
+.high-contrast {
+  @apply bg-black text-white;
+}
+
+.high-contrast .bg-white {
+  @apply bg-black;
+}
+
+.high-contrast .text-gray-800,
+.high-contrast .text-gray-600,
+.high-contrast .text-gray-500 {
+  @apply text-white;
+}
+
+.high-contrast .border-gray-200 {
+  @apply border-white;
+}
+
+.high-contrast .hover\:bg-gray-100:hover {
+    @apply bg-gray-800;
+}
+</style>

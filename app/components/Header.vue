@@ -229,7 +229,33 @@ const accessibilityItems = [
             <ClientOnly>
               <GoogleTranslate />
             </ClientOnly>
-            <UButton :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'" color="neutral" variant="ghost" @click="toggleTheme" />
+            <div class="flex items-center">
+              <UDropdown :items="accessibilityItems" mode="hover" :popper="{ placement: 'bottom-end' }">
+                <UButton
+                  icon="i-heroicons-universal-access"
+                  color="neutral"
+                  variant="ghost"
+                  aria-label="Accessibility options"
+                />
+                <template #contrast="{ item }">
+                  <div class="flex items-center justify-between px-2 py-1">
+                    <span class="text-sm">{{ item.label }}</span>
+                    <UToggle :model-value="isHighContrast" @update:model-value="toggleHighContrast" />
+                  </div>
+                </template>
+                <template #font-size="{ item }">
+                  <div class="flex items-center justify-between px-2 py-1">
+                    <span class="text-sm">{{ item.label }}</span>
+                    <div class="flex items-center gap-1">
+                      <UButton icon="i-heroicons-minus" size="xs" color="gray" @click="decreaseFontSize" />
+                      <span class="text-sm w-6 text-center">{{ fontSize }}px</span>
+                      <UButton icon="i-heroicons-plus" size="xs" color="gray" @click="increaseFontSize" />
+                    </div>
+                  </div>
+                </template>
+              </UDropdown>
+              <UButton :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'" color="neutral" variant="ghost" @click="toggleTheme" />
+            </div>
           </div>
 
           <div class="grid grid-cols-2 gap-2 pt-2" v-if="!authStore.isAuthenticated">
